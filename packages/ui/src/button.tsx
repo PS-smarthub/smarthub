@@ -1,7 +1,6 @@
 "use client";
 
 import { ReactNode } from "react";
-import './globals.css'
 
 interface ButtonProps {
   children: ReactNode;
@@ -12,7 +11,7 @@ interface ButtonProps {
 export const Button = ({ children, className, appName }: ButtonProps) => {
   return (
     <button
-      className={"bg-red-100"}
+      className="bg-red-600"
       onClick={() => alert(`Hello from your ${appName} app!`)}
     >
       {children}
