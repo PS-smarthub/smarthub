@@ -1,12 +1,15 @@
-import { Button } from "@repo/ui/button";
+import { Button } from "@smarthub/ui";
 
 
 export default function Page(): JSX.Element {
   return (
     <main>
-      <Button appName="docs">
+      <Button>
         Click me!
       </Button>
+      <div>
+        <h1 className="bg-red-400">Ola</h1>
+      </div>
     </main>
   );
 }
