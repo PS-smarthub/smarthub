@@ -1,4 +1,8 @@
 /** @type {import('next').NextConfig} */
-module.exports = {
+const nextConfig = {
   transpilePackages: ["@repo/ui"],
+  output: 'standalone',
+  
 };
+ 
+module.exports = nextConfig;

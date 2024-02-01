@@ -1,14 +1,26 @@
 version: "3.9"
 
 services:
-  web:
-    container_name: web
+  web-coldstart:
+    container_name: web-coldstart
     build:
       context: .
-      dockerfile: ./apps/cold-start/Dockerfile
+      dockerfile: ./apps/cold-start/Dockerfile.build
     restart: always
     ports:
       - 3000:3000
+
+  web-smarthub:
+    container_name: web-smarthub
+    build:
+      context: .
+      dockerfile: ./apps/smarthub/Dockerfile.build
+    restart: always
+    ports:
+      - 3001:3000
+    
+    volumes:
+      -
   #   networks:
   #     - app_network
   # api:

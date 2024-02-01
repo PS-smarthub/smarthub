@@ -1,18 +1,46 @@
-FROM node:20-alpine as builder
-WORKDIR /my-space
+FROM node:20-alpine AS base
+ 
+FROM base AS builder
+RUN apk add --no-cache libc6-compat
+RUN apk update
 
-COPY package.json ./
-RUN npm install
+WORKDIR /app
+RUN npm install -g turbo
 COPY . .
-RUN npm run build
+RUN turbo prune cold-start --docker
 
-FROM node:20-alpine as runner
-WORKDIR /my-space
-COPY --from=builder /my-space/package.json .
-COPY --from=builder /my-space/package-lock.json .
-COPY --from=builder /my-space/next.config.js ./
-COPY --from=builder /my-space/public ./public
-COPY --from=builder /my-space/.next/standalone ./
-COPY --from=builder /my-space/.next/static ./.next/static
+FROM base AS installer
+RUN apk add --no-cache libc6-compat
+RUN apk update
+WORKDIR /app
+
+# First install the dependencies (as they change less often)
+COPY .gitignore .gitignore
+COPY --from=builder /app/out/json/ .
+COPY --from=builder /app/out/package-lock.json ./package-lock.json
+RUN npm ci
+ 
+# Build the project
+COPY --from=builder /app/out/full/ .
+RUN npx turbo run build --filter=cold-start
+ 
+FROM base AS runner
+WORKDIR /app
+ 
+# Don't run production as root
+RUN addgroup --system --gid 1001 nodejs
+RUN adduser --system --uid 1001 angelo
+USER angelo
+ 
+COPY --from=installer /app/apps/cold-start/next.config.js .
+COPY --from=installer /app/apps/cold-start/package.json .
+ 
+# Automatically leverage output traces to reduce image size
+# https://nextjs.org/docs/advanced-features/output-file-tracing
+COPY --from=installer --chown=nextjs:nodejs /app/apps/cold-start/.next/standalone ./
+COPY --from=installer --chown=nextjs:nodejs /app/apps/cold-start/.next/static ./apps/cold-start/.next/static
+COPY --from=installer --chown=nextjs:nodejs /app/apps/cold-start/public ./apps/cold-start/public
+ 
 EXPOSE 3000
-ENTRYPOINT ["npm", "start"]
+
+CMD node apps/cold-start/server.js
