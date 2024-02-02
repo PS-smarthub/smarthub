@@ -23,6 +23,7 @@ RUN npm install
 # Build the project
 COPY --from=builder /app/out/full/ .
 RUN turbo run build --filter=cold-start
+# RUN turbo run build -w=cold-start
  
 FROM base AS runner
 WORKDIR /app
