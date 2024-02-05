@@ -4,6 +4,9 @@
   "private": true,
   "main": "src/index.tsx",
   "module": "src/index.tsx",
+  "sideEffects": [
+    "**/*.css"
+  ],
   "scripts": {
     "lint": "eslint . --max-warnings 0",
     "generate:component": "turbo gen react-component"
@@ -26,6 +29,7 @@
   },
   "dependencies": {
     "@bosch-web-dds/spark-ui": "^1.1.4",
-    "@bosch-web-dds/spark-ui-react": "^1.1.4"
+    "@bosch-web-dds/spark-ui-react": "^1.1.4",
+    "@material-tailwind/react": "^2.1.8"
   }
 }
