@@ -1,19 +1,26 @@
-import ContainerIcon from '../../public/Container-icon.svg'
+import ContainerIcon from "../../public/Container-icon.svg";
 import Image from "next/image";
-import Link from 'next/link'
+import { useRouter } from "next/navigation";
+import { Container } from "../../types"; 
 
 export const CardContainerHome = ({
-  id,
-  name,
+ container
 }: {
-  id: String;
-  name: string;
+  container: Container
 }): JSX.Element => {
+  const { push } = useRouter();
+
+  const handleClick = (id: string) => {
+    push(`/container/${id}`, );
+  };
   return (
-    <Link href="/container" className="bg-gray-300 rounded flex flex-col items-center p-16">
+    <div
+      onClick={() => handleClick(container.id)}
+      className="bg-gray-300 rounded flex flex-col items-center p-16 cursor-pointer"
+    >
       <div>
-        <Image src={ContainerIcon} alt="Container icon"/>
+        <Image src={ContainerIcon} alt="Container icon" />
       </div>
-    </Link>
+    </div>
   );
 };

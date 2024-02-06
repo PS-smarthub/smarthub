@@ -5,6 +5,17 @@ module.exports = {
     '../../packages/**/*.{js,ts,jsx,tsx}'
   ],
   theme: {
+    fontSize: {
+      's': '0.75rem', // captions, short paragraphs, labels
+      'm': '1rem', // long and short texts, labels, messages
+      'l': '1.25rem', // headings, highlighting, long texts
+      'xl': '1.4rem', // headings, highlights
+      '2xl': '2rem', // headings, highlights
+      '3xl': '2.5rem', // headings, highlights
+      '4xl': '3rem', // headings, highlights
+      '5xl': '4rem', // headings, highlights
+      '6xl': '5rem', // headings, highlights
+    },
     colors:{
       'black': '#000000',
       'white': '#ffffff',
@@ -28,6 +39,7 @@ module.exports = {
         500: '#0096E8',
         400: '#7EBDFF',
         300: '#9DC9FF',
+        50: '#007bc0',
       },
       'turquoise': {
         700: '#0A4F4B',
@@ -57,7 +69,7 @@ module.exports = {
         400: '#FFDF95',
         300: '#FFEFD1',
       },
-      extend: {}
+     
     }
   },
   plugins: []
