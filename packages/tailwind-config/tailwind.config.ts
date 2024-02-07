@@ -5,6 +5,13 @@ module.exports = {
     '../../packages/**/*.{js,ts,jsx,tsx}'
   ],
   theme: {
+    screens: {
+      'sm': {'max':'1280px'},
+      // => @media (min-width: 640px) { ... }
+
+      'lg': {'max': '1920px'},
+      // => @media (min-width: 768px) { ... }
+    },
     fontSize: {
       's': '0.75rem', // captions, short paragraphs, labels
       'm': '1rem', // long and short texts, labels, messages

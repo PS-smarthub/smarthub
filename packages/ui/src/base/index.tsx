@@ -1,5 +1,3 @@
 export * from './BackButton'
 export * from './Toast'
 export * from './Header'
-export * from './AsideMenu'
-export * from './AsideMenu'

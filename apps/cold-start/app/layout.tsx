@@ -1,9 +1,13 @@
 import { Header } from "@smarthub/ui";
+import SideMenu from "./components/SideMenu";
 import "./globals.css";
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 
-const poppins = Poppins({ preload: false, weight: ["100", "200", "300", "400", "500", "600", "700"] });
+const poppins = Poppins({
+  preload: false,
+  weight: ["100", "200", "300", "400", "500", "600", "700"],
+});
 
 export const metadata: Metadata = {
   title: "Cold Start",
@@ -17,9 +21,12 @@ export default function RootLayout({
 }): JSX.Element {
   return (
     <html lang="en" className="h-full">
-      <body className={poppins.className + " h-full"}>
-        <Header app_name="COLD START"/>
-        {children}
+      <body className={`bg-white ${poppins} h-full`}>
+        <Header app_name="COLD START" />
+        <div className="flex h-[90%] sm:h-[87%]">
+          <SideMenu />
+          <main className="flex-1 h-full">{children}</main>
+        </div>
       </body>
     </html>
   );
