@@ -27,5 +27,3 @@ RUN npm install
 
 # # Build the project
 COPY --from=builder /app/out/full/ .
-
-CMD ["turbo", "dev"]
