@@ -1,4 +1,12 @@
 /** @type {import('next').NextConfig} */
-module.exports = {
-  transpilePackages: ["@repo/ui"],
+const nextConfig = {
+  transpilePackages: [
+    '@smarthub/ui',
+    '@bosch-web-dds/spark-ui', 
+    '@bosch-web-dds/spark-ui-react'
+  ],
+  output: 'standalone',
+  
 };
+ 
+module.exports = nextConfig;

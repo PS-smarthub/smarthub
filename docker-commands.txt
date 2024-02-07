@@ -1,0 +1,8 @@
+
+# Rodar container
+
+- sudo docker run -d -p 3000:3000 <id-container>
+
+# Build apps
+
+- sudo docker compose up -d --build 

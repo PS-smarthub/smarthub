@@ -2,14 +2,18 @@
   "name": "smarthub",
   "version": "1.0.0",
   "private": true,
+  "main": "src/index.tsx",
+  "module": "src/index.tsx",
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --port 3001",
     "build": "next build",
-    "start": "next start",
+    "start": "next start -p 3001",
     "lint": "eslint . --max-warnings 0"
   },
   "dependencies": {
-    "@repo/ui": "*",
+    "@bosch-web-dds/spark-ui": "^1.1.4",
+    "@bosch-web-dds/spark-ui-react": "^1.1.4",
+    "@smarthub/ui": "*",
     "next": "^14.0.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"

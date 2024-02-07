@@ -3,6 +3,8 @@
   "private": true,
   "scripts": {
     "build": "turbo build",
+    "build:cold-start": "turbo build --filter=cold-start",
+    "build:smarthub": "turbo build --filter=smarthub",
     "dev": "turbo dev",
     "lint": "turbo lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
@@ -20,8 +22,5 @@
   "workspaces": [
     "apps/*",
     "packages/*"
-  ],
-  "dependencies": {
-    "tailwindcss": "^3.4.1"
-  }
+  ]
 }

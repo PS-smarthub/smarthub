@@ -1,8 +1,13 @@
+import { Header } from "@smarthub/ui";
+import SideMenu from "./components/SideMenu";
 import "./globals.css";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Poppins } from "next/font/google";
 
-const inter = Inter({ subsets: ["latin"] });
+const poppins = Poppins({
+  preload: false,
+  weight: ["100", "200", "300", "400", "500", "600", "700"],
+});
 
 export const metadata: Metadata = {
   title: "Cold Start",
@@ -15,8 +20,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }): JSX.Element {
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
+    <html lang="en" className="h-full">
+      <body className={`bg-white ${poppins} h-full`}>
+        <Header app_name="COLD START" />
+        <div className="flex h-[90%] sm:h-[87%]">
+          <SideMenu />
+          <main className="flex-1 h-full">{children}</main>
+        </div>
+      </body>
     </html>
   );
 }
