@@ -11,7 +11,13 @@
   "dependencies": {
     "@bosch-web-dds/spark-ui": "^1.1.4",
     "@bosch-web-dds/spark-ui-react": "^1.1.4",
+    "@fullcalendar/core": "^6.1.10",
+    "@fullcalendar/daygrid": "^6.1.10",
+    "@fullcalendar/interaction": "^6.1.10",
+    "@fullcalendar/react": "^6.1.10",
+    "@fullcalendar/timegrid": "^6.1.10",
     "@smarthub/ui": "*",
+    "dayjs": "^1.11.10",
     "next": "^14.0.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
