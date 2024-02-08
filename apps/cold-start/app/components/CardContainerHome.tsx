@@ -16,10 +16,10 @@ export const CardContainerHome = ({
   return (
     <div
       onClick={() => handleClick(container.id)}
-      className="bg-gray-300 rounded flex flex-col items-center py-12 cursor-pointer sm:py-8"
+      className="bg-gray-300 rounded flex flex-col items-center py-16 cursor-pointer sm:py-8 border-l-[10px] border-blue-50"
     >
       <div>
-        <Image src={ContainerIcon} alt="Container icon" width={screen.width < 1900 ? (70) : (100)}/>
+        <Image src={ContainerIcon} alt="Container icon" width={70}/>
       </div>
     </div>
   );
