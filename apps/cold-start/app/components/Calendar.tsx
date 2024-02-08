@@ -112,11 +112,10 @@ export default function Calendar() {
         droppable={true}
         selectMirror={true}
         selectable={true}
-        dateClieck={handleDateClick}
+        // dateClieck={handleDateClick}
         drop={(data) => addEvent(data)}
         eventClick={(data) => handleDeleteModal(data)}
         height={800}
-        eve
       />
       {/* <div id="draggable-el" className="ml-8 border-2 p-2 rounded mt-16">
         <h1>Drag Event</h1>
