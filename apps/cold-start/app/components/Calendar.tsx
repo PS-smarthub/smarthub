@@ -208,6 +208,5 @@ export default function Calendar() {
           </button>
         }
       />
-    </div>
   );
 }
