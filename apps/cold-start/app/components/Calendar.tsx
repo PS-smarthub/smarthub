@@ -117,18 +117,6 @@ export default function Calendar() {
         eventClick={(data) => handleDeleteModal(data)}
         height={800}
       />
-      {/* <div id="draggable-el" className="ml-8 border-2 p-2 rounded mt-16">
-        <h1>Drag Event</h1>
-        {events.map((event) => (
-          <div
-            className="fc-event border-2 p-1 m-2 w-full rounded-md ml-auto text-center bg-white"
-            title={event.title}
-            key={event.id}
-          >
-            {event.title}
-          </div>
-        ))}
-      </div> */}
     </>
   );
 }
