@@ -1,6 +1,6 @@
 "use client";
 
-import { SparkIcon } from "@bosch-web-dds/spark-ui-react";
+// import { SparkIcon } from "@bosch-web-dds/spark-ui-react";
 import { Props } from "../../../interfaces";
 import { useContainer } from "../../../stores/useContainer";
 import { BackButton } from "@smarthub/ui";
@@ -68,10 +68,10 @@ export default function ContainerDetails({ params }: Props) {
             <h2 className="text-center font-bold">Agendamento</h2>
             <div className="font-semibold border w-[72%] border-gray-400 p-4 rounded flex items-center justify-between sm:p-0">
               <h3 className="sm:py-4 pl-2">Diego Lopes</h3>
-              <SparkIcon
+              {/* <SparkIcon
                 icName="user"
                 className="bg-blue-600 rounded-full sm:p-0 sm:h-10 sm:w-10 flex justify-center items-center sm:mr-3"
-              />
+              /> */}
             </div>
           </div>
 

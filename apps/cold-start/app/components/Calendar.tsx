@@ -8,6 +8,7 @@ import interactionPlugin, {
   DropArg,
 } from "@fullcalendar/interaction";
 import { useEffect, useState } from "react";
+import { ModalDemo } from "./ModalDemo";
 
 interface Event {
   title: string;
@@ -97,26 +98,115 @@ export default function Calendar() {
       id: 0,
     });
   }
+
+  const eventList = [
+    {
+      duration: "02:00",
+      date: "2024-02-08",
+      title: "test",
+      allDay: false,
+      start: new Date(),
+    },
+    {
+      duration: "02:00",
+      date: "2024-02-08",
+      title: "test",
+      allDay: false,
+    },
+    {
+      duration: "02:00",
+      date: "2024-02-08",
+      title: "test",
+      allDay: false,
+    },
+    {
+      duration: "02:00",
+      date: "2024-02-28",
+      title: "test",
+      allDay: false,
+    },
+    {
+      duration: "02:00",
+      date: "2024-02-28",
+      title: "test",
+      allDay: false,
+      start: new Date(),
+    },
+    {
+      duration: "02:00",
+      date: "2024-02-28",
+      title: "test",
+      allDay: false,
+    },
+    {
+      duration: "02:00",
+      date: "2024-02-28",
+      title: "test",
+      allDay: false,
+    },
+    {
+      duration: "02:00",
+      date: "2024-02-28",
+      title: "test",
+      allDay: false,
+    },
+    {
+      duration: "02:00",
+      date: "2024-02-21",
+      title: "test",
+      allDay: false,
+    },
+    {
+      duration: "02:00",
+      date: "2024-02-21",
+      title: "test",
+      allDay: false,
+      start: new Date(),
+    },
+    {
+      duration: "02:00",
+      date: "2024-02-21",
+      title: "test",
+      allDay: false,
+    },
+    {
+      duration: "02:00",
+      date: "2024-02-21",
+      title: "test",
+      allDay: false,
+    },
+    {
+      duration: "02:00",
+      date: "2024-02-21",
+      title: "test",
+      allDay: false,
+    },
+  ];
   return (
-    <>
+    <div className="w-[90%] h-full">
       <FullCalendar
         plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
         headerToolbar={{
-          left: "prev, next today",
-          center: "title",
-          right: "resourceTimelineWook, dayGridMonth, timeGridWeek",
+          left: "resourceTimelineWeek,dayGridMonth,timeGridWeek",
+          right: "prev, next",
         }}
-        events={[{ duration: "02:00", date: "2024-02-08", title: 'test'}]}
-        nowIndicator={true}
+        buttonText={{ next: ">", prev: "<" }}
+        dayMaxEventRows={3}
+        dayCellClassNames={"h-[90px]"}
+        events={eventList}
         editable={true}
-        droppable={true}
         selectMirror={true}
         selectable={true}
-        // dateClieck={handleDateClick}
-        drop={(data) => addEvent(data)}
+        dateClick={handleDateClick}
         eventClick={(data) => handleDeleteModal(data)}
-        height={800}
+        height={"100%"}
       />
-    </>
+      <ModalDemo
+        button={
+          <button className="bg-blue-50 hover:bg-blue-600 rounded-full p-4 text-white w-[50px] h-[50px] flex items-center justify-center absolute bottom-10 right-14 font-semibold">
+            +
+          </button>
+        }
+      />
   );
 }

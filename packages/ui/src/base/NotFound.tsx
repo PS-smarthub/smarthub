@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { SparkLink } from "@bosch-web-dds/spark-ui-react";
+// import { SparkLink } from "@bosch-web-dds/spark-ui-react";
 
 export const NotFound = () => {
   return (
@@ -12,7 +12,7 @@ export const NotFound = () => {
         voltar para a tela principal
       </p>
       <Link href={"/"} className="flex items-center text-blue-50">
-        Voltar <SparkLink icon="arrow-right" type="primary" />
+        {/* Voltar <SparkLink icon="arrow-right" type="primary" /> */}
       </Link>
     </div>
   );

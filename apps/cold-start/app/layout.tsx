@@ -25,7 +25,7 @@ export default function RootLayout({
         <Header app_name="COLD START" />
         <div className="flex h-[90%] sm:h-[87%]">
           <SideMenu />
-          <main className="flex-1 min-h-screen">{children}</main>
+          <main className="flex-1 h-full">{children}</main>
         </div>
       </body>
     </html>
