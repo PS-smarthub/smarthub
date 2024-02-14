@@ -4,15 +4,14 @@
 import { Props } from "../../../types/";
 import { useContainer } from "../../../stores/useContainer";
 import { BackButton } from "@smarthub/ui";
+import { useMsal } from "@azure/msal-react";
 
 export default function ContainerDetails({ params }: Props) {
   const { containerList } = useContainer();
 
   const container = containerList[parseInt(params.id)];
 
-  const handleClick = () => {
-    
-  }
+  const {instance} = useMsal()
 
   return (
     <section>
@@ -83,7 +82,7 @@ export default function ContainerDetails({ params }: Props) {
           <div className="flex pt-10 pb-12 justify-center">
             <div className="h-[22rem] w-[72%] text-center rounded border border-gray-400">
               <h1>SET POINTS</h1>
-              <button onClick={() => handleClick()} className="bg-blue-50 p-2 text-white font-semibold rounded">
+              <button onClick={() => instance.loginPopup()} className="bg-blue-50 p-2 text-white font-semibold rounded">
                 Click
               </button>
             </div>
