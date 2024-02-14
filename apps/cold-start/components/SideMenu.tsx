@@ -1,6 +1,6 @@
 "use client";
-import CalendarIcon from '../../public/calendar-icon.svg'
-import ContainerIcon from '../../public/Container-icon.svg'
+import CalendarIcon from '../public/calendar-icon.svg'
+import ContainerIcon from '../public/Container-icon.svg'
 import Link from "next/link";
 import Image from "next/image";
 

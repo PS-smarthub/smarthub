@@ -1,8 +1,9 @@
 import { Header } from "@smarthub/ui";
-import SideMenu from "./components/SideMenu";
+import SideMenu from "../components/SideMenu";
 import "./globals.css";
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
+import MSALProvider from "../providers/MsalProvider";
 
 const poppins = Poppins({
   preload: false,
@@ -22,11 +23,13 @@ export default function RootLayout({
   return (
     <html lang="en" className="h-full">
       <body className={`bg-white ${poppins} h-full`}>
-        <Header app_name="COLD START" />
-        <div className="flex h-[90%] sm:h-[87%]">
-          <SideMenu />
-          <main className="flex-1 h-full">{children}</main>
-        </div>
+        <MSALProvider>
+          <Header app_name="COLD START" />
+          <div className="flex h-[90%] sm:h-[87%]">
+            <SideMenu />
+            <main className="flex-1 h-full">{children}</main>
+          </div>
+        </MSALProvider>
       </body>
     </html>
   );

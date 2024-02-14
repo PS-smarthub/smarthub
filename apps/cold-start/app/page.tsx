@@ -1,6 +1,6 @@
 "use client";
 
-import { CardContainerHome } from "./components/CardContainerHome";
+import { CardContainerHome } from "../components/CardContainerHome";
 import { useContainer } from "../stores/useContainer";
 
 export default function Page(): JSX.Element {
