@@ -194,6 +194,7 @@ export default function Calendar() {
         dayMaxEventRows={3}
         dayCellClassNames={"h-[90px]"}
         events={eventList}
+        locale={"br"}
         editable={true}
         selectMirror={true}
         selectable={true}
@@ -208,5 +209,6 @@ export default function Calendar() {
           </button>
         }
       />
+    </div>
   );
 }
