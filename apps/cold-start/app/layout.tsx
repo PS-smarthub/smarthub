@@ -24,11 +24,7 @@ export default function RootLayout({
     <html lang="en" className="h-full">
       <body className={`bg-white ${poppins} h-full`}>
         <MSALProvider>
-          <Header app_name="COLD START" />
-          <main className="flex h-[90%] sm:h-[87%]">
-            <SideMenu />
-            <div className="flex-1 h-full">{children}</div>
-          </main>
+          {children}
         </MSALProvider>
       </body>
     </html>
