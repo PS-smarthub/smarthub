@@ -1,5 +1,24 @@
 "use client";
 
+import dynamic from "next/dynamic";
+
+const AuthenticatedTemplate = dynamic(
+  () => import("@azure/msal-react").then((mod) => mod.AuthenticatedTemplate),
+  { ssr: false }
+);
+const UnauthenticatedTemplate = dynamic(
+  () => import("@azure/msal-react").then((mod) => mod.UnauthenticatedTemplate),
+  { ssr: false }
+);
+const SignInButton = dynamic(() => import("../../../components/SignInButton"), {
+  ssr: false,
+});
+const SignOutButton = dynamic(
+  () => import("../../../components/SignOutButton"),
+  {
+    ssr: false,
+  }
+);
 // import { SparkIcon } from "@bosch-web-dds/spark-ui-react";
 import { Props } from "../../../types/";
 import { useContainer } from "../../../stores/useContainer";
@@ -11,8 +30,6 @@ export default function ContainerDetails({ params }: Props) {
 
   const container = containerList[parseInt(params.id)];
 
-  const {instance} = useMsal()
-
   return (
     <section>
       <BackButton page_name={container?.name} />
@@ -22,20 +39,20 @@ export default function ContainerDetails({ params }: Props) {
           {/* container temperatures */}
           <div className="w-full grid grid-cols-3 gap-8 py-10 px-6">
             <div className="border pb-4 border-gray-400 gap-7 rounded items-center flex flex-col">
-              <h2 className="font-semibold p-2 sm:text-xs">
+              <h2 className="font-semibold p-2 sm:text-[14px]">
                 Temperatura Ambiente
               </h2>
-              <p className="font-bold text-2xl ">{container?.t}</p>
+              <p className="font-bold text-2xl ">{container?.t} °C</p>
             </div>
 
             <div className="border pb-4 border-gray-400 gap-7 rounded items-center flex flex-col">
               <h2 className="font-semibold p-2">Posição 1</h2>
-              <p className="font-bold text-2xl pb-4">{container?.t1}</p>
+              <p className="font-bold text-2xl pb-4">{container?.t1} °C</p>
             </div>
 
             <div className="border pb-4 border-gray-400 gap-7 rounded items-center flex flex-col">
               <h2 className="font-semibold p-2">Posição 2</h2>
-              <p className="font-bold text-2xl pb-4">{container?.t2}</p>
+              <p className="font-bold text-2xl pb-4">{container?.t2} °C</p>
             </div>
           </div>
 
@@ -82,9 +99,14 @@ export default function ContainerDetails({ params }: Props) {
           <div className="flex pt-10 pb-12 justify-center">
             <div className="h-[22rem] w-[72%] text-center rounded border border-gray-400">
               <h1>SET POINTS</h1>
-              <button onClick={() => instance.loginPopup()} className="bg-blue-50 p-2 text-white font-semibold rounded">
-                Click
-              </button>
+              <AuthenticatedTemplate>
+                <p>Autenticado</p>
+                <SignOutButton />
+              </AuthenticatedTemplate>
+              <UnauthenticatedTemplate>
+                <p>Não autenticado</p>
+                <SignInButton />
+              </UnauthenticatedTemplate>
             </div>
           </div>
         </div>
