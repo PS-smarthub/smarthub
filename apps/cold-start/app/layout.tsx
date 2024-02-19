@@ -25,10 +25,10 @@ export default function RootLayout({
       <body className={`bg-white ${poppins} h-full`}>
         <MSALProvider>
           <Header app_name="COLD START" />
-          <div className="flex h-[90%] sm:h-[87%]">
+          <main className="flex h-[90%] sm:h-[87%]">
             <SideMenu />
-            <main className="flex-1 h-full">{children}</main>
-          </div>
+            <div className="flex-1 h-full">{children}</div>
+          </main>
         </MSALProvider>
       </body>
     </html>
