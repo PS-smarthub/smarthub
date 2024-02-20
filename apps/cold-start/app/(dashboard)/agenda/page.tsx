@@ -1,5 +1,4 @@
 import CalendarComponent from '@/components/Calendar'
-import SignOutButton from '@/components/SignOutButton'
 
 export default function Agenda() {
   return (
