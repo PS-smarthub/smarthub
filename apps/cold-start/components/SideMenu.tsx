@@ -6,7 +6,7 @@ import Image from "next/image";
 
 export default function SideMenu() {
   return (
-    <div className="bg-gray-100 h-full text-gray-500 flex border-r border-gray-300">
+    <div className="bg-gray-100 h-full text-gray-500 flex border-r border-gray-300 sm:h-full">
       <div className="flex flex-col items-center space-y-10 py-6">
         <div className="space-y-48 rounded-md bg-white">
           <ul>

@@ -39,7 +39,7 @@ export function ModalDemo() {
       <DialogTrigger asChild>
         <button
           onClick={() => setOpen(true)}
-          className="bg-blue-50 hover:bg-blue-600 rounded-full p-4 text-white w-[50px] h-[50px] flex items-center justify-center absolute bottom-10 right-14 font-semibold"
+          className="bg-blue-50 hover:bg-blue-600 rounded-full p-4 text-white w-[50px] h-[50px] flex items-center justify-center fixed bottom-10 right-14 font-semibold"
         >
           +
         </button>

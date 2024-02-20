@@ -74,7 +74,7 @@ export default function Calendar() {
     },
   ];
   return (
-    <div className="w-[70%] h-full">
+    <div className="w-[60%] overflow-auto">
       <FullCalendar
         plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
         headerToolbar={{
@@ -82,8 +82,10 @@ export default function Calendar() {
           right: "prev,next",
           center: "title",
         }}
-        viewClassNames={"bg-red-300 rounded-lg border-none"}
+        
+        viewClassNames={"rounded-lg border-none"}
         allDaySlot={true}
+        height={700}
         dayMaxEventRows={3}
         events={eventList}
         locale={"br"}
