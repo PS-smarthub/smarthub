@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { useMsal } from "@azure/msal-react";
 import { redirect } from "next/navigation";
@@ -12,7 +12,7 @@ export default function InsideLayout({
   children: React.ReactNode;
 }) {
   const { accounts } = useMsal();
-  const user = accounts[0]
+  const user = accounts[0];
 
   useLayoutEffect(() => {
     if (!user) {

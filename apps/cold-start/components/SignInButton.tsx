@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { useMsal } from "@azure/msal-react";
 
 export default function SignInButton() {
