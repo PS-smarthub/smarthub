@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import SignInButton from "@/components/SignInButton";
 import Image from "next/image";

@@ -19,7 +19,7 @@ export const CardContainerHome = ({
       className="bg-gray-300 rounded flex flex-col items-center py-16 cursor-pointer sm:py-8 border-l-[10px] border-blue-50"
     >
       <div>
-        <Image src={ContainerIcon} alt="Container icon" width={70}/>
+        <Image src={ContainerIcon} alt="Container icon" width={60}/>
       </div>
     </div>
   );
