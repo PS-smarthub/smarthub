@@ -10,7 +10,7 @@ export const CardContainerHome = ({
 }): JSX.Element => {
   const { push } = useRouter();
 
-  const handleClick = (id: string) => {
+  const handleClick = (id: number) => {
     push(`/container/${id}`, );
   };
   return (

@@ -4,15 +4,29 @@
 import { Props } from "@/types";
 import { useContainer } from "@/stores/useContainer";
 import { BackButton } from "@smarthub/ui";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { handleSetPoint } from "@/lib/api";
+import { useEffect } from "react";
 
 export default function ContainerDetails({ params }: Props) {
   const { containerList } = useContainer();
 
+  console.log(containerList)
+
   const container = containerList[parseInt(params.id)];
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation({
+    mutationFn: handleSetPoint,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["set-point"] });
+    },
+  });
+  
 
   return (
     <section>
-      <BackButton page_name={container?.name} />
+      <BackButton page_name={container?.device} />
       <div className="flex w-full gap-20">
         {/* left*/}
         <div className="w-full">
@@ -22,17 +36,23 @@ export default function ContainerDetails({ params }: Props) {
               <h2 className="font-semibold p-2 sm:text-[14px]">
                 Temperatura Ambiente
               </h2>
-              <p className="font-bold text-2xl ">{container?.t} °C</p>
+              <p className="font-bold text-2xl ">
+                {container?.temperatures[0]?.room_temperature} °C
+              </p>
             </div>
 
             <div className="border pb-4 border-gray-400 gap-7 rounded items-center flex flex-col">
               <h2 className="font-semibold p-2">Posição 1</h2>
-              <p className="font-bold text-2xl pb-4">{container?.t1} °C</p>
+              <p className="font-bold text-2xl pb-4">
+                {container?.temperatures[0]?.temperature_1} °C
+              </p>
             </div>
 
             <div className="border pb-4 border-gray-400 gap-7 rounded items-center flex flex-col">
               <h2 className="font-semibold p-2">Posição 2</h2>
-              <p className="font-bold text-2xl pb-4">{container?.t2} °C</p>
+              <p className="font-bold text-2xl pb-4">
+                {container?.temperatures[0]?.temperature_2} °C
+              </p>
             </div>
           </div>
 
@@ -49,17 +69,17 @@ export default function ContainerDetails({ params }: Props) {
             <div>
               <h3 className="font-bold">Posição 1</h3>
               <input
-                type="text"
-                disabled
-                className="border border-gray-400 rounded h-20 sm:h-10 sm:w-[150px]"
+                type="number"
+                value={container?.set_point_1}
+                className="border border-gray-400 rounded h-20 sm:h-10 sm:w-[150px] text-center"
               />
             </div>
             <div>
               <h3 className="font-bold">Posição 2</h3>
               <input
-                type="text"
-                disabled
-                className="border border-gray-400 rounded h-20 sm:h-10 sm:w-[150px]"
+                type="number"
+                value={container?.set_point_1}
+                className="border border-gray-400 rounded h-20 sm:h-10 sm:w-[150px] text-center"
               />
             </div>
           </div>
