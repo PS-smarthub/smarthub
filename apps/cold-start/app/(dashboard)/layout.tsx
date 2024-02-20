@@ -12,12 +12,13 @@ export default function InsideLayout({
   children: React.ReactNode;
 }) {
   const { accounts } = useMsal();
+  const user = accounts[0]
 
   useLayoutEffect(() => {
-    if (!accounts[0]) {
+    if (!user) {
       redirect("/auth/signin");
     }
-  }, []);
+  }, [user]);
   return (
     <>
       <Header app_name="COLD START" />

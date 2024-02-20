@@ -6,9 +6,9 @@ export default function SignInButton() {
   return (
     <button
       onClick={() => instance.loginPopup()}
-      className="bg-blue-50 p-2 text-white font-semibold rounded"
+      className="bg-blue-50 p-2 text-white font-semibold rounded hover:bg-blue-600"
     >
-      Click
+      Bosch Login
     </button>
   );
 }

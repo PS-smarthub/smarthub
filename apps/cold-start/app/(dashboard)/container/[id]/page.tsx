@@ -1,8 +1,8 @@
 "use client";
 
 // import { SparkIcon } from "@bosch-web-dds/spark-ui-react";
-import { Props } from "../../../types";
-import { useContainer } from "../../../stores/useContainer";
+import { Props } from "@/types";
+import { useContainer } from "@/stores/useContainer";
 import { BackButton } from "@smarthub/ui";
 
 export default function ContainerDetails({ params }: Props) {

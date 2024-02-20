@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import type { Container, ContainerStore } from '../types';
+import type { Container, ContainerStore } from '@/types';
 
 const containers = [
     { id: "0", name: "container_1", t1: 10.0, t2: 11.0, t: 12.0 },

@@ -1,8 +1,8 @@
 "use client";
 
 import { redirect } from "next/navigation";
-import { CardContainerHome } from "../../components/CardContainerHome";
-import { useContainer } from "../../stores/useContainer";
+import { CardContainerHome } from "@/components/CardContainerHome";
+import { useContainer } from "@/stores/useContainer";
 import { useMsal } from "@azure/msal-react";
 import { useEffect } from "react";
 

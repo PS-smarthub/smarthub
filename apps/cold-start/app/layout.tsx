@@ -1,9 +1,7 @@
-import { Header } from "@smarthub/ui";
-import SideMenu from "../components/SideMenu";
 import "./globals.css";
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
-import MSALProvider from "../providers/MsalProvider";
+import MSALProvider from "@/providers/MsalProvider";
 
 const poppins = Poppins({
   preload: false,

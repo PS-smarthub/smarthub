@@ -25,10 +25,6 @@ export default function Calendar() {
     { title: "event 4", id: 4, date: "2024-04-01" },
   ]);
 
-  
-
-  
-
   const eventList = [
     {
       duration: "02:00",
