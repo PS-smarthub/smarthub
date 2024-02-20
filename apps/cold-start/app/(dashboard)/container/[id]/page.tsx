@@ -1,5 +1,24 @@
 "use client";
 
+import dynamic from "next/dynamic";
+
+const AuthenticatedTemplate = dynamic(
+  () => import("@azure/msal-react").then((mod) => mod.AuthenticatedTemplate),
+  { ssr: false }
+);
+const UnauthenticatedTemplate = dynamic(
+  () => import("@azure/msal-react").then((mod) => mod.UnauthenticatedTemplate),
+  { ssr: false }
+);
+const SignInButton = dynamic(() => import("../../../components/SignInButton"), {
+  ssr: false,
+});
+const SignOutButton = dynamic(
+  () => import("../../../components/SignOutButton"),
+  {
+    ssr: false,
+  }
+);
 // import { SparkIcon } from "@bosch-web-dds/spark-ui-react";
 import { Props } from "@/types";
 import { useContainer } from "@/stores/useContainer";
@@ -79,9 +98,20 @@ export default function ContainerDetails({ params }: Props) {
           <div className="flex pt-10 pb-12 justify-center">
             <div className="w-[72%] h-[22rem] text-center rounded border border-gray-400 sm:w-[72%] sm:h-[11rem]">
               <h1>SET POINTS</h1>
+<<<<<<< HEAD:apps/cold-start/app/(dashboard)/container/[id]/page.tsx
               
               <button className="bg-green-500 rounded p-2">On</button>
               <button className="bg-red-500 rounded p-2">Off</button>
+=======
+              <AuthenticatedTemplate>
+                <p>Autenticado</p>
+                <SignOutButton />
+              </AuthenticatedTemplate>
+              <UnauthenticatedTemplate>
+                <p>Não autenticado</p>
+                <SignInButton />
+              </UnauthenticatedTemplate>
+>>>>>>> refs/remotes/origin/dev:apps/cold-start/app/container/[id]/page.tsx
             </div>
           </div>
         </div>

@@ -3,9 +3,8 @@
 import { CardContainerHome } from "@/components/CardContainerHome";
 import { useContainer } from "@/stores/useContainer";
 
-export default function Page(): JSX.Element {
+export default function Home(): JSX.Element {
   const { containerList } = useContainer();
-
   return (
     <section className="flex justify-center items-center h-[90%] sm:h-100%">
       <div className="grid grid-cols-4 gap-16 sm:gap-12 w-[90%]">
