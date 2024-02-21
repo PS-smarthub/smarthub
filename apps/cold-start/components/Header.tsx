@@ -19,7 +19,7 @@ export default function Header() {
             <Image
               src={UserIcon}
               alt="User icon"
-              className="bg-blue-50 rounded-full p-1 w-[40px]"
+              className="bg-blue-50 rounded-full p-1 w-[40px] hover:bg-blue-600"
               priority
             />
           </Link>
