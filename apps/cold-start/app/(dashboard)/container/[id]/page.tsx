@@ -2,15 +2,12 @@
 
 // import { SparkIcon } from "@bosch-web-dds/spark-ui-react";
 import { Container, Props } from "@/types";
-import { useContainer } from "@/stores/useContainer";
 import { BackButton } from "@smarthub/ui";
 import { useMutation, useQueryClient, useQuery } from "@tanstack/react-query";
 import { handleSetPoint } from "@/lib/api";
-import { useEffect } from "react";
+import { useState } from "react";
 
 export default function ContainerDetails({ params }: Props) {
-  const { containerList } = useContainer();
-
   const { data, error, isPending } = useQuery<Container>({
     queryKey: ["get-temperatures"],
     queryFn: () =>
@@ -19,6 +16,7 @@ export default function ContainerDetails({ params }: Props) {
       ),
   });
   const queryClient = useQueryClient();
+  const [setPoint1, setSetPoint1] = useState("")
 
   const mutation = useMutation({
     mutationFn: handleSetPoint,
@@ -27,6 +25,9 @@ export default function ContainerDetails({ params }: Props) {
     },
   });
 
+  if (error) {
+    return <p>Erro, nenhum container encontrado</p>;
+  }
   return (
     <section>
       <BackButton page_name={`Container ${data?.device}`} />
@@ -81,7 +82,8 @@ export default function ContainerDetails({ params }: Props) {
               <h3 className="font-bold">Posição 2</h3>
               <input
                 type="number"
-                value={data?.set_point_1}
+                value={setPoint1}
+                onChange={(e) => setSetPoint1(e.target.value)}
                 className="border border-gray-400 rounded h-20 sm:h-10 sm:w-[150px] text-center"
               />
             </div>
