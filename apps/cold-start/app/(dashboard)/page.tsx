@@ -25,7 +25,7 @@ export default function Home(): JSX.Element {
 
   console.log(containerList)
   return (
-    <section className="flex justify-center items-center h-[90%] sm:h-100%">
+    <section className="flex justify-center items-center h-[90%] sm:h-[100%]">
       <div className="grid grid-cols-4 gap-16 sm:gap-12 w-[90%]">
         {containerList?.map((container: Container) => (
           <CardContainerHome key={container.id} container={container} />
