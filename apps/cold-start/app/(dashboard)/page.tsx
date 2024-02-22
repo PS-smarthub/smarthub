@@ -4,7 +4,7 @@ import { CardContainerHome } from "@/components/CardContainerHome";
 import { useContainer } from "@/stores/useContainer";
 import { Container } from "@/types";
 import { useQuery } from "@tanstack/react-query";
-import { useEffect } from "react";
+import { Suspense, useEffect } from "react";
 
 export default function Home(): JSX.Element {
   const { containerList, setContainer } = useContainer();
@@ -23,7 +23,6 @@ export default function Home(): JSX.Element {
     }
   }, [data]);
 
-  console.log(containerList)
   return (
     <section className="flex justify-center items-center h-[90%] sm:h-[100%]">
       <div className="grid grid-cols-4 gap-16 sm:gap-12 w-[90%]">

@@ -76,10 +76,10 @@ export default function ContainerDetails({ params }: Props) {
               <input
                 type="number"
                 value={setPoint1}
+                step={"0.25"}
                 onChange={(e) => {
                   const number = parseFloat(e.target.value);
                   setSetPoint1(number);
-                  console.log(setPoint1)
                 }}
                 className="border border-gray-400 rounded h-20 sm:h-10 sm:w-[150px] text-center"
               />
@@ -91,7 +91,6 @@ export default function ContainerDetails({ params }: Props) {
                 onChange={(e) => {
                   const number = parseFloat(e.target.value);
                   setSetPoint2(number);
-                  console.log(setPoint2)
                 }}
                 value={setPoint2}
                 className="border border-gray-400 rounded h-20 sm:h-10 sm:w-[150px] text-center"
