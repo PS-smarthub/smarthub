@@ -3,7 +3,6 @@
 import { useState } from "react";
 import {
   Dialog,
-  DialogClose,
   DialogContent,
   DialogHeader,
   DialogTitle,
@@ -11,7 +10,6 @@ import {
 } from "./Modal";
 import { useForm } from "react-hook-form";
 import type { FieldValues } from "react-hook-form";
-import { Toaster } from "./Toaster";
 import { useToast } from "../lib/use-toast";
 
 export function ModalDemo() {
@@ -32,10 +30,11 @@ export function ModalDemo() {
       title: "Sucesso",
       description: new Date().toDateString(),
     });
+    setOpen(false)
   };
 
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <button
           onClick={() => setOpen(true)}
@@ -112,9 +111,10 @@ export function ModalDemo() {
             placeholder="Informações adicionais"
           />
           <div className="flex w-full justify-center">
+
             <button
               type="submit"
-              className="bg-green-400 rounded text-white font-semibold p-1 w-[40%] disabled:bg-gray-600"
+              className="bg-green-400 hover:bg-green-500 rounded text-white font-semibold p-1 w-[40%] disabled:bg-gray-600"
             >
               Confirmar
             </button>

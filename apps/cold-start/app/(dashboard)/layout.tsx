@@ -5,6 +5,7 @@ import { redirect } from "next/navigation";
 import React, { useLayoutEffect } from "react";
 import Header from "@/components/Header";
 import SideMenu from "@/components/SideMenu";
+import QueryProvider from "@/providers/QueryProvider";
 
 export default function InsideLayout({
   children,
@@ -19,13 +20,14 @@ export default function InsideLayout({
       redirect("/auth/signin");
     }
   }, [user]);
+
   return (
-    <>
+    <QueryProvider>
       <Header />
       <main className="flex h-full sm:h-[88%]">
         <SideMenu />
         <div className="flex-1 h-full">{children}</div>
       </main>
-    </>
+    </QueryProvider>
   );
 }
