@@ -1,7 +1,8 @@
 name: Continuos Integration
 
-on: [pull_request, push]
-  branches: ['dev', 'main']
+on: 
+  push:
+    branches: ['main', 'dev']
 
 jobs:
   continuos_integration:
