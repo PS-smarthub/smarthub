@@ -46,7 +46,6 @@ export default function ContainerDetails({ params }: Props) {
       queryClient.invalidateQueries({ queryKey: ["set-point"] });
     },
   });
-  console.log(mutation.data);
 
   if (error) {
     return <p>Erro, nenhum container encontrado</p>;
