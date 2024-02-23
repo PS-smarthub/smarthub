@@ -4,17 +4,17 @@ import { CardContainerHome } from "@/components/CardContainerHome";
 import { useContainer } from "@/stores/useContainer";
 import { Container } from "@/types";
 import { useQuery } from "@tanstack/react-query";
-import { Suspense, useEffect } from "react";
+import { useEffect } from "react";
 
-export default function Home(): JSX.Element {
+export default function Home() {
   const { containerList, setContainer } = useContainer();
 
-  const { data, error, isPending } = useQuery<Container[]>({
+  const { data, error, isPending, isLoading } = useQuery<Container[]>({
     queryKey: ["get-container-list"],
     queryFn: () =>
-      fetch("http://10.234.84.66:8000/api/v1/containers/").then((res) =>
+      fetch(`http://10.234.84.66:8000/api/v1/containers/`).then((res) =>
         res.json()
-      ),
+      )
   });
 
   useEffect(() => {
@@ -22,6 +22,14 @@ export default function Home(): JSX.Element {
       setContainer(data);
     }
   }, [data]);
+
+  if(isPending) {
+    return <p>Pending...</p>
+  }
+
+  if(isLoading) {
+    return <p>Loading...</p>
+  }
 
   return (
     <section className="flex justify-center items-center h-[90%] sm:h-[100%]">
