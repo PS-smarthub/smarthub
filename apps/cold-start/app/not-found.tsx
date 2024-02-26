@@ -1,11 +1,6 @@
+import { NotFound } from "@smarthub/ui";
 
 
-
-
-export default function NotFound() {
-  return (
-    <>
-    
-    </>
-  );
+export default function NotFoundPage() {
+  return <NotFound />;
 }
