@@ -4,46 +4,34 @@
 import { Container, Props } from "@/types";
 import { BackButton } from "@smarthub/ui";
 import { useMutation, useQueryClient, useQuery } from "@tanstack/react-query";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
+import { handleSetPoint } from "@/server/actions";
 
 export default function ContainerDetails({ params }: Props) {
+  async function getTemperatures(): Promise<Container> {
+    const response = await axios.get(
+      `http://10.234.84.66:8000/api/v1/containers/${params.id}`
+    );
+
+    console.log(response.data);
+    return response.data;
+  }
   const { data, error, isPending } = useQuery<Container>({
     queryKey: ["get-temperatures"],
-    queryFn: async () =>
-      await axios.get(
-        `http://10.234.84.66:8000/api/v1/containers/${params.id}`
-      ),
+    queryFn: getTemperatures,
     refetchInterval: 15000,
   });
   const queryClient = useQueryClient();
-  const [setPoint1, setSetPoint1] = useState(data?.set_point_1);
-  const [setPoint2, setSetPoint2] = useState(data?.set_point_2);
+  const [setPoint1, setSetPoint1] = useState<number>();
+  const [setPoint2, setSetPoint2] = useState<number>();
   const [disabled, setDisabled] = useState(true);
 
-  const handleSetPoint = async ({
-    container_id,
-    set_point_1,
-    set_point_2,
-  }: {
-    container_id: number | undefined;
-    set_point_1: number | undefined;
-    set_point_2: number | undefined;
-  }) => {
-    // const response = await axios.patch(
-    //   `http://10.234.84.66:8000/api/v1/containers/setpoint/${container_id}`,
-    //   {
-    //     set_point_1,
-    //     set_point_2,
-    //   }
-    // );
-    setDisabled(true)
-    console.log(set_point_1, set_point_2, container_id)
-  };
   const mutation = useMutation({
     mutationFn: handleSetPoint,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["set-point"] });
+      setDisabled(true)
     },
   });
 
@@ -51,9 +39,10 @@ export default function ContainerDetails({ params }: Props) {
     return <p>Erro, nenhum container encontrado</p>;
   }
 
-  if(isPending){
-    return <p>Pending...</p>
+  if (isPending) {
+    return <p>Pending...</p>;
   }
+
   return (
     <section>
       <BackButton page_name={`Container ${data?.device}`} />
@@ -67,21 +56,21 @@ export default function ContainerDetails({ params }: Props) {
                 Temperatura Ambiente
               </h2>
               <p className="font-bold text-2xl ">
-                {data?.temperatures[0]?.temperature_1} °C
+                {data.temperatures.room_temperature} °C
               </p>
             </div>
 
             <div className="border pb-4 border-gray-400 gap-7 rounded items-center flex flex-col">
               <h2 className="font-semibold p-2">Posição 1</h2>
               <p className="font-bold text-2xl pb-4">
-                {data?.temperatures[0]?.temperature_1} °C
+                {data.temperatures.temperature_1} °C
               </p>
             </div>
 
             <div className="border pb-4 border-gray-400 gap-7 rounded items-center flex flex-col">
               <h2 className="font-semibold p-2">Posição 2</h2>
               <p className="font-bold text-2xl pb-4">
-                {data?.temperatures[0]?.temperature_2} °C
+                {data.temperatures.temperature_2} °C
               </p>
             </div>
           </div>
@@ -100,7 +89,7 @@ export default function ContainerDetails({ params }: Props) {
               <h3 className="font-bold">Set Point 1</h3>
               <input
                 type="number"
-                value={setPoint1}
+                defaultValue={data.set_point_1}
                 step={"0.25"}
                 onChange={(e) => {
                   const number = parseFloat(e.target.value);
@@ -114,12 +103,13 @@ export default function ContainerDetails({ params }: Props) {
               <h3 className="font-bold">Set Point 2</h3>
               <input
                 type="number"
+                step={"0.25"}
                 onChange={(e) => {
                   const number = parseFloat(e.target.value);
                   setSetPoint2(number);
                   setDisabled(false);
                 }}
-                value={setPoint2}
+                defaultValue={data.set_point_2}
                 className="border border-gray-400 rounded h-20 sm:h-10 sm:w-[150px] text-center"
               />
             </div>
@@ -140,8 +130,8 @@ export default function ContainerDetails({ params }: Props) {
                 onClick={() =>
                   mutation.mutate({
                     container_id: data?.id,
-                    set_point_1: setPoint1,
-                    set_point_2: setPoint2,
+                    set_point_1: setPoint1 ? setPoint1 : data.set_point_1,
+                    set_point_2: setPoint2 ? setPoint2 : data.set_point_2,
                   })
                 }
                 className="bg-green-400 font-semibold hover:bg-green-500 text-white p-2 rounded disabled:bg-gray-500 disabled:cursor-not-allowed"
