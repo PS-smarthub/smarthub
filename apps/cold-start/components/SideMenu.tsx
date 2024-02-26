@@ -11,7 +11,7 @@ export default function SideMenu() {
         <div className="space-y-48 rounded-md bg-white">
           <ul>
             <li className="p-5 sm:p-3 sm:text-[14px]">
-              <Link href={"/"} className="flex flex-col hover:text-blue-600 items-center justify-center font-semibold text-blue-500">
+              <Link href={"/"} className="flex flex-col hover:text-blue-600 items-center justify-center font-semibold">
                 <Image src={ContainerIcon} alt="Container icon" width={40}/>
                 Container
               </Link>

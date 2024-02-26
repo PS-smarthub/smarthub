@@ -24,7 +24,7 @@ export function ModalDemo() {
   } = useForm();
 
   const onSubmit = async (data: FieldValues) => {
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+
     reset();
     toast({
       title: "Sucesso",

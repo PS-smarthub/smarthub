@@ -3,7 +3,7 @@ export interface Container {
   device: string;
   set_point_1: number;
   set_point_2: number;
-  temperatures: Temperatures[];
+  temperatures: Temperatures;
 }
 
 export type ContainerStore = {

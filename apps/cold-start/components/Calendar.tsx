@@ -3,11 +3,8 @@
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
-import interactionPlugin, {
-  Draggable,
-  DropArg,
-} from "@fullcalendar/interaction";
-import { useEffect, useState } from "react";
+import interactionPlugin from "@fullcalendar/interaction";
+import { useState } from "react";
 import { ModalDemo } from "./ModalDemo";
 
 interface Event {
@@ -82,7 +79,6 @@ export default function Calendar() {
           right: "prev,next",
           center: "title",
         }}
-        
         viewClassNames={"rounded-lg border-none"}
         allDaySlot={true}
         height={700}

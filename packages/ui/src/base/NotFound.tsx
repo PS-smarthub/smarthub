@@ -1,19 +1,17 @@
-"use client";
-
-import Link from "next/link";
-// import { SparkLink } from "@bosch-web-dds/spark-ui-react";
+import { HiOutlineArrowLongRight } from "react-icons/hi2";
 
 export const NotFound = () => {
   return (
-    <div className="flex justify-center items-center m-auto select-none text-center h-full flex-col">
-      <h1 className="text-6xl mb-[2rem] text-blue-50 font-bold">404</h1>
-      <p className="mb-[1rem] text-m leading-6">
-        A página que você está procurando não existe, <br /> clique no link para
-        voltar para a tela principal
-      </p>
-      <Link href={"/"} className="flex items-center text-blue-50">
-        {/* Voltar <SparkLink icon="arrow-right" type="primary" /> */}
-      </Link>
-    </div>
+    <main className="w-full h-full flex items-center">
+      <div className="flex flex-col items-center justify-center m-auto text-center w-[90%]">
+        <h1 className="font-bold text-blue-50 text-[10rem] mb-[2rem]">404</h1>
+        <p className="mb-[1rem] text-3xl">
+          Pedimos desculpas, mas a página que procura não está disponível.
+        </p>
+        <a className="text-blue-50 underline hover:text-blue-700" href="/">
+          voltar para a página inicial
+        </a>
+      </div>
+    </main>
   );
-}
+};
