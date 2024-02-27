@@ -2,10 +2,11 @@
 
 import { useMsal } from "@azure/msal-react";
 import { redirect } from "next/navigation";
-import React, { useLayoutEffect } from "react";
+import React, { useEffect, useLayoutEffect } from "react";
 import Header from "@/components/Header";
 import SideMenu from "@/components/SideMenu";
 import QueryProvider from "@/providers/QueryProvider";
+import { useAuthStore } from "@/stores/useContainer";
 
 export default function InsideLayout({
   children,
@@ -13,6 +14,8 @@ export default function InsideLayout({
   children: React.ReactNode;
 }) {
   const { accounts } = useMsal();
+  const { setToken } = useAuthStore();
+
   const user = accounts[0];
 
   useLayoutEffect(() => {
@@ -20,6 +23,8 @@ export default function InsideLayout({
       redirect("/auth/signin");
     }
   }, [user]);
+
+  
 
   return (
     <QueryProvider>

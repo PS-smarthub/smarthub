@@ -7,11 +7,18 @@ import { useMutation, useQueryClient, useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { handleSetPoint } from "@/server/actions";
+import { useAuthStore } from "@/stores/useContainer";
 
 export default function ContainerDetails({ params }: Props) {
+
+  const {token} = useAuthStore()
   async function getTemperatures(): Promise<Container> {
     const response = await axios.get(
-      `http://10.234.84.66:8000/api/v1/containers/${params.id}`
+      `http://10.234.84.66:8000/api/v1/containers/${params.id}`, {
+        headers: {
+          token: token
+        }
+      }
     );
 
     console.log(response.data);
