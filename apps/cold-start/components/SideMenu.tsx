@@ -1,8 +1,7 @@
 "use client";
-import CalendarIcon from '../public/calendar-icon.svg'
-import ContainerIcon from '../public/Container-icon.svg'
+import { RiCalendarEventLine } from "react-icons/ri";
 import Link from "next/link";
-import Image from "next/image";
+import { GoContainer } from "react-icons/go";
 
 export default function SideMenu() {
   return (
@@ -11,14 +10,20 @@ export default function SideMenu() {
         <div className="space-y-48 rounded-md bg-white">
           <ul>
             <li className="p-5 sm:p-3 sm:text-[14px]">
-              <Link href={"/"} className="flex flex-col hover:text-blue-600 items-center justify-center font-semibold">
-                <Image src={ContainerIcon} alt="Container icon" width={40}/>
+              <Link
+                href={"/"}
+                className="flex flex-col hover:text-blue-600 items-center justify-center font-semibold"
+              >
+                <GoContainer width={100} />
                 Container
               </Link>
             </li>
             <li className="p-5 sm:p-3 sm:text-[14px]">
-              <Link href={"/agenda"} className="flex flex-col hover:text-blue-600 items-center justify-center font-semibold">
-                <Image src={CalendarIcon} width={45} alt="Calendar icon"/>
+              <Link
+                href={"/agenda"}
+                className="flex flex-col hover:text-blue-600 items-center justify-center font-semibold"
+              >
+                <RiCalendarEventLine width={200} />
                 Agenda
               </Link>
             </li>
