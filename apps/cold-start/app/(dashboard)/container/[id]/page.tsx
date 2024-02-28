@@ -4,27 +4,27 @@
 import { Container, Props } from "@/types";
 import { BackButton } from "@smarthub/ui";
 import { useMutation, useQueryClient, useQuery } from "@tanstack/react-query";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import axios from "axios";
 import { handleSetPoint } from "@/server/actions";
-import { useAuthStore } from "@/stores/useContainer";
+import { useMsal } from "@azure/msal-react";
 
 export default function ContainerDetails({ params }: Props) {
+  const { accounts } = useMsal();
+  const jwt = accounts[0]?.idToken;
 
-  const {token} = useAuthStore()
   async function getTemperatures(): Promise<Container> {
     const response = await axios.get(
-      `http://10.234.84.66:8000/api/v1/containers/${params.id}`, {
+      `http://10.234.84.66:8000/api/v1/containers/${params.id}`,
+      {
         headers: {
-          token: token
-        }
+          token: jwt,
+        },
       }
     );
-
-    console.log(response.data);
     return response.data;
   }
-  const { data, error, isPending } = useQuery<Container>({
+  const { data, error, isPending } = useQuery({
     queryKey: ["get-temperatures"],
     queryFn: getTemperatures,
     refetchInterval: 15000,
@@ -38,7 +38,7 @@ export default function ContainerDetails({ params }: Props) {
     mutationFn: handleSetPoint,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["set-point"] });
-      setDisabled(true)
+      setDisabled(true);
     },
   });
 
@@ -49,10 +49,9 @@ export default function ContainerDetails({ params }: Props) {
   if (isPending) {
     return <p>Pending...</p>;
   }
-
   return (
     <section>
-      <BackButton page_name={`Container ${data?.device}`} />
+      <BackButton page_name={`Container ${data.device}`} />
       <div className="flex w-full gap-20">
         {/* left*/}
         <div className="w-full">
@@ -63,21 +62,21 @@ export default function ContainerDetails({ params }: Props) {
                 Temperatura Ambiente
               </h2>
               <p className="font-bold text-2xl ">
-                {data.temperatures.room_temperature} °C
+                {data.temperatures[0]?.room_temperature} °C
               </p>
             </div>
 
             <div className="border pb-4 border-gray-400 gap-7 rounded items-center flex flex-col">
               <h2 className="font-semibold p-2">Posição 1</h2>
               <p className="font-bold text-2xl pb-4">
-                {data.temperatures.temperature_1} °C
+                {data.temperatures[0]?.temperature_1} °C
               </p>
             </div>
 
             <div className="border pb-4 border-gray-400 gap-7 rounded items-center flex flex-col">
               <h2 className="font-semibold p-2">Posição 2</h2>
               <p className="font-bold text-2xl pb-4">
-                {data.temperatures.temperature_2} °C
+                {data.temperatures[0]?.temperature_2} °C
               </p>
             </div>
           </div>
