@@ -13,7 +13,7 @@ export type ContainerStore = {
 
 export interface Temperatures {
   id: number;
-  date_time: Date;
+  date_time: string;
   room_temperature: number;
   temperature_1: number;
   temperature_2: number;

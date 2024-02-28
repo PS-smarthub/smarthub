@@ -8,6 +8,7 @@ import { useState } from "react";
 import axios from "axios";
 import { handleSetPoint } from "@/server/actions";
 import { useMsal } from "@azure/msal-react";
+import { Chart } from "@/components/ChartContainer";
 
 export default function ContainerDetails({ params }: Props) {
   const { accounts } = useMsal();
@@ -83,7 +84,9 @@ export default function ContainerDetails({ params }: Props) {
 
           {/* Chart */}
           <div className="px-6 flex justify-center h-[70%] sm:h-[56%]">
-            <div className=" border border-gray-400 w-full rounded">Chart</div>
+            <div className=" border border-gray-400 w-full rounded">
+              <Chart temperatures={data.temperatures.slice(65)}/>
+            </div>
           </div>
         </div>
         {/* right*/}
