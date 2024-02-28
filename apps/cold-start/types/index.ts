@@ -21,6 +21,11 @@ export interface Temperatures {
 }
 export interface Props {
   params: {
-    id: string;
+    id: number;
   };
 }
+
+export type AuthStore = {
+  token: string,
+  setToken: (access: string) => void;
+};

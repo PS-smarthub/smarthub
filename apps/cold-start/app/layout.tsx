@@ -21,6 +21,7 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }): JSX.Element {
+
   return (
     <html lang="en" className="h-full overflow-y-hidden sm:overflow-auto">
       <body className={`bg-white ${poppins} h-full`}>
