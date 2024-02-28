@@ -11,9 +11,9 @@ import { useEffect } from "react";
 export default function Home() {
   const { containerList, setContainer } = useContainer();
   const { accounts, instance } = useMsal();
+  const user = accounts[0]
 
   const jwt = accounts[0]?.idToken;
-  console.log(jwt);
 
   const { data, isPending, error } = useQuery<Container[]>({
     queryKey: ["get-container-list"],
@@ -33,15 +33,13 @@ export default function Home() {
   if (isPending) {
     return <p>Pending...</p>;
   }
-  
 
-  if(error) {
-      //@ts-ignore
-    error.response.status == 403 ? 
-      instance.logout() : <p>{error.message}</p>
-    
+  if (error) {
+    //@ts-ignore
+    error.response.status == 403 ? instance.logout() : <p>{error.message}</p>;
   }
   
+
   return (
     <section className="flex justify-center items-center h-[90%] sm:h-[100%]">
       <div className="grid grid-cols-4 gap-16 sm:gap-12 w-[90%]">

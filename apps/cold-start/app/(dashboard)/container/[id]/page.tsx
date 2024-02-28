@@ -2,6 +2,7 @@
 
 // import { SparkIcon } from "@bosch-web-dds/spark-ui-react";
 import { Container, Props } from "@/types";
+import { callMsGraph } from "@/lib/teams";
 import { BackButton } from "@smarthub/ui";
 import { useMutation, useQueryClient, useQuery } from "@tanstack/react-query";
 import { useState } from "react";
@@ -11,8 +12,20 @@ import { useMsal } from "@azure/msal-react";
 import { Chart } from "@/components/ChartContainer";
 
 export default function ContainerDetails({ params }: Props) {
-  const { accounts } = useMsal();
+  const { accounts, instance } = useMsal();
   const jwt = accounts[0]?.idToken;
+
+  const handleSendEmail = (position: string) => {
+    instance
+      .acquireTokenSilent({
+        account: accounts[0],
+        scopes: [],
+      })
+      .then((response: any) => {
+        //@ts-ignore
+        callMsGraph(response.accessToken, accounts[0].username, position);
+      });
+  };
 
   async function getTemperatures(): Promise<Container> {
     const response = await axios.get(
@@ -34,6 +47,7 @@ export default function ContainerDetails({ params }: Props) {
   const [setPoint1, setSetPoint1] = useState<number>();
   const [setPoint2, setSetPoint2] = useState<number>();
   const [disabled, setDisabled] = useState(true);
+  const [sendEmail, setSendEmail] = useState(false);
 
   const mutation = useMutation({
     mutationFn: handleSetPoint,
@@ -50,6 +64,19 @@ export default function ContainerDetails({ params }: Props) {
   if (isPending) {
     return <p>Pending...</p>;
   }
+
+  if (sendEmail) {
+    if (data.temperatures[0]?.temperature_1 == data.set_point_1) {
+      handleSendEmail("posição 1");
+      setSendEmail(false);
+    }
+
+    if (data.temperatures[0]?.temperature_2 == data.set_point_2) {
+      handleSendEmail("posição 2");
+      setSendEmail(false);
+    }
+  }
+
   return (
     <section>
       <BackButton page_name={`Container ${data.device}`} />
@@ -85,7 +112,7 @@ export default function ContainerDetails({ params }: Props) {
           {/* Chart */}
           <div className="px-6 flex justify-center h-[70%] sm:h-[56%]">
             <div className=" border border-gray-400 w-full rounded">
-              <Chart temperatures={data.temperatures.slice(65)}/>
+              <Chart temperatures={data.temperatures.slice(65)} />
             </div>
           </div>
         </div>
@@ -136,13 +163,14 @@ export default function ContainerDetails({ params }: Props) {
             <div className="w-[72%] h-[22rem] text-center rounded border flex justify-center items-center border-gray-400 sm:w-[72%] sm:h-[11rem]">
               <button
                 disabled={disabled}
-                onClick={() =>
+                onClick={() => {
+                  setSendEmail(true);
                   mutation.mutate({
                     container_id: data?.id,
                     set_point_1: setPoint1 ? setPoint1 : data.set_point_1,
                     set_point_2: setPoint2 ? setPoint2 : data.set_point_2,
-                  })
-                }
+                  });
+                }}
                 className="bg-green-400 font-semibold hover:bg-green-500 text-white p-2 rounded disabled:bg-gray-500 disabled:cursor-not-allowed"
               >
                 Salvar
