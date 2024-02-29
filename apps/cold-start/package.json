@@ -19,6 +19,7 @@
     "@microsoft/microsoft-graph-client": "^3.0.7",
     "@radix-ui/react-dialog": "^1.0.5",
     "@radix-ui/react-toast": "^1.1.5",
+    "@radix-ui/react-tooltip": "^1.0.7",
     "@smarthub/ui": "*",
     "@tanstack/react-query": "^5.22.2",
     "axios": "^1.6.7",

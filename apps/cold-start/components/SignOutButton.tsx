@@ -1,14 +1,16 @@
 "use client";
 import { useMsal } from "@azure/msal-react";
+import LogoutRed from "@/public/logout-red.svg"
+import Image from "next/image";
 
 export default function SignOutButton() {
   const { instance } = useMsal();
   return (
     <button
       onClick={() => instance.logoutRedirect()}
-      className="bg-red-500 p-2 text-white font-semibold rounded"
+      className="w-full flex justify-center "
     >
-      Logout
+      <Image src={LogoutRed} alt="Logout icon" className="w-[35px] fixed bottom-8 p-1"/>
     </button>
   );
 }

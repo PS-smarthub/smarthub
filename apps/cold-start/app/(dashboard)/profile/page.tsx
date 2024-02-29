@@ -4,6 +4,7 @@ import Image from "next/image";
 import UserIcon from "@/public/user.svg";
 import { BackButton } from "@smarthub/ui";
 import { useMsal } from "@azure/msal-react";
+import { FiLogOut } from "react-icons/fi";
 
 export default function Profile() {
   const { accounts } = useMsal();
@@ -14,7 +15,7 @@ export default function Profile() {
 
   return (
     <section className="p-6">
-      <BackButton page_name="Profile" />
+      <BackButton page_name="Perfil" />
       <div className="flex w-full">
         <div className="w-[50%] p-14 flex gap-10">
           <Image
@@ -31,7 +32,7 @@ export default function Profile() {
           <h1 className="font-semibold border-b border-gray-400">
             Meus Agendamentos
           </h1>
-          <div>
+          <div> 
             {agendamentos.lenght > 0 ? (
               agendamentos.map(() => <div key={1}></div>)
             ) : (

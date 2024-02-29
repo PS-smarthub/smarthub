@@ -2,6 +2,7 @@ import Image from "next/image";
 import UserIcon from "@/public/user.svg";
 import Link from "next/link";
 import Logo from "@/public/Logo.svg";
+import ToolTip from "./ToolTip";
 
 export default function Header() {
   return (
@@ -15,13 +16,16 @@ export default function Header() {
             <h1>COLD START</h1>
             <Image src={Logo} alt="Cold Start logo" className="w-[40px]" />
           </a>
+
           <Link href="/profile" className="p-2">
-            <Image
-              src={UserIcon}
-              alt="User icon"
-              className="bg-blue-50 rounded-full p-1 w-[40px] hover:bg-blue-600"
-              priority
-            />
+            <ToolTip text="Perfil">
+              <Image
+                src={UserIcon}
+                alt="User icon"
+                className="bg-blue-50 rounded-full p-1 w-[40px] hover:bg-blue-600"
+                priority
+              />
+            </ToolTip>
           </Link>
         </div>
       </nav>

@@ -36,7 +36,7 @@ export default function Home() {
 
   if (error) {
     //@ts-ignore
-    error.response.status == 403 ? instance.logout() : <p>{error.message}</p>;
+    error.response.status == 403 && instance.logout()
   }
   
 

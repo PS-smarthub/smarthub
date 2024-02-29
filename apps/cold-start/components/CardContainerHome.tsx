@@ -1,4 +1,4 @@
-import ContainerIcon from "../public/Container-icon.svg";
+import ContainerIcon from "@/public/icon-card-container.svg";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { Container } from "../types";

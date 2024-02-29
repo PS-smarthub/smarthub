@@ -11,6 +11,7 @@ import {
 import { useForm } from "react-hook-form";
 import type { FieldValues } from "react-hook-form";
 import { useToast } from "../lib/use-toast";
+import ToolTip from "./ToolTip";
 
 export function ModalDemo() {
   const [open, setOpen] = useState(false);
@@ -24,13 +25,12 @@ export function ModalDemo() {
   } = useForm();
 
   const onSubmit = async (data: FieldValues) => {
-
     reset();
     toast({
       title: "Sucesso",
       description: new Date().toDateString(),
     });
-    setOpen(false)
+    setOpen(false);
   };
 
   return (
@@ -111,7 +111,6 @@ export function ModalDemo() {
             placeholder="Informações adicionais"
           />
           <div className="flex w-full justify-center">
-
             <button
               type="submit"
               className="bg-green-400 hover:bg-green-500 rounded text-white font-semibold p-1 w-[40%] disabled:bg-gray-600"

@@ -1,7 +1,9 @@
 "use client";
-import { RiCalendarEventLine } from "react-icons/ri";
+import CalendarIcon from "@/public/calendar-icon.svg";
+import ContainerIcon from "@/public/container-svgrepo-com.svg";
 import Link from "next/link";
-import { GoContainer } from "react-icons/go";
+import SignOutButton from "./SignOutButton";
+import Image from "next/image";
 
 export default function SideMenu() {
   return (
@@ -12,20 +14,32 @@ export default function SideMenu() {
             <li className="p-5 sm:p-3 sm:text-[14px]">
               <Link
                 href={"/"}
-                className="flex flex-col hover:text-blue-600 items-center justify-center font-semibold"
+                className="flex flex-col items-center justify-center font-semibold"
               >
-                <GoContainer width={100} />
+                <Image
+                  src={ContainerIcon}
+                  alt="Container icon"
+                  className="w-[35px]"
+                />
                 Container
               </Link>
             </li>
             <li className="p-5 sm:p-3 sm:text-[14px]">
               <Link
                 href={"/agenda"}
-                className="flex flex-col hover:text-blue-600 items-center justify-center font-semibold"
+                className="flex flex-col  items-center justify-center font-semibold"
               >
-                <RiCalendarEventLine width={200} />
+                <Image
+                  src={CalendarIcon}
+                  alt="Calendar icon"
+                  className="w-[40px]"
+                  color="blue"
+                />
                 Agenda
               </Link>
+            </li>
+            <li className="sm:p-3 sm:text-[14px] flex w-full justify-center">
+              <SignOutButton />
             </li>
           </ul>
         </div>

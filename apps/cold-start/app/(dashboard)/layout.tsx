@@ -2,11 +2,12 @@
 
 import { useMsal } from "@azure/msal-react";
 import { redirect } from "next/navigation";
-import React, { useEffect, useLayoutEffect } from "react";
+import React, { useLayoutEffect } from "react";
 import Header from "@/components/Header";
 import SideMenu from "@/components/SideMenu";
 import QueryProvider from "@/providers/QueryProvider";
 import { useAuthStore } from "@/stores/useContainer";
+import { TooltipProvider } from "@/components/ui/tooltip";
 
 export default function InsideLayout({
   children,
@@ -14,7 +15,6 @@ export default function InsideLayout({
   children: React.ReactNode;
 }) {
   const { accounts } = useMsal();
-  const { setToken } = useAuthStore();
 
   const user = accounts[0];
 
@@ -24,15 +24,15 @@ export default function InsideLayout({
     }
   }, [user]);
 
-  
-
   return (
     <QueryProvider>
-      <Header />
-      <main className="flex h-full sm:h-[88%]">
-        <SideMenu />
-        <div className="flex-1 h-full">{children}</div>
-      </main>
+      <TooltipProvider>
+        <Header />
+        <main className="flex h-full sm:h-[88%]">
+          <SideMenu />
+          <div className="flex-1 h-full">{children}</div>
+        </main>
+      </TooltipProvider>
     </QueryProvider>
   );
 }
