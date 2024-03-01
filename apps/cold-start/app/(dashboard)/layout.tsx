@@ -6,7 +6,6 @@ import React, { useLayoutEffect } from "react";
 import Header from "@/components/Header";
 import SideMenu from "@/components/SideMenu";
 import QueryProvider from "@/providers/QueryProvider";
-import { useAuthStore } from "@/stores/useContainer";
 import { TooltipProvider } from "@/components/ui/tooltip";
 
 export default function InsideLayout({
@@ -28,7 +27,7 @@ export default function InsideLayout({
     <QueryProvider>
       <TooltipProvider>
         <Header />
-        <main className="flex h-full sm:h-[88%]">
+        <main className="flex h-full sm:h-[87%]">
           <SideMenu />
           <div className="flex-1 h-full">{children}</div>
         </main>

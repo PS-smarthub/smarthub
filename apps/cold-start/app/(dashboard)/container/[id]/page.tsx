@@ -28,13 +28,17 @@ export default function ContainerDetails({ params }: Props) {
   };
 
   async function getTemperatures(): Promise<Container> {
+    // const response = await axios.get(
+    //   `http://192.168.88.24/:8000/api/v1/containers/${params.id}`,
+    //   {
+    //     headers: {
+    //       token: jwt,
+    //     },
+    //   }
+    // );
+
     const response = await axios.get(
-      `http://10.234.84.66:8000/api/v1/containers/${params.id}`,
-      {
-        headers: {
-          token: jwt,
-        },
-      }
+      `http://192.168.88.24:8000/api/v1/containers/${params.id}`
     );
     return response.data;
   }
@@ -112,7 +116,7 @@ export default function ContainerDetails({ params }: Props) {
           {/* Chart */}
           <div className="px-6 flex justify-center h-[70%] sm:h-[56%]">
             <div className=" border border-gray-400 w-full rounded">
-              <Chart temperatures={data.temperatures.slice(65)} />
+              <Chart temperatures={data.temperatures.reverse()} />
             </div>
           </div>
         </div>

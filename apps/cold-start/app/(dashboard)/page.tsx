@@ -15,15 +15,21 @@ export default function Home() {
 
   const jwt = accounts[0]?.idToken;
 
+  // const { data, isPending, error } = useQuery<Container[]>({
+  //   queryKey: ["get-container-list"],
+  //   queryFn: () =>
+  //     axios.get(`http://192.168.88.24:8000/api/v1/containers/`, {
+  //       headers: {
+  //         token: jwt,
+  //       },
+  //     }),
+  // });
+
   const { data, isPending, error } = useQuery<Container[]>({
-    queryKey: ["get-container-list"],
-    queryFn: () =>
-      axios.get(`http://10.234.84.66:8000/api/v1/containers/`, {
-        headers: {
-          token: jwt,
-        },
-      }),
-  });
+      queryKey: ["get-container-list"],
+      queryFn: () =>
+        axios.get(`http://192.168.88.24:8000/api/v1/containers/`),
+    });
 
   useEffect(() => {
     //@ts-ignore
