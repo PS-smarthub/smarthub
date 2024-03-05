@@ -10,26 +10,12 @@ import { useEffect } from "react";
 
 export default function Home() {
   const { containerList, setContainer } = useContainer();
-  const { accounts, instance } = useMsal();
-  const user = accounts[0]
-
-  const jwt = accounts[0]?.idToken;
-
-  // const { data, isPending, error } = useQuery<Container[]>({
-  //   queryKey: ["get-container-list"],
-  //   queryFn: () =>
-  //     axios.get(`http://192.168.88.24:8000/api/v1/containers/`, {
-  //       headers: {
-  //         token: jwt,
-  //       },
-  //     }),
-  // });
+  const {  instance } = useMsal();
 
   const { data, isPending, error } = useQuery<Container[]>({
-      queryKey: ["get-container-list"],
-      queryFn: () =>
-        axios.get(`http://192.168.88.24:8000/api/v1/containers/`),
-    });
+    queryKey: ["get-container-list"],
+    queryFn: () => axios.get(`http://192.168.88.20:8000/api/v1/containers/`),
+  });
 
   useEffect(() => {
     //@ts-ignore
@@ -42,9 +28,8 @@ export default function Home() {
 
   if (error) {
     //@ts-ignore
-    error.response.status == 403 && instance.logout()
+    error.response.status == 403 && instance.logout();
   }
-  
 
   return (
     <section className="flex justify-center items-center h-[90%] sm:h-[100%]">

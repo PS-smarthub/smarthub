@@ -7,6 +7,7 @@ import Header from "@/components/Header";
 import SideMenu from "@/components/SideMenu";
 import QueryProvider from "@/providers/QueryProvider";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { Toaster } from "@/components/Toaster";
 
 export default function InsideLayout({
   children,
@@ -31,6 +32,7 @@ export default function InsideLayout({
           <SideMenu />
           <div className="flex-1 h-full">{children}</div>
         </main>
+        <Toaster />
       </TooltipProvider>
     </QueryProvider>
   );

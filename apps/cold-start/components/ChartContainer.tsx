@@ -22,9 +22,10 @@ ChartJS.register(
 );
 
 export function Chart({ temperatures }: { temperatures: Temperatures[] }) {
-  const lista = temperatures.reverse();
+  const lista = temperatures
   const lista_filtrada = lista.length > 20 ? lista.slice(0, 20) : lista
 
+  lista_filtrada.reverse()
   return (
     <Line
       data={{
@@ -36,18 +37,6 @@ export function Chart({ temperatures }: { temperatures: Temperatures[] }) {
             backgroundColor: "#064FF0",
             borderColor: "#064FF0",
           },
-          // {
-          //   label: "Posição 1",
-          //   data: lista_filtrada.map((temperature) => temperature.temperature_1),
-          //   backgroundColor: "#00FF00",
-          //   borderColor: "#00FF00",
-          // },
-          // {
-          //   label: "Posição 2",
-          //   data: lista_filtrada.map((temperature) => temperature.temperature_2),
-          //   backgroundColor: "#FF0000",
-          //   borderColor: "#FF0000",
-          // },
         ],
       }}
     />

@@ -10,8 +10,7 @@ import {
 } from "./Modal";
 import { useForm } from "react-hook-form";
 import type { FieldValues } from "react-hook-form";
-import { useToast } from "../lib/use-toast";
-import ToolTip from "./ToolTip";
+import { useToast } from "@/lib/use-toast";
 
 export function ModalDemo() {
   const [open, setOpen] = useState(false);
@@ -27,8 +26,10 @@ export function ModalDemo() {
   const onSubmit = async (data: FieldValues) => {
     reset();
     toast({
+      duration: 1500,
+      variant: "success",
       title: "Sucesso",
-      description: new Date().toDateString(),
+      description: "Container agendado com sucesso",
     });
     setOpen(false);
   };
