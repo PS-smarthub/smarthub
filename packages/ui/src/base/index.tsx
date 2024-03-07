@@ -1,4 +1,2 @@
-export * from './BackButton'
-export * from './Toast'
-export * from './Header'
-export * from './NotFound'
+export * from './back-button'
+export * from './not-found'

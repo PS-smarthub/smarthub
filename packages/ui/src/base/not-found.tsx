@@ -1,5 +1,3 @@
-import { HiOutlineArrowLongRight } from "react-icons/hi2";
-
 export const NotFound = () => {
   return (
     <main className="w-full h-full flex items-center">
