@@ -1,19 +1,15 @@
 import Link from "next/link";
+import { ModeToggle } from "@smarthub/ui";
 
 export default function Header() {
   return (
-    <nav className="m-auto w=full px-20 border-b border-gray-600">
+    <nav className="m-auto w=full border-b">
       <div className="flex items-center gap-8 justify-between py-6">
-        <Link href={"/"} className=" font-semibold hover:opacity-90">
+        <Link href={"/"} className="pl-20 font-semibold hover:opacity-90 lg:text-xl">
           SMARTHUB
         </Link>
-        <div className="flex items-center gap-4">
-          <Link
-            href="/#features"
-            className="font-medium text-sm hover:opacity-90"
-          >
-            Features
-          </Link>
+        <div className="flex items-center gap-4 pr-8">
+          <ModeToggle/>
         </div>
       </div>
     </nav>

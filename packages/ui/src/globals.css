@@ -34,11 +34,13 @@
     --ring: 215 20.2% 65.1%;
 
     --radius: 0.5rem;
+
+    --blue-base: 203, 73%, 50%
   }
 
   .dark {
     --background: 240 10% 3.9%;
-    --foreground: 213 31% 91%;
+    --foreground:  0 0% 98%;;
 
     --muted: 223 47% 11%;
     --muted-foreground: 215.4 16.3% 56.9%;
@@ -52,8 +54,8 @@
     --border: 216 34% 17%;
     --input: 216 34% 17%;
 
-    --card: 224 71% 4%;
-    --card-foreground: 213 31% 91%;
+    --card: 240 10% 3.9%;
+    --card-foreground: 0 0% 98%;
 
     --primary: 0 0% 98%;
     --primary-foreground: 222.2 47.4% 1.2%;
@@ -67,5 +69,13 @@
     --ring: 216 34% 17%;
 
     --radius: 0.5rem;
+  }
+}
+@layer base {
+  *{
+    @apply border-border
+  }
+  body{
+    @apply bg-background text-foreground;
   }
 }

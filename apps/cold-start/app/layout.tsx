@@ -2,10 +2,11 @@ import "@smarthub/ui/src/globals.css";
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import MSALProvider from "@/providers/MsalProvider";
+import { ThemeProvider } from "@smarthub/ui";
 
 const poppins = Poppins({
-  preload: false,
-  weight: ["100", "200", "300", "400", "500", "600", "700"],
+  subsets: ["latin"],
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
 });
 
 export const metadata: Metadata = {
@@ -22,9 +23,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }): JSX.Element {
   return (
-    <html lang="en" className="h-full overflow-y-hidden sm:overflow-auto">
-      <body className={`bg-white ${poppins} h-full`}>
-        <MSALProvider>{children}</MSALProvider>
+    <html lang="en" suppressHydrationWarning className="h-full overflow-y-hidden sm:overflow-auto">
+      <body className={`${poppins.className} h-full`}>
+        <ThemeProvider enableSystem defaultTheme="system" attribute="class">
+          <MSALProvider>{children}</MSALProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

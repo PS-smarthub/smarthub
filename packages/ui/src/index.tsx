@@ -1,4 +1,5 @@
-import './globals.css'
+import "./globals.css";
 
-export * from './base'
-export * from './components'
+export * from "./base";
+export * from "./components";
+export * from "./lib/theme";
