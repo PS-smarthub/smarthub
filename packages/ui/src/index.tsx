@@ -1,4 +1,4 @@
-import './index.css'
+import './globals.css'
 
 export * from './base'
 export * from './components'

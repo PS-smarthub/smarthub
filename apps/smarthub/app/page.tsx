@@ -1,9 +1,9 @@
 
 
-export default function Page(): JSX.Element {
+export default function Home() {
   return (
     <div>
-      <h1 className="text-red-400">Smarthub</h1>
+      
       
     </div>
   );
