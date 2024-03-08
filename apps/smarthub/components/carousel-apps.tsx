@@ -1,29 +1,31 @@
 import {
+  Card,
+  CardContent,
   Carousel,
-  CarouselItem,
   CarouselContent,
-  CarouselPrevious,
+  CarouselItem,
   CarouselNext,
-} from "../ui/carousel";
-import { Card, CardContent, CardTitle } from "../ui/card";
+  CarouselPrevious,
+} from "@smarthub/ui";
 import Image from "next/image";
-import ColdStartLogo from "../../assets/Bosch_symbol_logo_black.svg";
+import ColdStartLogo from "@/public/cold-start-logo-white.svg"
 
-export function CarouselApps() {
+export default function CarouselApps() {
   return (
     <Carousel
       opts={{
-        align: "center",
+        align: "start",
       }}
-      className="w-full max-w-4xl"
+      className="w-full sm:max-w-3xl"
     >
       <CarouselContent>
         {Array.from({ length: 5 }).map((_, index) => (
           <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
             <div className="p-1">
               <Card>
-                <CardContent className="flex w-full items-center justify-center p-6  ">
-                  <Image alt="App Image" src={ColdStartLogo} className="w-[200px] h-[200px]"/>
+                <CardContent className="flex flex-col aspect-square items-center justify-between p-6">
+                  <Image src={ColdStartLogo} alt="App image" className="w-[150px]"/>
+                  <p className="">Cold Start</p>
                 </CardContent>
               </Card>
             </div>
