@@ -1,6 +1,6 @@
 "use client";
 
-import SignInButton from "@/components/SignInButton";
+import SignInButton from "@/components/sign-in-button";
 import Image from "next/image";
 import login_image from "@/public/mockup-mac.svg";
 import { useMsal } from "@azure/msal-react";

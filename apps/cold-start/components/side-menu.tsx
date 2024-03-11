@@ -2,7 +2,7 @@
 import CalendarIcon from "@/public/calendar-icon.svg";
 import ContainerIcon from "@/public/container-svgrepo-com.svg";
 import Link from "next/link";
-import SignOutButton from "./SignOutButton";
+import SignOutButton from "./sign-out-button";
 import Image from "next/image";
 
 export default function SideMenu() {

@@ -4,7 +4,6 @@ import Image from "next/image";
 import UserIcon from "@/public/user.svg";
 import { BackButton } from "@smarthub/ui";
 import { useMsal } from "@azure/msal-react";
-import { FiLogOut } from "react-icons/fi";
 
 export default function Profile() {
   const { accounts } = useMsal();

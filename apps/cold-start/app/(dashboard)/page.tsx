@@ -1,6 +1,6 @@
 "use client";
 
-import { CardContainerHome } from "@/components/CardContainerHome";
+import { CardContainerHome } from "@/components/card-container-home";
 import { useContainer } from "@/stores/useContainer";
 import { Container } from "@/types";
 import { useMsal } from "@azure/msal-react";

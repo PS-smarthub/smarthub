@@ -24,7 +24,7 @@ export default function CarouselApps() {
     <>
       {appList.length == 1 ? (
           <div className="p-4">
-            <Card>
+            <Card className="">
               <CardContent className="flex flex-col gap-2 aspect-square items-center justify-between p-10">
                 <Image
                   src={appList[0]?.logo}

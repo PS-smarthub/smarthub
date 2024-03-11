@@ -9,7 +9,7 @@ import { useState } from "react";
 import axios from "axios";
 import { handleSetPoint } from "@/server/actions";
 import { useMsal } from "@azure/msal-react";
-import { Chart } from "@/components/ChartContainer";
+import { Chart } from "@/components/chart-container";
 
 export default function ContainerDetails({ params }: Props) {
   const { accounts, instance } = useMsal();

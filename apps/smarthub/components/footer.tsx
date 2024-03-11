@@ -3,35 +3,19 @@ import React from "react";
 
 export default function Footer() {
   return (
-    <footer className="bg-gray-200">
-      <div className="container flex flex-wrap items-center justify-center px-4 py-8 mx-auto  lg:justify-between">
-        <div className="flex flex-wrap justify-center">
-          <ul className="flex items-center space-x-4">
-            <li><Link href={"/"}>Home</Link></li>
-            <li><Link href={"/about"}>About</Link></li>
-            <li><Link href={"/contact"}>Contact US</Link></li>
-            <li><Link href={"/terms"}>Terms & Condition</Link></li>
-          </ul>
+    <footer className="bg-gray-300 text-gray-500 py-6">
+      <div className="container mx-auto px-4 md:px-6 flex flex-col md:flex-row items-center justify-between">
+        <div className="text-center md:text-left mb-4 md:mb-0">
+          <p className="text-sm">© 2024 Smarthub Inc. All rights reserved.</p>
         </div>
-        <div className="flex justify-center space-x-4 mt-4 lg:mt-0">
-          <Link href={""}>
-            1
-          </Link>
-          <Link href={""}>
-            1
-          </Link>
-          <Link href={""}>
-            1
-          </Link>
-          <Link href={""}>
-            1
+        <div className="flex items-center justify-center space-x-4">
+          <Link
+            className="text-gray-400 hover:text-gray-100 transition-colors"
+            href="#"
+          >
+            YouTube
           </Link>
         </div>
-      </div>
-      <div className="pb-2">
-        <p className="text-center">
-          @2024 All rights reserved by your website.
-        </p>
       </div>
     </footer>
   );
