@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import { ThemeProvider } from "@smarthub/ui";
-import "@smarthub/ui/src/globals.css"
+import "@smarthub/ui/src/globals.css";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -21,7 +21,6 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning className="h-full">
       <body className={`${poppins.className} h-full`}>
-
         <ThemeProvider defaultTheme="system" attribute="class">
           {children}
         </ThemeProvider>

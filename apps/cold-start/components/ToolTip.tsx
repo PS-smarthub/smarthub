@@ -8,7 +8,7 @@ export default function ToolTip({ children, text }: { children: React.ReactNode,
   return (
       <Tooltip>
         <TooltipTrigger>{children}</TooltipTrigger>
-        <TooltipContent className="border-0 text-s font-semibold">
+        <TooltipContent className="border-0 text-s font-semibold dark:text-gray-600">
           <p>{text}</p>
         </TooltipContent>
       </Tooltip>

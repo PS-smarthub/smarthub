@@ -3,8 +3,8 @@
 import { useMsal } from "@azure/msal-react";
 import { redirect } from "next/navigation";
 import React, { useLayoutEffect } from "react";
-import Header from "@/components/Header";
-import SideMenu from "@/components/SideMenu";
+import Header from "@/components/header";
+import SideMenu from "@/components/side-menu";
 import QueryProvider from "@/providers/QueryProvider";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Toaster } from "@/components/Toaster";

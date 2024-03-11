@@ -25,7 +25,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning className="h-full overflow-y-hidden sm:overflow-auto">
       <body className={`${poppins.className} h-full`}>
-        <ThemeProvider enableSystem defaultTheme="system" attribute="class">
+        <ThemeProvider defaultTheme="system" attribute="class">
           <MSALProvider>{children}</MSALProvider>
         </ThemeProvider>
       </body>

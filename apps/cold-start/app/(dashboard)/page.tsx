@@ -23,7 +23,7 @@ export default function Home() {
   }, [data]);
 
   if (isPending) {
-    return <p>Pending...</p>;
+    return <p className="p-2">Pending...</p>;
   }
 
   if (error) {

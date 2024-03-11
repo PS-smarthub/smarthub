@@ -19,7 +19,7 @@ export default function LoginPage() {
   return (
     <>
       <div className="w-full h-full flex">
-        <div className="w-[50%] h-full dark:bg-blue-950 bg-blue-400 flex items-center justify-center">
+        <div className="w-[50%] h-full bg-blue-600 dark:bg-blue-25 flex items-center justify-center">
           <Image alt="Image login page" src={login_image} priority />
         </div>
         <div className="w-[50%] h-full flex justify-center items-center">

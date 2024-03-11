@@ -6,7 +6,7 @@ import ToolTip from "./ToolTip";
 
 export default function Header() {
   return (
-    <header className="w-[100%] select-none border-5 border-b border-gray-300 bg-white">
+    <header className="w-[100%] select-none border-5 border-b">
       <nav className="py-3 px-1">
         <div className="flex items-center justify-between pl-14 pr-10">
           <a
