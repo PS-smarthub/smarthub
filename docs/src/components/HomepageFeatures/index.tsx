@@ -11,7 +11,7 @@ type FeatureItem = {
 const FeatureList: FeatureItem[] = [
   {
     title: 'Cold Start',
-    Svg: require('@site/static/img/undraw_docusaurus_mountain.svg').default,
+    Svg: require('@site/static/img/cold-start-logo-blue.svg').default,
     description: (
       <>
         Uma aplicação web utilizada para a visualização e controle de temperaturas dos containers utilizados nos testes dos carros da PS

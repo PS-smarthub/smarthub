@@ -1,8 +1,8 @@
 {
-  "label": "introducao",
+  "label": "Introdução",
   "position": 2,
   "link": {
     "type": "generated-index",
-    "description": "5 minutes to learn the most important Docusaurus concept"
+    "description": "O Smarthub é um servidor de aplicativos, que surgiu a partir de um projeto de TCC dos alunos da ETS. "
   }
 }
