@@ -29,7 +29,7 @@ export default function InsideLayout({
     <QueryProvider>
       <TooltipProvider>
         <Header />
-        <main  className="flex h-full sm:h-[87%]">
+        <main  className="flex h-screen sm:h-[87%]">
           <SideMenu />
           <div className="flex-1 h-full">{children}</div>
         </main>

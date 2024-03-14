@@ -10,11 +10,16 @@ import { useEffect } from "react";
 
 export default function Home() {
   const { containerList, setContainer } = useContainer();
-  const {  instance } = useMsal();
+  const {  instance, accounts } = useMsal();
 
+  console.log(accounts[0]?.idToken)
   const { data, isPending, error } = useQuery<Container[]>({
     queryKey: ["get-container-list"],
-    queryFn: () => axios.get(`http://192.168.88.20:8000/api/v1/containers/`),
+    queryFn: () => axios.get(`http://10.234.84.66:8000/api/v1/containers/`, {
+      headers: {
+        "token": accounts[0]?.idToken
+      }
+    }),
   });
 
   useEffect(() => {

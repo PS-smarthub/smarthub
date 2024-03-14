@@ -27,9 +27,13 @@ export default function ContainerDetails({ params }: Props) {
   };
 
   async function getTemperatures(): Promise<Container> {
-
     const response = await axios.get(
-      `http://192.168.88.20:8000/api/v1/containers/${params.id}`
+      `http://10.234.84.66:8000/api/v1/containers/${params.id}`,
+      {
+        headers: {
+          token: accounts[0]?.idToken,
+        },
+      }
     );
     return response.data;
   }

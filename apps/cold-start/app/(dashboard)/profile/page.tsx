@@ -27,8 +27,8 @@ export default function Profile() {
             <p>{user?.username}</p>
           </div>
         </div>
-        <div className="w-[50%] border border-gray-400 rounded py-4 px-6">
-          <h1 className="font-semibold border-b border-gray-400">
+        <div className="w-[50%] border rounded py-4 px-6">
+          <h1 className="font-semibold border-b ">
             Meus Agendamentos
           </h1>
           <div> 

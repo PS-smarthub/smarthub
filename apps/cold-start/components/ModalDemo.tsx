@@ -46,7 +46,7 @@ export function ModalDemo() {
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px] rounded border">
         <DialogHeader>
-          <DialogTitle className="text-left font-bold text-sm border-b border-gray-300 px-2 pb-4">
+          <DialogTitle className="text-left font-bold text-sm border-b  px-2 pb-4">
             Agendamento
           </DialogTitle>
         </DialogHeader>

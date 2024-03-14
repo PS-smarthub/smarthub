@@ -23,11 +23,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }): JSX.Element {
   return (
-    <html lang="en" suppressHydrationWarning className="h-full overflow-y-hidden sm:overflow-auto">
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className="h-full lg:overflow-y-hidden sm:overflow-auto"
+    >
       <body className={`${poppins.className} h-full`}>
-        <ThemeProvider defaultTheme="system" attribute="class">
-          <MSALProvider>{children}</MSALProvider>
-        </ThemeProvider>
+        <MSALProvider>{children}</MSALProvider>
       </body>
     </html>
   );
