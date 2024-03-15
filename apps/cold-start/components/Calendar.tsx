@@ -4,72 +4,42 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ModalDemo } from "./ModalDemo";
-
-interface Event {
-  title: string;
-  start: Date | string;
-  allDay: boolean;
-  id: number;
-}
+import { useQuery } from "@tanstack/react-query";
+import { Scheduling, SchedulingResponse } from "@/types";
+import { useMsal } from "@azure/msal-react";
+import axios from "axios";
 
 export default function Calendar() {
-  const [events, setEvents] = useState([
-    { title: "event 1", id: 1, date: "2024-02-08" },
-    { title: "event 2", id: 2, date: "2024-04-01" },
-    { title: "event 3", id: 3, date: "2024-04-01" },
-    { title: "event 4", id: 4, date: "2024-04-01" },
-  ]);
+  const schedulings: Scheduling[] = [];
+  const { accounts } = useMsal();
+  interface Event {}
+  const { data, isPending, error } = useQuery({
+    queryKey: ["get-schedulings"],
+    queryFn: () =>
+      axios.get(
+        `http://10.234.84.66:8000/api/v1/schedules/?month=false&year=false`,
+        {
+          headers: {
+            token: accounts[0]?.idToken,
+          },
+        }
+      ),
+  });
 
-  const eventList = [
-    {
-      duration: "02:00",
-      date: "2024-02-08",
-      title: "google",
-      allDay: true,
-      start: new Date(),
-    },
-    {
-      duration: "02:00",
-      date: "2024-02-08",
-      title: "test",
-      allDay: false,
-    },
-    {
-      duration: "02:00",
-      date: "2024-02-08",
-      title: "test",
-      allDay: false,
-    },
-    {
-      duration: "02:00",
-      date: "2024-02-28",
-      title: "test",
-      allDay: false,
-    },
-    {
-      duration: "02:00",
-      date: "2024-02-28",
-      title: "test",
-      allDay: false,
-      start: new Date(),
-    },
-    {
-      duration: "02:00",
-      date: "2024-02-28",
-      title: "test",
-      allDay: false,
-      start: new Date(),
-    },
-    {
-      duration: "02:00",
-      date: "2024-02-28",
-      title: "test",
-      allDay: true,
-      start: new Date(),
-    },
-  ];
+  useEffect(() => {
+    if (data) {
+      data.data.map((data: SchedulingResponse) => {
+        schedulings.push({
+          allDay: false,
+          date: data.initial_date_time,
+          title: "Agendamento",
+        });
+      });
+    }
+  }, [data]);
+
   return (
     <div className="w-[60%] overflow-auto">
       <FullCalendar
@@ -83,8 +53,8 @@ export default function Calendar() {
         allDaySlot={true}
         height={700}
         dayMaxEventRows={3}
-        events={eventList}
         locale={"br"}
+        events={schedulings}
         editable={true}
         selectMirror={true}
         selectable={true}

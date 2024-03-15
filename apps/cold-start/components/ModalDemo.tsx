@@ -11,9 +11,14 @@ import {
 import { useForm } from "react-hook-form";
 import type { FieldValues } from "react-hook-form";
 import { useToast } from "@/lib/use-toast";
+import { Scheduling } from "@/types";
+import { useMsal } from "@azure/msal-react";
 
 export function ModalDemo() {
   const [open, setOpen] = useState(false);
+  const {accounts} = useMsal()
+  const username = accounts[0]?.username
+
   const { toast } = useToast();
   const {
     register,
@@ -24,6 +29,7 @@ export function ModalDemo() {
   } = useForm();
 
   const onSubmit = async (data: FieldValues) => {
+    
     reset();
     toast({
       duration: 1500,
