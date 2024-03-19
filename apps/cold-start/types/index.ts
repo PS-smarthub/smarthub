@@ -28,7 +28,7 @@ export interface Scheduling {
 export interface SchedulingResponse {
   initial_date_time: string;
   ending_date_time: string;
-  user_id: string;
+  user_id?: string;
   container_id: number;
 }
 export interface Props {

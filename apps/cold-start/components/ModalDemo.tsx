@@ -11,13 +11,15 @@ import {
 import { useForm } from "react-hook-form";
 import type { FieldValues } from "react-hook-form";
 import { useToast } from "@/lib/use-toast";
-import { Scheduling } from "@/types";
+import { Scheduling, SchedulingResponse } from "@/types";
 import { useMsal } from "@azure/msal-react";
+import axios from "axios";
+import { useMutation } from "@tanstack/react-query";
 
 export function ModalDemo() {
   const [open, setOpen] = useState(false);
-  const {accounts} = useMsal()
-  const username = accounts[0]?.username
+  const { accounts } = useMsal();
+  const username = accounts[0]?.username;
 
   const { toast } = useToast();
   const {
@@ -29,15 +31,37 @@ export function ModalDemo() {
   } = useForm();
 
   const onSubmit = async (data: FieldValues) => {
-    
-    reset();
-    toast({
-      duration: 1500,
-      variant: "success",
-      title: "Sucesso",
-      description: "Container agendado com sucesso",
-    });
-    setOpen(false);
+    try {
+      const response = axios.post(
+        "http://10.234.84.66:8000/api/v1/schedules",
+        {
+          ending_date_time: getValues("startDate"),
+          initial_date_time: getValues("finalDate"),
+          container_id: getValues("container"),
+        },
+        {
+          headers: {
+            token: accounts[0]?.idToken,
+          },
+        }
+      );
+
+      reset();
+      toast({
+        duration: 1500,
+        variant: "success",
+        title: "Sucesso",
+        description: "Container agendado com sucesso",
+      });
+      setOpen(false);
+    } catch {
+      toast({
+        duration: 1500,
+        variant: "destructive",
+        title: "Error",
+        description: "Erro para agendar o container",
+      });
+    }
   };
 
   return (
@@ -94,17 +118,18 @@ export function ModalDemo() {
               <option value="" disabled selected>
                 Container...
               </option>
-              <option value="container_1">Container 1</option>
-              <option value="container_2">Container 2</option>
-              <option value="container_3">Container 3</option>
-              <option value="container_4">Container 4</option>
-              <option value="container_5">Container 5</option>
-              <option value="container_6">Container 6</option>
-              <option value="container_7">Container 7</option>
-              <option value="container_8">Container 8</option>
-              <option value="container_9">Container 9</option>
-              <option value="container_10">Container 10</option>
-              <option value="container_11">Container 11</option>
+              <option value="1">Container 1</option>
+              <option value="2">Container 2</option>
+              <option value="3">Container 3</option>
+              <option value="4">Container 4</option>
+              <option value="5">Container 5</option>
+              <option value="6">Container 6</option>
+              <option value="7">Container 7</option>
+              <option value="8">Container 8</option>
+              <option value="9">Container 9</option>
+              <option value="10">Container 10</option>
+              <option value="11">Container 11</option>
+              <option value="12">Container 12</option>
             </select>
             {errors.container?.message && (
               <p className="text-red-500">{`${errors.container.message}`}</p>

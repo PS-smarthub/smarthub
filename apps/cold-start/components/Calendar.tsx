@@ -4,7 +4,6 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
-import { useEffect, useState } from "react";
 import { ModalDemo } from "./ModalDemo";
 import { useQuery } from "@tanstack/react-query";
 import { Scheduling, SchedulingResponse } from "@/types";
@@ -13,8 +12,8 @@ import axios from "axios";
 
 export default function Calendar() {
   const schedulings: Scheduling[] = [];
+
   const { accounts } = useMsal();
-  interface Event {}
   const { data, isPending, error } = useQuery({
     queryKey: ["get-schedulings"],
     queryFn: () =>
@@ -24,21 +23,19 @@ export default function Calendar() {
           headers: {
             token: accounts[0]?.idToken,
           },
-        }
+        },
       ),
   });
+  
+  data?.data.forEach((element: SchedulingResponse) => {
+    schedulings.push({
+        allDay: true,
+        date: element.initial_date_time,
+        title: `Container ${element.container_id}`
+    })
+  });
 
-  useEffect(() => {
-    if (data) {
-      data.data.map((data: SchedulingResponse) => {
-        schedulings.push({
-          allDay: false,
-          date: data.initial_date_time,
-          title: "Agendamento",
-        });
-      });
-    }
-  }, [data]);
+  console.log(schedulings)
 
   return (
     <div className="w-[60%] overflow-auto">
