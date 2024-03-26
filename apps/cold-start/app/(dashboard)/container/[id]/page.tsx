@@ -78,7 +78,7 @@ export default function ContainerDetails({ params }: Props) {
 
   return (
     <section>
-      <BackButton page_name={`${data.device}`} />
+      <BackButton page_name={data.device} />
       <div className="flex w-full gap-20">
         {/* left*/}
         <div className="w-full">

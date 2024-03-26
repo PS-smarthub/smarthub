@@ -18,24 +18,22 @@ export default function Calendar() {
     queryKey: ["get-schedulings"],
     queryFn: () =>
       axios.get(
-        `http://10.234.84.66:8000/api/v1/schedules/?month=false&year=false`,
+        `${process.env.API_URL}/schedules/?month=false&year=false`,
         {
           headers: {
             token: accounts[0]?.idToken,
           },
-        },
+        }
       ),
   });
-  
+
   data?.data.forEach((element: SchedulingResponse) => {
     schedulings.push({
-        allDay: true,
-        date: element.initial_date_time,
-        title: `Container ${element.container_id}`
-    })
+      allDay: true,
+      date: element.initial_date_time,
+      title: `Container ${element.container_id}`,
+    });
   });
-
-  console.log(schedulings)
 
   return (
     <div className="w-[60%] overflow-auto">

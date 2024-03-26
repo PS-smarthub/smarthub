@@ -57,18 +57,6 @@ export function Chart({ temperatures }: { temperatures: Temperatures[] }) {
             backgroundColor: "#00884A",
             borderColor: "#00884A",
           },
-          {
-            label: "Posição 1",
-            data: lista_filtrada.map((temperature) => temperature.temperature_1),
-            backgroundColor: "#ED0007",
-            borderColor: "#ED0007",
-          },
-          {
-            label: "Posição 1",
-            data: lista_filtrada.map((temperature) => temperature.temperature_2),
-            backgroundColor: "#00884A",
-            borderColor: "#00884A",
-          },
         ],
       }}
     />

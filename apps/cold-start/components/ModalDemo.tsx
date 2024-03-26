@@ -10,43 +10,36 @@ import {
 } from "./modal";
 import { IoMdAdd } from "react-icons/io";
 import { useForm } from "react-hook-form";
-import type { FieldValues } from "react-hook-form";
 import { useToast } from "@/lib/use-toast";
 import { Scheduling, SchedulingResponse } from "@/types";
 import { useMsal } from "@azure/msal-react";
 import axios from "axios";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 export function ModalDemo() {
   const [open, setOpen] = useState(false);
   const { accounts } = useMsal();
-  const username = accounts[0]?.username;
 
   const { toast } = useToast();
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { errors, isLoading },
     reset,
     getValues,
   } = useForm();
-
-  const onSubmit = async (data: FieldValues) => {
-    try {
-      const response = axios.post(
-        "http://10.234.84.66:8000/api/v1/schedules",
-        {
-          ending_date_time: getValues("startDate"),
-          initial_date_time: getValues("finalDate"),
-          container_id: getValues("container"),
+  const queryClient = useQueryClient();
+  const mutation = useMutation({
+    mutationFn: async (newSchedule: SchedulingResponse) => {
+      return await axios.post(`${process.env.API_URL}/schedules`, newSchedule, {
+        headers: {
+          token: accounts[0]?.idToken,
         },
-        {
-          headers: {
-            token: accounts[0]?.idToken,
-          },
-        }
-      );
+      });
+    },
 
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["get-schedulings"] });
       reset();
       toast({
         duration: 1500,
@@ -55,15 +48,16 @@ export function ModalDemo() {
         description: "Container agendado com sucesso",
       });
       setOpen(false);
-    } catch {
+    },
+    onError: () => {
       toast({
         duration: 1500,
         variant: "destructive",
         title: "Error",
         description: "Erro para agendar o container",
       });
-    }
-  };
+    },
+  });
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -72,7 +66,7 @@ export function ModalDemo() {
           onClick={() => setOpen(true)}
           className="bg-blue-50 hover:bg-blue-600 rounded-full p-4 text-white w-[50px] h-[50px] flex items-center justify-center fixed bottom-10 right-14 font-semibold"
         >
-          <IoMdAdd color="white" size={40}/>
+          <IoMdAdd color="white" size={40} />
         </button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px] rounded border">
@@ -83,7 +77,13 @@ export function ModalDemo() {
         </DialogHeader>
         <form
           className="flex flex-col justify-start gap-4 py-4"
-          onSubmit={handleSubmit(onSubmit)}
+          onSubmit={handleSubmit(() =>
+            mutation.mutate({
+              ending_date_time: getValues("startDate"),
+              initial_date_time: getValues("finalDate"),
+              container_id: getValues("container"),
+            })
+          )}
         >
           <div className="flex gap-4 items-center">
             <label htmlFor="startDate" className="text-right">
