@@ -19,6 +19,18 @@ export interface Temperatures {
   temperature_2: number;
   container_id: number;
 }
+export interface Scheduling {
+  allDay: boolean;
+  title: string;
+  duration?: string;
+  date: string;
+}
+export interface SchedulingResponse {
+  initial_date_time: string;
+  ending_date_time: string;
+  user_id?: string;
+  container_id: number;
+}
 export interface Props {
   params: {
     id: number;
@@ -26,6 +38,6 @@ export interface Props {
 }
 
 export type AuthStore = {
-  token: string,
+  token: string;
   setToken: (access: string) => void;
 };
