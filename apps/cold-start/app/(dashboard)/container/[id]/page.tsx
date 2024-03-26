@@ -28,7 +28,7 @@ export default function ContainerDetails({ params }: Props) {
 
   async function getTemperatures(): Promise<Container> {
     const response = await axios.get(
-      `http://10.234.84.66:8000/api/v1/containers/${params.id}`,
+      `${process.env.API_URL}/containers/${params.id}`,
       {
         headers: {
           token: accounts[0]?.idToken,
@@ -78,7 +78,7 @@ export default function ContainerDetails({ params }: Props) {
 
   return (
     <section>
-      <BackButton page_name={`Container ${data.device}`} />
+      <BackButton page_name={`${data.device}`} />
       <div className="flex w-full gap-20">
         {/* left*/}
         <div className="w-full">

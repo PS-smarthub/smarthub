@@ -7,7 +7,8 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "./Modal";
+} from "./modal";
+import { IoMdAdd } from "react-icons/io";
 import { useForm } from "react-hook-form";
 import type { FieldValues } from "react-hook-form";
 import { useToast } from "@/lib/use-toast";
@@ -41,7 +42,7 @@ export function ModalDemo() {
           onClick={() => setOpen(true)}
           className="bg-blue-50 hover:bg-blue-600 rounded-full p-4 text-white w-[50px] h-[50px] flex items-center justify-center fixed bottom-10 right-14 font-semibold"
         >
-          +
+          <IoMdAdd color="white" size={40}/>
         </button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px] rounded border">

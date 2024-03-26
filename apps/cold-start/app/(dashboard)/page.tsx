@@ -15,7 +15,7 @@ export default function Home() {
   console.log(accounts[0]?.idToken)
   const { data, isPending, error } = useQuery<Container[]>({
     queryKey: ["get-container-list"],
-    queryFn: () => axios.get(`http://10.234.84.66:8000/api/v1/containers/`, {
+    queryFn: () => axios.get(`${process.env.API_URL}/containers/`, {
       headers: {
         "token": accounts[0]?.idToken
       }
