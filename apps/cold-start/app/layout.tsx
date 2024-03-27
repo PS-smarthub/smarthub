@@ -2,7 +2,6 @@ import "@smarthub/ui/src/globals.css";
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import MSALProvider from "@/providers/MsalProvider";
-import { ThemeProvider } from "@smarthub/ui";
 
 const poppins = Poppins({
   subsets: ["latin"],

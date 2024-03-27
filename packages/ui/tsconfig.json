@@ -2,8 +2,10 @@
   "extends": "@repo/typescript-config/nextjs.json",
   "compilerOptions": {
     "outDir": "dist",
+    "paths": {
+      "@/*": ["./*"]
+    }
   },
-
   "include": ["."],
-  "exclude": ["node_modules", "dist", "globals.css"]
+  "exclude": ["node_modules"]
 }

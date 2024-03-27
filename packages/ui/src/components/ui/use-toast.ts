@@ -1,10 +1,12 @@
+"use client"
+
 // Inspired by react-hot-toast library
 import * as React from "react"
 
 import type {
   ToastActionElement,
   ToastProps,
-} from "@/components/toast"
+} from "@/src/components/ui/toast"
 
 const TOAST_LIMIT = 1
 const TOAST_REMOVE_DELAY = 1000000
@@ -156,7 +158,7 @@ function toast({ ...props }: Toast) {
       ...props,
       id,
       open: true,
-      onOpenChange: (open: boolean) => {
+      onOpenChange: (open) => {
         if (!open) dismiss()
       },
     },

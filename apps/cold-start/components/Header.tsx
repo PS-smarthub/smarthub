@@ -2,7 +2,7 @@ import Image from "next/image";
 import UserIcon from "@/public/user.svg";
 import Link from "next/link";
 import Logo from "@/public/Logo.svg";
-import ToolTip from "./tooltip";
+import {ToolTipBase} from "@smarthub/ui";
 import { IoIosNotificationsOutline } from "react-icons/io";
 
 export default function Header() {
@@ -19,19 +19,19 @@ export default function Header() {
           </a>
           <div className="flex items-center gap-5">
             <Link href="/notify" className="p-2">
-              <ToolTip text="Notificações">
+              <ToolTipBase text="Notificações">
                 <IoIosNotificationsOutline color="gray" size={30}/>
-              </ToolTip>
+              </ToolTipBase>
             </Link>
             <Link href="/profile" className="p-2">
-              <ToolTip text="Perfil">
+              <ToolTipBase text="Perfil">
                 <Image
                   src={UserIcon}
                   alt="User icon"
                   className="bg-blue-50 rounded-full p-1 w-[40px] hover:bg-blue-600"
                   priority
                 />
-              </ToolTip>
+              </ToolTipBase>
             </Link>
           </div>
         </div>

@@ -5,18 +5,18 @@ import {
   Dialog,
   DialogContent,
   DialogHeader,
-  DialogTitle,
   DialogTrigger,
-} from "./modal";
+  DialogTitle,
+} from "@smarthub/ui";
 import { IoMdAdd } from "react-icons/io";
 import { useForm } from "react-hook-form";
-import { useToast } from "@/lib/use-toast";
+import { useToast } from "@smarthub/ui";
 import { Scheduling, SchedulingResponse } from "@/types";
 import { useMsal } from "@azure/msal-react";
 import axios from "axios";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-export function ModalDemo() {
+export function ModalScheduling() {
   const [open, setOpen] = useState(false);
   const { accounts } = useMsal();
 
@@ -49,12 +49,12 @@ export function ModalDemo() {
       });
       setOpen(false);
     },
-    onError: () => {
+    onError: (err) => {
       toast({
         duration: 1500,
         variant: "destructive",
         title: "Error",
-        description: "Erro para agendar o container",
+        description: err.message,
       });
     },
   });

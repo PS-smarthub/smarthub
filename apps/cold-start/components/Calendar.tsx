@@ -4,7 +4,7 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
-import { ModalDemo } from "./ModalDemo";
+import { ModalScheduling } from "./modal-scheduling";
 import { useQuery } from "@tanstack/react-query";
 import { Scheduling, SchedulingResponse } from "@/types";
 import { useMsal } from "@azure/msal-react";
@@ -17,14 +17,11 @@ export default function Calendar() {
   const { data, isPending, error } = useQuery({
     queryKey: ["get-schedulings"],
     queryFn: () =>
-      axios.get(
-        `${process.env.API_URL}/schedules/?month=false&year=false`,
-        {
-          headers: {
-            token: accounts[0]?.idToken,
-          },
-        }
-      ),
+      axios.get(`${process.env.API_URL}/schedules/?month=false&year=false`, {
+        headers: {
+          token: accounts[0]?.idToken,
+        },
+      }),
   });
 
   data?.data.forEach((element: SchedulingResponse) => {
@@ -44,17 +41,18 @@ export default function Calendar() {
           right: "prev,next",
           center: "title",
         }}
-        viewClassNames={"rounded-lg border-none"}
+        viewClassNames={"rounded-lg"}
         allDaySlot={true}
         height={700}
         dayMaxEventRows={3}
         locale={"br"}
         events={schedulings}
+        eventChange={() => console.log("click")}
         editable={true}
         selectMirror={true}
         selectable={true}
       />
-      <ModalDemo />
+      <ModalScheduling />
     </div>
   );
 }
