@@ -1,25 +1,26 @@
 "use client";
 
 import { CardContainerHome } from "@/components/card-container-home";
+import { api } from "@/lib/api";
 import { useContainer } from "@/stores/useContainer";
 import { Container } from "@/types";
 import { useMsal } from "@azure/msal-react";
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import { useEffect } from "react";
 
 export default function Home() {
   const { containerList, setContainer } = useContainer();
-  const {  instance, accounts } = useMsal();
+  const { instance, accounts } = useMsal();
 
-  console.log(accounts[0]?.idToken)
+  console.log(accounts[0]?.idToken);
   const { data, isPending, error } = useQuery<Container[]>({
     queryKey: ["get-container-list"],
-    queryFn: () => axios.get(`${process.env.API_URL}/containers/`, {
-      headers: {
-        "token": accounts[0]?.idToken
-      }
-    }),
+    queryFn: () =>
+      api.get(`${process.env.API_URL}/containers/`, {
+        headers: {
+          token: accounts[0]?.idToken,
+        },
+      }),
   });
 
   useEffect(() => {
@@ -29,11 +30,6 @@ export default function Home() {
 
   if (isPending) {
     return <p className="p-2">Pending...</p>;
-  }
-
-  if (error) {
-    //@ts-ignore
-    error.response.status == 403 && instance.logout();
   }
 
   return (

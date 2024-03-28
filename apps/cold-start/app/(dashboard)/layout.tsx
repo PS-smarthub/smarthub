@@ -6,7 +6,7 @@ import React, { useLayoutEffect } from "react";
 import Header from "@/components/header";
 import SideMenu from "@/components/side-menu";
 import QueryProvider from "@/providers/QueryProvider";
-import { TooltipProvider } from "@/components/ui/tooltip";
+import { TooltipProvider } from "@smarthub/ui";
 import { Toaster } from "@/components/Toaster";
 import "@smarthub/ui/src/globals.css"
 

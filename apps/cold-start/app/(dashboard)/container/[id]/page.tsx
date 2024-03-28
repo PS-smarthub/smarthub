@@ -1,15 +1,14 @@
 "use client";
 
-// import { SparkIcon } from "@bosch-web-dds/spark-ui-react";
-import { Container, Props } from "@/types";
+import { Container, ContainerResponse, Props } from "@/types";
 import { callMsGraph } from "@/lib/teams";
 import { BackButton } from "@smarthub/ui";
 import { useMutation, useQueryClient, useQuery } from "@tanstack/react-query";
 import { useState } from "react";
-import axios from "axios";
 import { handleSetPoint } from "@/server/actions";
 import { useMsal } from "@azure/msal-react";
 import { Chart } from "@/components/chart-container";
+import { api } from "@/lib/api";
 
 export default function ContainerDetails({ params }: Props) {
   const { accounts, instance } = useMsal();
@@ -26,30 +25,43 @@ export default function ContainerDetails({ params }: Props) {
       });
   };
 
-  async function getTemperatures(): Promise<Container> {
-    const response = await axios.get(
-      `${process.env.API_URL}/containers/${params.id}`,
-      {
+  const { data, error, isPending } = useQuery<ContainerResponse>({
+    queryKey: ["get-container"],
+    queryFn: async () => {
+      const response = await api.get(`/containers/${params.id}`, {
         headers: {
           token: accounts[0]?.idToken,
         },
-      }
-    );
-    return response.data;
-  }
-  const { data, error, isPending } = useQuery({
-    queryKey: ["get-temperatures"],
-    queryFn: getTemperatures,
+      });
+
+      return response.data;
+    },
     refetchInterval: 15000,
   });
   const queryClient = useQueryClient();
-  const [setPoint1, setSetPoint1] = useState<number>();
-  const [setPoint2, setSetPoint2] = useState<number>();
+  const [setPoint1, setSetPoint1] = useState<number | undefined>();
+  const [setPoint2, setSetPoint2] = useState<number | undefined>();
   const [disabled, setDisabled] = useState(true);
   const [sendEmail, setSendEmail] = useState(false);
 
   const mutation = useMutation({
-    mutationFn: handleSetPoint,
+    mutationFn: async ({
+      set_point_1,
+      set_point_2,
+    }: {
+      set_point_1: number | undefined;
+      set_point_2: number | undefined;
+    }) => {
+      return await api.patch(
+        `/containers/setpoint/${data?.id}`,
+        { set_point_1, set_point_2 },
+        {
+          headers: {
+            token: accounts[0]?.idToken,
+          },
+        }
+      );
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["set-point"] });
       setDisabled(true);
@@ -62,18 +74,6 @@ export default function ContainerDetails({ params }: Props) {
 
   if (isPending) {
     return <p>Pending...</p>;
-  }
-
-  if (sendEmail) {
-    if (data.temperatures[0]?.temperature_1 == data.set_point_1) {
-      handleSendEmail("posição 1");
-      setSendEmail(false);
-    }
-
-    if (data.temperatures[0]?.temperature_2 == data.set_point_2) {
-      handleSendEmail("posição 2");
-      setSendEmail(false);
-    }
   }
 
   return (
@@ -153,7 +153,9 @@ export default function ContainerDetails({ params }: Props) {
           <div className="flex flex-col items-center pt-8">
             <h2 className="text-center font-bold p-2">Agendamento</h2>
             <div className="font-semibold border w-[72%] border-gray-400 p-4 rounded flex items-center justify-between sm:p-0">
-              <h3 className="sm:py-4 pl-2">Diego Lopes</h3>
+              <h3 className="sm:py-4 pl-2">
+                {data.scheduling_container[0]?.user_name}
+              </h3>
             </div>
           </div>
 
@@ -163,9 +165,7 @@ export default function ContainerDetails({ params }: Props) {
               <button
                 disabled={disabled}
                 onClick={() => {
-                  setSendEmail(true);
                   mutation.mutate({
-                    container_id: data?.id,
                     set_point_1: setPoint1 ? setPoint1 : data.set_point_1,
                     set_point_2: setPoint2 ? setPoint2 : data.set_point_2,
                   });

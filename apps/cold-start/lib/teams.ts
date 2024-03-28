@@ -29,6 +29,6 @@ export async function callMsGraph(
   return await axios.post(
     "https://graph.microsoft.com/v1.0/me/sendMail",
     body,
-    { headers: headers }
+    { headers }
   );
 }

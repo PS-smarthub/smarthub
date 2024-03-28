@@ -11,6 +11,16 @@ export type ContainerStore = {
   setContainer: (container: Container[]) => void;
 };
 
+export type ContainerResponse = {
+  id: number;
+  device: string;
+  set_point_1: number;
+  set_point_2: number;
+  in_validation: boolean;
+  temperatures: Temperatures[];
+  scheduling_container: SchedulingResponse[];
+};
+
 export interface Temperatures {
   id: number;
   date_time: string;
@@ -29,6 +39,7 @@ export interface SchedulingResponse {
   initial_date_time: string;
   ending_date_time: string;
   user_id?: string;
+  user_name?: string;
   container_id: number;
 }
 export interface Props {
