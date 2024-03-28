@@ -5,13 +5,14 @@ import UserIcon from "@/public/user.svg";
 import { BackButton } from "@smarthub/ui";
 import { useMsal } from "@azure/msal-react";
 import { api } from "@/lib/api";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { SchedulingResponse } from "@/types";
 import { FaRegTrashAlt } from "react-icons/fa";
 
 export default function Profile() {
   const { accounts } = useMsal();
   const user = accounts[0];
+  const queryClient = useQueryClient();
 
   const { data, error, isPending } = useQuery({
     queryKey: ["get-my-schedulings"],
@@ -31,10 +32,12 @@ export default function Profile() {
     mutationFn: async (id: number) => {
       return await api.delete(`/schedules/${id}`, {
         headers: {
-          token: accounts[0]?.idToken
-        }
+          token: accounts[0]?.idToken,
+        },
       });
     },
+    onSuccess: () =>
+      queryClient.invalidateQueries({ queryKey: ["get-my-schedulings"] }),
   });
 
   return (
