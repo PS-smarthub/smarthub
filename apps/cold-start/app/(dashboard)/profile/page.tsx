@@ -15,18 +15,25 @@ export default function Profile() {
 
   const { data, error, isPending } = useQuery({
     queryKey: ["get-my-schedulings"],
-    queryFn: () =>
-      api.get("/schedules", {
+    queryFn: async () => {
+      const response = await api.get("/schedules", {
         headers: {
           token: accounts[0]?.idToken,
         },
         params: { my_schedulings: true },
-      }),
+      });
+
+      return response.data;
+    },
   });
 
-  const deleteSchedule = useMutation({
-    mutationFn: (id: number) => {
-      return api.delete(`/schedules/${id}`);
+  const mutation = useMutation({
+    mutationFn: async (id: number) => {
+      return await api.delete(`/schedules/${id}`, {
+        headers: {
+          token: accounts[0]?.idToken
+        }
+      });
     },
   });
 
@@ -49,14 +56,17 @@ export default function Profile() {
           <h1 className="font-semibold border-b ">Meus Agendamentos</h1>
           <div className="grid grid-cols-2 gap-4 mt-10 max-h-[300px] overflow-auto">
             {data &&
-              data.data.map((schedule: SchedulingResponse) => (
+              data.map((schedule: SchedulingResponse) => (
                 <div className="flex rounded bg-gray-300 border-l-[7px] font-semibold justify-between p-2 border-blue-600">
                   <div className="flex flex-col">
                     <p>{schedule.initial_date_time.slice(0, 10)}</p>
                     <p>Container {schedule.container_id}</p>
                   </div>
                   <div className="flex items-center">
-                    <button type="button" onClick={() => console.log()}>
+                    <button
+                      type="button"
+                      onClick={() => mutation.mutate(schedule.id)}
+                    >
                       <FaRegTrashAlt color="red" />
                     </button>
                   </div>

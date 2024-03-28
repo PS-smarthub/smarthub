@@ -36,6 +36,7 @@ export interface Scheduling {
   date: string;
 }
 export interface SchedulingResponse {
+  id: number,
   initial_date_time: string;
   ending_date_time: string;
   user_id?: string;
