@@ -130,7 +130,6 @@ export default function ContainerDetails({ params }: Props) {
             </div>
             <div>
               <h3 className="font-bold">Set Point 2</h3>
-
               <input
                 type="number"
                 step={"0.25"}
@@ -170,9 +169,12 @@ export default function ContainerDetails({ params }: Props) {
               <button
                 disabled={disabled}
                 onClick={() => {
+                  console.log(setPoint1, setPoint2);
                   mutation.mutate({
-                    set_point_1: setPoint1 ? setPoint1 : data.set_point_1,
-                    set_point_2: setPoint2 ? setPoint2 : data.set_point_2,
+                    set_point_1:
+                      setPoint1 != undefined ? setPoint1 : data.set_point_1,
+                    set_point_2:
+                      setPoint2 != undefined ? setPoint2 : data.set_point_2,
                   });
                 }}
                 className="bg-green-400 font-semibold hover:bg-green-500 text-white p-2 rounded disabled:bg-gray-500 disabled:cursor-not-allowed"
