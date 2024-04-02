@@ -11,39 +11,43 @@
 <h4 align="center">Centralize suas aplicações em um só lugar
 
 <p align="center">
-  <a href="#sobre">Sobre</a> •
-  <a href="#key-features">Funcionalidades</a> •
-  <a href="#getting-started">Getting Started</a> •
+  <a href="#about">About</a> •
+  <a href="#key-features">Key Features</a> •
+  <a href="#prerequisites">Pre Requisites</a> •
   <a href="#support">Support</a> •
   <a href="#license">License</a>
 </p>
 
 
 
-## Sobre
+## About
 
-O Smarthub é um servidor que centraliza todas as aplicações da PS, e foi desenvolvido como projeto de TCC pelos aprendizes da ETS.
+Smarthub is a server that centralizes all PS applications, and was developed as a TCC project by ETS apprentices. The idea of ​​this project is to centralize, on the same web platform, several tools that are used in PS, but which are developed in different languages ​​that are difficult to maintain and do not follow a standard.
 
-## Funcionalidades
+## Key Features
 
 - Cold Start
-
+- SSO Login
+- User management
 
 ## Getting Started
 
-This is an example of how you may give instructions on setting up your project locally. To get a local copy up and running follow these simple example steps.
 
-### Pré requisitoss
+To run the project, there are some requirements, you can run it using Docker or install the dependencies on your machine and run the project.
 
-O front-end do projeto foi desenvolvido utilizando Nextjs e o back-end em python com o FastApi
+### Pre Requisites
+
+The front-end of the project was developed using Nextjs and the back-end in Python using the FastApi library, so the prerequisites to execute are:
 
 - node
 - npm 
 - python
 
+
 ### Installing and Running
 
-Below is an example of how you can instruct your audience on installing and setting up your app. This template doesn't rely on any external dependencies or services.
+
+As previously mentioned, it is possible to execute the project in two ways
 
 ```bash
 # Clone this repository
@@ -52,8 +56,11 @@ $ git clone https://github.com/AngeloCarnevale/smarthub
 # Go into the repository
 $ cd smarthub
 
-# Run
+# Install dependencies
 $ npm i
+
+# Run all apps in development mode
+$ npm run dev
 ```
 
 ## Contributing
