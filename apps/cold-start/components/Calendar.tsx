@@ -8,26 +8,31 @@ import { ModalScheduling } from "./modal-scheduling";
 import { useQuery } from "@tanstack/react-query";
 import { Scheduling, SchedulingResponse } from "@/types";
 import { useMsal } from "@azure/msal-react";
-import axios from "axios";
+import { api } from "@/lib/api";
 
 export default function Calendar() {
   const schedulings: Scheduling[] = [];
 
   const { accounts } = useMsal();
-  const { data, isPending, error } = useQuery({
+  const { data, isPending, error } = useQuery<SchedulingResponse[]>({
     queryKey: ["get-schedulings"],
-    queryFn: () =>
-      axios.get(`${process.env.API_URL}/schedules/?month=false&year=false`, {
-        headers: {
-          token: accounts[0]?.idToken,
-        },
-      }),
+    queryFn: async () => {
+      const response = await api.get(
+        `${process.env.API_URL}/schedules/?month=false&year=false`,
+        {
+          headers: {
+            token: accounts[0]?.idToken,
+          },
+        }
+      );
+      return response.data;
+    },
   });
 
-  data?.data.forEach((element: SchedulingResponse) => {
+  data?.forEach((element: SchedulingResponse) => {
     schedulings.push({
-      allDay: true,
-      date: element.initial_date_time,
+      start: element.initial_date_time,
+      end: element.ending_date_time.slice(0, 10).concat("T01:00"),
       title: `Container ${element.container_id}`,
     });
   });

@@ -11,7 +11,7 @@ import {
 import { IoMdAdd } from "react-icons/io";
 import { useForm } from "react-hook-form";
 import { useToast } from "@smarthub/ui";
-import { Scheduling, SchedulingResponse } from "@/types";
+import { Scheduling, SchedulingDTO, SchedulingResponse } from "@/types";
 import { useMsal } from "@azure/msal-react";
 import axios from "axios";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -30,7 +30,7 @@ export function ModalScheduling() {
   } = useForm();
   const queryClient = useQueryClient();
   const mutation = useMutation({
-    mutationFn: async (newSchedule: SchedulingResponse) => {
+    mutationFn: async (newSchedule: SchedulingDTO) => {
       return await axios.post(`${process.env.API_URL}/schedules`, newSchedule, {
         headers: {
           token: accounts[0]?.idToken,
@@ -79,8 +79,8 @@ export function ModalScheduling() {
           className="flex flex-col justify-start gap-4 py-4"
           onSubmit={handleSubmit(() =>
             mutation.mutate({
-              ending_date_time: getValues("startDate"),
-              initial_date_time: getValues("finalDate"),
+              initial_date_time: getValues("startDate"),
+              ending_date_time: getValues("finalDate"),
               container_id: getValues("container"),
             })
           )}

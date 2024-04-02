@@ -1,17 +1,17 @@
 "use client";
 
-import { Container, ContainerResponse, Props } from "@/types";
+import { ContainerResponse, Props } from "@/types";
 import { callMsGraph } from "@/lib/teams";
 import { BackButton } from "@smarthub/ui";
 import { useMutation, useQueryClient, useQuery } from "@tanstack/react-query";
 import { useState } from "react";
-import { handleSetPoint } from "@/server/actions";
 import { useMsal } from "@azure/msal-react";
 import { Chart } from "@/components/chart-container";
 import { api } from "@/lib/api";
 
 export default function ContainerDetails({ params }: Props) {
   const { accounts, instance } = useMsal();
+  const today = new Date().getDay() 
 
   const handleSendEmail = (position: string) => {
     instance
@@ -42,7 +42,6 @@ export default function ContainerDetails({ params }: Props) {
   const [setPoint1, setSetPoint1] = useState<number | undefined>();
   const [setPoint2, setSetPoint2] = useState<number | undefined>();
   const [disabled, setDisabled] = useState(true);
-  const [sendEmail, setSendEmail] = useState(false);
 
   const mutation = useMutation({
     mutationFn: async ({
@@ -154,7 +153,7 @@ export default function ContainerDetails({ params }: Props) {
             <h2 className="text-center font-bold p-2">Agendamento</h2>
             <div className="font-semibold border w-[72%] border-gray-400 p-4 rounded flex items-center justify-between sm:p-0">
               <h3 className="sm:py-4 pl-2">
-                {data.scheduling_container[0]?.user_name}
+                {data.scheduling_container[0]?.initial_date_time.slice(9, 10) == String(today) ? <>{data.scheduling_container[0].user_name}</> : <>Não agendado</>}
               </h3>
             </div>
           </div>

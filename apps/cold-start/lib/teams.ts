@@ -3,7 +3,7 @@ import axios from "axios";
 export async function callMsGraph(
   accessToken: string,
   emailUser: string,
-  position: string,
+  position: string
 ) {
   const headers = {
     Authorization: `Bearer ${accessToken}`,

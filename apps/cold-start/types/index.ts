@@ -30,10 +30,9 @@ export interface Temperatures {
   container_id: number;
 }
 export interface Scheduling {
-  allDay: boolean;
   title: string;
-  duration?: string;
-  date: string;
+  start: string;
+  end: string;
 }
 export interface SchedulingResponse {
   id: number,
@@ -43,13 +42,14 @@ export interface SchedulingResponse {
   user_name?: string;
   container_id: number;
 }
+
+export interface SchedulingDTO {
+  initial_date_time: string;
+  ending_date_time: string;
+  container_id: number;
+}
 export interface Props {
   params: {
     id: number;
   };
 }
-
-export type AuthStore = {
-  token: string;
-  setToken: (access: string) => void;
-};
