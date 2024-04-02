@@ -1,8 +1,12 @@
-import "./globals.css";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Poppins } from "next/font/google";
+import { ThemeProvider } from "@smarthub/ui";
+import "@smarthub/ui/src/globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+});
 
 export const metadata: Metadata = {
   title: "Smarthub",
@@ -15,8 +19,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }): JSX.Element {
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
+    <html lang="en" suppressHydrationWarning className="h-full">
+      <body className={`${poppins.className} h-full`}>
+        <ThemeProvider defaultTheme="system" attribute="class">
+          {children}
+        </ThemeProvider>
+      </body>
     </html>
   );
 }

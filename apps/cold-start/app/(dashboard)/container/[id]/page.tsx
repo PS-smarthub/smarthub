@@ -1,37 +1,69 @@
 "use client";
 
-// import { SparkIcon } from "@bosch-web-dds/spark-ui-react";
-import { Container, Props } from "@/types";
+import { ContainerResponse, Props } from "@/types";
+import { callMsGraph } from "@/lib/teams";
 import { BackButton } from "@smarthub/ui";
 import { useMutation, useQueryClient, useQuery } from "@tanstack/react-query";
-import { useEffect, useState } from "react";
-import axios from "axios";
-import { handleSetPoint } from "@/server/actions";
+import { useState } from "react";
+import { useMsal } from "@azure/msal-react";
+import { Chart } from "@/components/chart-container";
+import { api } from "@/lib/api";
+import CardTemperature from "@/components/temperature-view";
 
 export default function ContainerDetails({ params }: Props) {
-  async function getTemperatures(): Promise<Container> {
-    const response = await axios.get(
-      `http://10.234.84.66:8000/api/v1/containers/${params.id}`
-    );
+  const { accounts, instance } = useMsal();
+  const today = new Date().getDay();
 
-    console.log(response.data);
-    return response.data;
-  }
-  const { data, error, isPending } = useQuery<Container>({
-    queryKey: ["get-temperatures"],
-    queryFn: getTemperatures,
+  const handleSendEmail = (position: string) => {
+    instance
+      .acquireTokenSilent({
+        account: accounts[0],
+        scopes: [],
+      })
+      .then((response: any) => {
+        //@ts-ignore
+        callMsGraph(response.accessToken, accounts[0].username, position);
+      });
+  };
+  const { data, error, isPending } = useQuery<ContainerResponse>({
+    queryKey: ["get-container"],
+    queryFn: async () => {
+      const response = await api.get(`/containers/${params.id}`, {
+        headers: {
+          token: accounts[0]?.idToken,
+        },
+      });
+
+      return response.data;
+    },
     refetchInterval: 15000,
   });
   const queryClient = useQueryClient();
-  const [setPoint1, setSetPoint1] = useState<number>();
-  const [setPoint2, setSetPoint2] = useState<number>();
+  const [setPoint1, setSetPoint1] = useState<number | undefined>();
+  const [setPoint2, setSetPoint2] = useState<number | undefined>();
   const [disabled, setDisabled] = useState(true);
 
   const mutation = useMutation({
-    mutationFn: handleSetPoint,
+    mutationFn: async ({
+      set_point_1,
+      set_point_2,
+    }: {
+      set_point_1: number | undefined;
+      set_point_2: number | undefined;
+    }) => {
+      return await api.patch(
+        `/containers/setpoint/${data?.id}`,
+        { set_point_1, set_point_2 },
+        {
+          headers: {
+            token: accounts[0]?.idToken,
+          },
+        }
+      );
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["set-point"] });
-      setDisabled(true)
+      setDisabled(true);
     },
   });
 
@@ -45,39 +77,31 @@ export default function ContainerDetails({ params }: Props) {
 
   return (
     <section>
-      <BackButton page_name={`Container ${data?.device}`} />
+      <BackButton page_name={data.device} />
       <div className="flex w-full gap-20">
         {/* left*/}
         <div className="w-full">
           {/* container temperatures */}
           <div className="w-full grid grid-cols-3 gap-8 py-10 px-6">
-            <div className="border pb-4 border-gray-400 gap-7 rounded items-center flex flex-col">
-              <h2 className="font-semibold p-2 sm:text-[14px]">
-                Temperatura Ambiente
-              </h2>
-              <p className="font-bold text-2xl ">
-                {data.temperatures.room_temperature} °C
-              </p>
-            </div>
-
-            <div className="border pb-4 border-gray-400 gap-7 rounded items-center flex flex-col">
-              <h2 className="font-semibold p-2">Posição 1</h2>
-              <p className="font-bold text-2xl pb-4">
-                {data.temperatures.temperature_1} °C
-              </p>
-            </div>
-
-            <div className="border pb-4 border-gray-400 gap-7 rounded items-center flex flex-col">
-              <h2 className="font-semibold p-2">Posição 2</h2>
-              <p className="font-bold text-2xl pb-4">
-                {data.temperatures.temperature_2} °C
-              </p>
-            </div>
+            <CardTemperature
+              temperature={data.temperatures[0]?.room_temperature}
+              card_title="Temperatura Ambiente"
+            />
+            <CardTemperature
+              temperature={data.temperatures[0]?.temperature_1}
+              card_title="Posição 1"
+            />
+            <CardTemperature
+              temperature={data.temperatures[0]?.temperature_2}
+              card_title="Posição 2"
+            />
           </div>
 
           {/* Chart */}
           <div className="px-6 flex justify-center h-[70%] sm:h-[56%]">
-            <div className=" border border-gray-400 w-full rounded">Chart</div>
+            <div className=" border border-gray-400 w-full rounded">
+              <Chart temperatures={data.temperatures} />
+            </div>
           </div>
         </div>
         {/* right*/}
@@ -90,6 +114,10 @@ export default function ContainerDetails({ params }: Props) {
               <input
                 type="number"
                 defaultValue={data.set_point_1}
+                disabled={
+                  accounts[0]?.name !=
+                    data.scheduling_container[0]?.user_name && true
+                }
                 step={"0.25"}
                 onChange={(e) => {
                   const number = parseFloat(e.target.value);
@@ -104,6 +132,11 @@ export default function ContainerDetails({ params }: Props) {
               <input
                 type="number"
                 step={"0.25"}
+                disabled={
+                  accounts[0]?.name != data.scheduling_container[0]?.user_name
+                    ? true
+                    : false
+                }
                 onChange={(e) => {
                   const number = parseFloat(e.target.value);
                   setSetPoint2(number);
@@ -118,7 +151,14 @@ export default function ContainerDetails({ params }: Props) {
           <div className="flex flex-col items-center pt-8">
             <h2 className="text-center font-bold p-2">Agendamento</h2>
             <div className="font-semibold border w-[72%] border-gray-400 p-4 rounded flex items-center justify-between sm:p-0">
-              <h3 className="sm:py-4 pl-2">Diego Lopes</h3>
+              <h3 className="sm:py-4 pl-2">
+                {data.scheduling_container[0]?.initial_date_time.slice(9, 10) ==
+                String(today) ? (
+                  <>{data.scheduling_container[0].user_name}</>
+                ) : (
+                  <>Não agendado</>
+                )}
+              </h3>
             </div>
           </div>
 
@@ -127,13 +167,15 @@ export default function ContainerDetails({ params }: Props) {
             <div className="w-[72%] h-[22rem] text-center rounded border flex justify-center items-center border-gray-400 sm:w-[72%] sm:h-[11rem]">
               <button
                 disabled={disabled}
-                onClick={() =>
+                onClick={() => {
+                  console.log(setPoint1, setPoint2);
                   mutation.mutate({
-                    container_id: data?.id,
-                    set_point_1: setPoint1 ? setPoint1 : data.set_point_1,
-                    set_point_2: setPoint2 ? setPoint2 : data.set_point_2,
-                  })
-                }
+                    set_point_1:
+                      setPoint1 != undefined ? setPoint1 : data.set_point_1,
+                    set_point_2:
+                      setPoint2 != undefined ? setPoint2 : data.set_point_2,
+                  });
+                }}
                 className="bg-green-400 font-semibold hover:bg-green-500 text-white p-2 rounded disabled:bg-gray-500 disabled:cursor-not-allowed"
               >
                 Salvar

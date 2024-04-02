@@ -5,8 +5,6 @@ const nextConfig = {
     // '@bosch-web-dds/spark-ui', 
     // '@bosch-web-dds/spark-ui-react'
   ],
-  output: 'standalone',
-  
 };
  
 module.exports = nextConfig;

@@ -1,4 +1,4 @@
-import CalendarComponent from '@/components/Calendar'
+import CalendarComponent from '@/components/calendar'
 
 export default function Agenda() {
   return (

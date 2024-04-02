@@ -4,72 +4,39 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
-import { useState } from "react";
-import { ModalDemo } from "./ModalDemo";
-
-interface Event {
-  title: string;
-  start: Date | string;
-  allDay: boolean;
-  id: number;
-}
+import { ModalScheduling } from "./modal-scheduling";
+import { useQuery } from "@tanstack/react-query";
+import { Scheduling, SchedulingResponse } from "@/types";
+import { useMsal } from "@azure/msal-react";
+import { api } from "@/lib/api";
 
 export default function Calendar() {
-  const [events, setEvents] = useState([
-    { title: "event 1", id: 1, date: "2024-02-08" },
-    { title: "event 2", id: 2, date: "2024-04-01" },
-    { title: "event 3", id: 3, date: "2024-04-01" },
-    { title: "event 4", id: 4, date: "2024-04-01" },
-  ]);
+  const schedulings: Scheduling[] = [];
 
-  const eventList = [
-    {
-      duration: "02:00",
-      date: "2024-02-08",
-      title: "google",
-      allDay: true,
-      start: new Date(),
+  const { accounts } = useMsal();
+  const { data, isPending, error } = useQuery<SchedulingResponse[]>({
+    queryKey: ["get-schedulings"],
+    queryFn: async () => {
+      const response = await api.get(
+        `${process.env.API_URL}/schedules/?month=false&year=false`,
+        {
+          headers: {
+            token: accounts[0]?.idToken,
+          },
+        }
+      );
+      return response.data;
     },
-    {
-      duration: "02:00",
-      date: "2024-02-08",
-      title: "test",
-      allDay: false,
-    },
-    {
-      duration: "02:00",
-      date: "2024-02-08",
-      title: "test",
-      allDay: false,
-    },
-    {
-      duration: "02:00",
-      date: "2024-02-28",
-      title: "test",
-      allDay: false,
-    },
-    {
-      duration: "02:00",
-      date: "2024-02-28",
-      title: "test",
-      allDay: false,
-      start: new Date(),
-    },
-    {
-      duration: "02:00",
-      date: "2024-02-28",
-      title: "test",
-      allDay: false,
-      start: new Date(),
-    },
-    {
-      duration: "02:00",
-      date: "2024-02-28",
-      title: "test",
-      allDay: true,
-      start: new Date(),
-    },
-  ];
+  });
+
+  data?.forEach((element: SchedulingResponse) => {
+    schedulings.push({
+      start: element.initial_date_time,
+      end: element.ending_date_time.slice(0, 10).concat("T01:00"),
+      title: `Container ${element.container_id}`,
+    });
+  });
+
   return (
     <div className="w-[60%] overflow-auto">
       <FullCalendar
@@ -79,17 +46,18 @@ export default function Calendar() {
           right: "prev,next",
           center: "title",
         }}
-        viewClassNames={"rounded-lg border-none"}
+        viewClassNames={"rounded-lg"}
         allDaySlot={true}
         height={700}
         dayMaxEventRows={3}
-        events={eventList}
         locale={"br"}
+        events={schedulings}
+        eventChange={() => console.log("click")}
         editable={true}
         selectMirror={true}
         selectable={true}
       />
-      <ModalDemo />
+      <ModalScheduling />
     </div>
   );
 }
