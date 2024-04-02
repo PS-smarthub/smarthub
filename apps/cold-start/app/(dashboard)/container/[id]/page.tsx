@@ -8,10 +8,11 @@ import { useState } from "react";
 import { useMsal } from "@azure/msal-react";
 import { Chart } from "@/components/chart-container";
 import { api } from "@/lib/api";
+import CardTemperature from "@/components/temperature-view";
 
 export default function ContainerDetails({ params }: Props) {
   const { accounts, instance } = useMsal();
-  const today = new Date().getDay() 
+  const today = new Date().getDay();
 
   const handleSendEmail = (position: string) => {
     instance
@@ -24,7 +25,7 @@ export default function ContainerDetails({ params }: Props) {
         callMsGraph(response.accessToken, accounts[0].username, position);
       });
   };
-
+  console.log();
   const { data, error, isPending } = useQuery<ContainerResponse>({
     queryKey: ["get-container"],
     queryFn: async () => {
@@ -83,28 +84,18 @@ export default function ContainerDetails({ params }: Props) {
         <div className="w-full">
           {/* container temperatures */}
           <div className="w-full grid grid-cols-3 gap-8 py-10 px-6">
-            <div className="border pb-4 border-gray-400 gap-7 rounded items-center flex flex-col">
-              <h2 className="font-semibold p-2 sm:text-[14px]">
-                Temperatura Ambiente
-              </h2>
-              <p className="font-bold text-2xl ">
-                {data.temperatures[0]?.room_temperature} °C
-              </p>
-            </div>
-
-            <div className="border pb-4 border-gray-400 gap-7 rounded items-center flex flex-col">
-              <h2 className="font-semibold p-2">Posição 1</h2>
-              <p className="font-bold text-2xl pb-4">
-                {data.temperatures[0]?.temperature_1} °C
-              </p>
-            </div>
-
-            <div className="border pb-4 border-gray-400 gap-7 rounded items-center flex flex-col">
-              <h2 className="font-semibold p-2">Posição 2</h2>
-              <p className="font-bold text-2xl pb-4">
-                {data.temperatures[0]?.temperature_2} °C
-              </p>
-            </div>
+            <CardTemperature
+              temperature={data.temperatures[0]?.room_temperature}
+              card_title="Temperatura Ambiente"
+            />
+            <CardTemperature
+              temperature={data.temperatures[0]?.temperature_1}
+              card_title="Posição 1"
+            />
+            <CardTemperature
+              temperature={data.temperatures[0]?.temperature_2}
+              card_title="Posição 2"
+            />
           </div>
 
           {/* Chart */}
@@ -124,6 +115,10 @@ export default function ContainerDetails({ params }: Props) {
               <input
                 type="number"
                 defaultValue={data.set_point_1}
+                disabled={
+                  accounts[0]?.name !=
+                    data.scheduling_container[0]?.user_name && true
+                }
                 step={"0.25"}
                 onChange={(e) => {
                   const number = parseFloat(e.target.value);
@@ -135,9 +130,15 @@ export default function ContainerDetails({ params }: Props) {
             </div>
             <div>
               <h3 className="font-bold">Set Point 2</h3>
+
               <input
                 type="number"
                 step={"0.25"}
+                disabled={
+                  accounts[0]?.name != data.scheduling_container[0]?.user_name
+                    ? true
+                    : false
+                }
                 onChange={(e) => {
                   const number = parseFloat(e.target.value);
                   setSetPoint2(number);
@@ -153,7 +154,12 @@ export default function ContainerDetails({ params }: Props) {
             <h2 className="text-center font-bold p-2">Agendamento</h2>
             <div className="font-semibold border w-[72%] border-gray-400 p-4 rounded flex items-center justify-between sm:p-0">
               <h3 className="sm:py-4 pl-2">
-                {data.scheduling_container[0]?.initial_date_time.slice(9, 10) == String(today) ? <>{data.scheduling_container[0].user_name}</> : <>Não agendado</>}
+                {data.scheduling_container[0]?.initial_date_time.slice(9, 10) ==
+                String(today) ? (
+                  <>{data.scheduling_container[0].user_name}</>
+                ) : (
+                  <>Não agendado</>
+                )}
               </h3>
             </div>
           </div>
