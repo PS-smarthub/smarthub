@@ -25,7 +25,6 @@ export default function ContainerDetails({ params }: Props) {
         callMsGraph(response.accessToken, accounts[0].username, position);
       });
   };
-  console.log();
   const { data, error, isPending } = useQuery<ContainerResponse>({
     queryKey: ["get-container"],
     queryFn: async () => {
