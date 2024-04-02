@@ -32,6 +32,7 @@ Smarthub is a server that centralizes all PS applications, and was developed as 
 
 ## Getting Started
 
+
 To run the project, there are some requirements, you can run it using Docker or install the dependencies on your machine and run the project.
 
 ### Pre Requisites
