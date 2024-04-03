@@ -164,7 +164,9 @@ export default function ContainerDetails({ params }: Props) {
                   accounts[0]?.name !=
                   container.scheduling_container[0]?.user_name
                     ? true
-                    : false
+                    : container.scheduling_container[0]?.position_2 == false
+                      ? true
+                      : false
                 }
                 onChange={(e) => {
                   const number = parseFloat(e.target.value);

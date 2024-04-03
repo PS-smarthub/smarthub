@@ -14,8 +14,11 @@ export default function Header() {
             href="/"
             className="font-bold text-blue-50 text-xl py-2 flex items-center gap-2"
           >
-            <h1>COLD START</h1>
-            <Image src={Logo} alt="Cold Start logo" className="w-[40px]" />
+            <div className="flex items-center">
+              <span>COLD</span>
+              <Image src={Logo} alt="Cold Start logo" className="w-[40px]" />
+              <span>START</span>
+            </div>
           </a>
           <div className="flex items-center gap-5">
             <Link href="/notify" className="p-2">

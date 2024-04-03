@@ -33,6 +33,7 @@ export interface Scheduling {
   title: string;
   start: string;
   end: string;
+  id: any
 }
 export interface SchedulingResponse {
   id: number;
@@ -41,14 +42,16 @@ export interface SchedulingResponse {
   user_id?: string;
   user_name?: string;
   container_id: number;
+  position_1: boolean;
+  position_2: boolean;
 }
 
 export interface SchedulingDTO {
   initial_date_time: string;
   ending_date_time: string;
   container_id: number;
-  position_1?: boolean
-  position_2?: boolean
+  position_1?: boolean;
+  position_2?: boolean;
 }
 export interface Props {
   params: {

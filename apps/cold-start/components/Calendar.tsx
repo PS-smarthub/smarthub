@@ -9,22 +9,22 @@ import { useQuery } from "@tanstack/react-query";
 import { Scheduling, SchedulingResponse } from "@/types";
 import { useMsal } from "@azure/msal-react";
 import { api } from "@/lib/api";
+import ModalSchedulingInfos from "./modal-scheduling-infos";
+import { useState } from "react";
 
 export default function Calendar() {
   const schedulings: Scheduling[] = [];
-
+  const [open, setOpen] = useState(false);
+  const [id, setId] = useState("");
   const { accounts } = useMsal();
   const { data, isPending, error } = useQuery<SchedulingResponse[]>({
     queryKey: ["get-schedulings"],
     queryFn: async () => {
-      const response = await api.get(
-        `/schedules/?month=false&year=false`,
-        {
-          headers: {
-            token: accounts[0]?.idToken,
-          },
-        }
-      );
+      const response = await api.get(`/schedules/?month=false&year=false`, {
+        headers: {
+          token: accounts[0]?.idToken,
+        },
+      });
       return response.data;
     },
   });
@@ -34,6 +34,7 @@ export default function Calendar() {
       start: element.initial_date_time,
       end: element.ending_date_time.slice(0, 10).concat("T01:00"),
       title: `Container ${element.container_id}`,
+      id: element.id,
     });
   });
 
@@ -52,12 +53,16 @@ export default function Calendar() {
         dayMaxEventRows={3}
         locale={"br"}
         events={schedulings}
-        eventChange={() => console.log("click")}
         editable={true}
         selectMirror={true}
         selectable={true}
+        eventClick={({ event }) => {
+          setOpen(true);
+          setId(event.id);
+        }}
       />
       <ModalScheduling />
+      <ModalSchedulingInfos open={open} setOpen={setOpen} id={id} />
     </div>
   );
 }
