@@ -2,6 +2,5 @@
 sidebar_position: 1
 ---
 
-# Smarthub
-
+# Cold Start
 
