@@ -18,7 +18,7 @@ export default function Calendar() {
     queryKey: ["get-schedulings"],
     queryFn: async () => {
       const response = await api.get(
-        `${process.env.API_URL}/schedules/?month=false&year=false`,
+        `/schedules/?month=false&year=false`,
         {
           headers: {
             token: accounts[0]?.idToken,

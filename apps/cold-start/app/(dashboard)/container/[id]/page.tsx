@@ -47,14 +47,14 @@ export default function ContainerDetails({ params }: Props) {
     },
     refetchInterval: 15000,
   });
-  
-   const { data: validate } = useQuery({
+
+  const { data: validate } = useQuery({
     queryKey: ["validate"],
     queryFn: async () => {
       const response = await api.get(`/containers/validate/${1}`, {
         headers: {
-          token: accounts[0]?.idToken
-        }
+          token: accounts[0]?.idToken,
+        },
       });
       return response.data;
     },
@@ -181,11 +181,22 @@ export default function ContainerDetails({ params }: Props) {
             <h2 className="text-center font-bold p-2">Agendamento</h2>
             <div className="font-semibold border w-[72%] border-gray-400 p-4 rounded flex items-center justify-between sm:p-0">
               <h3 className="sm:py-4 pl-2">
-                {container.scheduling_container[0]?.initial_date_time.slice(
-                  9,
-                  10
-                ) == String(today) ? (
-                  <>{container.scheduling_container[0].user_name}</>
+                {today >=
+                Number(
+                  container.scheduling_container[0]?.initial_date_time.slice(
+                    9,
+                    10
+                  )
+                ) ? (
+                  <>{container.scheduling_container[0]?.user_name}</>
+                ) : today ==
+                  Number(
+                    container.scheduling_container[0]?.ending_date_time.slice(
+                      9,
+                      10
+                    )
+                  ) ? (
+                  <>{container.scheduling_container[0]?.user_name}</>
                 ) : (
                   <>Não agendado</>
                 )}

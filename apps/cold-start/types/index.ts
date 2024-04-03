@@ -35,7 +35,7 @@ export interface Scheduling {
   end: string;
 }
 export interface SchedulingResponse {
-  id: number,
+  id: number;
   initial_date_time: string;
   ending_date_time: string;
   user_id?: string;
@@ -47,6 +47,7 @@ export interface SchedulingDTO {
   initial_date_time: string;
   ending_date_time: string;
   container_id: number;
+  allDay?: boolean;
 }
 export interface Props {
   params: {
