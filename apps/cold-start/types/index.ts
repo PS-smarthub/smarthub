@@ -47,7 +47,8 @@ export interface SchedulingDTO {
   initial_date_time: string;
   ending_date_time: string;
   container_id: number;
-  allDay?: boolean;
+  position_1?: boolean
+  position_2?: boolean
 }
 export interface Props {
   params: {
