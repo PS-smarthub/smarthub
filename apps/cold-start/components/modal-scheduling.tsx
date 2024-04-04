@@ -13,10 +13,10 @@ import { useForm } from "react-hook-form";
 import { useToast } from "@smarthub/ui";
 import { Scheduling, SchedulingDTO, SchedulingResponse } from "@/types";
 import { useMsal } from "@azure/msal-react";
-import axios from "axios";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { createNewScheduling } from "@/lib/api";
 
-export function ModalScheduling() {
+export default function ModalScheduling() {
   const [open, setOpen] = useState(false);
   const { accounts } = useMsal();
 
@@ -29,15 +29,8 @@ export function ModalScheduling() {
     getValues,
   } = useForm();
   const queryClient = useQueryClient();
-  const mutation = useMutation({
-    mutationFn: async (newSchedule: SchedulingDTO) => {
-      return await axios.post(`${process.env.API_URL}/schedules`, newSchedule, {
-        headers: {
-          token: accounts[0]?.idToken,
-        },
-      });
-    },
-
+  const { mutate } = useMutation({
+    mutationFn: createNewScheduling,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["get-schedulings"] });
       reset();
@@ -54,7 +47,7 @@ export function ModalScheduling() {
         duration: 1500,
         variant: "destructive",
         title: "Error",
-        description: err.message,
+        description: err.message.includes("406") ? "Container indisponível" : err.message,
       });
     },
   });
@@ -89,14 +82,18 @@ export function ModalScheduling() {
                 description: "Selecione pelo menos uma posição",
               });
 
-              return 
+              return;
             } else {
-              mutation.mutate({
+              const newScheduling = {
                 initial_date_time: getValues("startDate"),
                 ending_date_time: getValues("finalDate"),
                 container_id: getValues("container"),
                 position_1: getValues("position_1") ? true : false,
                 position_2: getValues("position_2") ? true : false,
+              };
+              mutate({
+                newSheduling: newScheduling,
+                token: accounts[0]?.idToken,
               });
             }
           })}
@@ -152,7 +149,7 @@ export function ModalScheduling() {
                   type="checkbox"
                   name="position_1"
                   id="position_1"
-                  checked
+                  defaultChecked
                 />
                 <label htmlFor="position_1">Posição 1</label>
               </div>
@@ -162,7 +159,7 @@ export function ModalScheduling() {
                   type="checkbox"
                   name="position_2"
                   id="position_2"
-                  checked
+                  defaultChecked
                 />
                 <label htmlFor="position_2">Posição 2</label>
               </div>

@@ -33,7 +33,7 @@ export interface Scheduling {
   title: string;
   start: string;
   end: string;
-  id: any
+  id: any;
 }
 export interface SchedulingResponse {
   id: number;
@@ -57,4 +57,14 @@ export interface Props {
   params: {
     id: number;
   };
+}
+
+export interface DeleteSchedulingProps {
+  id: number | string | undefined;
+  token: string | undefined;
+}
+
+export interface CreateSchedulingProps {
+  newSheduling: SchedulingDTO;
+  token: string | undefined;
 }

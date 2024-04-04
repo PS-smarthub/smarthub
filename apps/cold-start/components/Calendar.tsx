@@ -4,18 +4,18 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
-import { ModalScheduling } from "./modal-scheduling";
+import ModalScheduling from "./modal-scheduling";
 import { useQuery } from "@tanstack/react-query";
 import { Scheduling, SchedulingResponse } from "@/types";
 import { useMsal } from "@azure/msal-react";
 import { api } from "@/lib/api";
-import ModalSchedulingInfos from "./modal-scheduling-infos";
+import ModalSchedulingInfos from "./modal-scheduling-edit";
 import { useState } from "react";
 
 export default function Calendar() {
   const schedulings: Scheduling[] = [];
   const [open, setOpen] = useState(false);
-  const [id, setId] = useState("");
+  const [scheduling, setScheduling] = useState<SchedulingResponse>();
   const { accounts } = useMsal();
   const { data, isPending, error } = useQuery<SchedulingResponse[]>({
     queryKey: ["get-schedulings"],
@@ -58,11 +58,19 @@ export default function Calendar() {
         selectable={true}
         eventClick={({ event }) => {
           setOpen(true);
-          setId(event.id);
+          data?.forEach((element) => {
+            if (element.id == Number(event.id)) {
+              setScheduling(element);
+            }
+          });
         }}
       />
       <ModalScheduling />
-      <ModalSchedulingInfos open={open} setOpen={setOpen} id={id} />
+      <ModalSchedulingInfos
+        open={open}
+        setOpen={setOpen}
+        scheduling={scheduling}
+      />
     </div>
   );
 }

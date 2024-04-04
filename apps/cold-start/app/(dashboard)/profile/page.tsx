@@ -4,7 +4,7 @@ import Image from "next/image";
 import UserIcon from "@/public/user.svg";
 import { BackButton } from "@smarthub/ui";
 import { useMsal } from "@azure/msal-react";
-import { api } from "@/lib/api";
+import { deleteScheduling, getMySchedulings } from "@/lib/api";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { SchedulingResponse } from "@/types";
 import { FaRegTrashAlt } from "react-icons/fa";
@@ -16,26 +16,11 @@ export default function Profile() {
 
   const { data, error, isPending } = useQuery({
     queryKey: ["get-my-schedulings"],
-    queryFn: async () => {
-      const response = await api.get("/schedules", {
-        headers: {
-          token: accounts[0]?.idToken,
-        },
-        params: { my_schedulings: true },
-      });
-
-      return response.data;
-    },
+    queryFn: () => getMySchedulings(accounts[0]?.idToken),
   });
 
-  const mutation = useMutation({
-    mutationFn: async (id: number) => {
-      return await api.delete(`/schedules/${id}`, {
-        headers: {
-          token: accounts[0]?.idToken,
-        },
-      });
-    },
+  const { mutate } = useMutation({
+    mutationFn: deleteScheduling,
     onSuccess: () =>
       queryClient.invalidateQueries({ queryKey: ["get-my-schedulings"] }),
   });
@@ -68,7 +53,9 @@ export default function Profile() {
                   <div className="flex items-center">
                     <button
                       type="button"
-                      onClick={() => mutation.mutate(schedule.id)}
+                      onClick={() =>
+                        mutate({ id: schedule.id, token: accounts[0]?.idToken })
+                      }
                     >
                       <FaRegTrashAlt color="red" />
                     </button>
