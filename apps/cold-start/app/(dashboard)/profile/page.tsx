@@ -4,7 +4,7 @@ import Image from "next/image";
 import UserIcon from "@/public/user.svg";
 import { BackButton } from "@smarthub/ui";
 import { useMsal } from "@azure/msal-react";
-import { deleteScheduling, getMySchedulings } from "@/lib/api";
+import { deleteScheduling, getMySchedulings } from "@/lib/api/methods";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { SchedulingResponse } from "@/types";
 import { FaRegTrashAlt } from "react-icons/fa";

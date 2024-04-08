@@ -39,8 +39,10 @@ export interface SchedulingResponse {
   id: number;
   initial_date_time: string;
   ending_date_time: string;
-  user_id?: string;
-  user_name?: string;
+  user_id_position_1?: string;
+  user_id_position_2?: string;
+  user_name_1?: string;
+  user_name_2?: string;
   container_id: number;
   position_1: boolean;
   position_2: boolean;
