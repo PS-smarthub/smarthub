@@ -1,7 +1,15 @@
 import axios from "axios";
 
+interface TokenInfo {
+  token?: string;
+  expiration: number;
+}
+
 const BASE_URL = process.env.API_URL;
 
-export const api = axios.create({
+const api = axios.create({
   baseURL: BASE_URL,
 });
+
+
+export { api };

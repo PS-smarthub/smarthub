@@ -11,16 +11,14 @@ import {
 import { IoMdAdd } from "react-icons/io";
 import { useForm } from "react-hook-form";
 import { useToast } from "@smarthub/ui";
-import { Scheduling, SchedulingDTO, SchedulingResponse } from "@/types";
 import { useMsal } from "@azure/msal-react";
-import axios from "axios";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { createNewScheduling } from "@/lib/api/methods";
+import { errorToast, successToast } from "@/lib/toast_functions";
 
-export function ModalScheduling() {
+export default function ModalScheduling() {
   const [open, setOpen] = useState(false);
   const { accounts } = useMsal();
-
-  const { toast } = useToast();
   const {
     register,
     handleSubmit,
@@ -29,34 +27,18 @@ export function ModalScheduling() {
     getValues,
   } = useForm();
   const queryClient = useQueryClient();
-  const mutation = useMutation({
-    mutationFn: async (newSchedule: SchedulingDTO) => {
-      return await axios.post(`${process.env.API_URL}/schedules`, newSchedule, {
-        headers: {
-          token: accounts[0]?.idToken,
-        },
-      });
-    },
-
+  const { mutate } = useMutation({
+    mutationFn: createNewScheduling,
+    onMutate: () => queryClient.invalidateQueries({ queryKey: ["get-schedulings"] }), 
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["get-schedulings"] });
       reset();
-      toast({
-        duration: 1500,
-        variant: "success",
-        title: "Sucesso",
-        description: "Container agendado com sucesso",
-      });
+      successToast("Container agendado com sucesso");
       setOpen(false);
     },
-    onError: (err) => {
-      toast({
-        duration: 1500,
-        variant: "destructive",
-        title: "Error",
-        description: err.message,
-      });
-    },
+    onError: (err) =>
+      errorToast(
+        err.message.includes("406") ? "Container indisponível" : err.message
+      ),
   });
 
   return (
@@ -77,26 +59,30 @@ export function ModalScheduling() {
         </DialogHeader>
         <form
           className="flex flex-col justify-start gap-4 py-4"
-          onSubmit={handleSubmit(() =>
-            mutation.mutate({
-              initial_date_time: getValues("startDate"),
-              ending_date_time: getValues("finalDate"),
-              container_id: getValues("container"),
-            })
-          )}
+          onSubmit={handleSubmit(() => {
+            mutate({
+              newSheduling: {
+                container_id: getValues("container"),
+                ending_date_time: getValues("finalDate"),
+                initial_date_time: getValues("startDate"),
+                position_1: true,
+                position_2: getValues("position") == 2 ? true : false,
+              },
+              token: accounts[0]?.idToken,
+            });
+          })}
         >
           <div className="flex gap-4 items-center">
             <label htmlFor="startDate" className="text-right">
               De
             </label>
             <input
-              {...register("startDate", { required: "Informe a data inicial" })}
+              {...register("startDate", {
+                required: "Informe a data inicial",
+              })}
               type="date"
               className="border border-gray-400 rounded p-2"
             />
-            {errors.startDate?.message && (
-              <p className="text-red-500">{`${errors.startDate.message}`}</p>
-            )}
           </div>
           <div className="flex gap-4 items-center">
             <label htmlFor="username" className="text-right">
@@ -107,35 +93,53 @@ export function ModalScheduling() {
               type="date"
               className="border border-gray-400 rounded p-2"
             />
-            {errors.finalDate?.message && (
-              <p className="text-red-500">{`${errors.finalDate.message}`}</p>
-            )}
           </div>
-          <div className="flex gap-4 items-center">
-            <select
-              {...register("container", { required: "Informe o container" })}
-              className="border border-gray-400 rounded p-2"
-            >
-              <option value="" disabled selected>
-                Container...
-              </option>
-              <option value="1">Container 1</option>
-              <option value="2">Container 2</option>
-              <option value="3">Container 3</option>
-              <option value="4">Container 4</option>
-              <option value="5">Container 5</option>
-              <option value="6">Container 6</option>
-              <option value="7">Container 7</option>
-              <option value="8">Container 8</option>
-              <option value="9">Container 9</option>
-              <option value="10">Container 10</option>
-              <option value="11">Container 11</option>
-              <option value="12">Container 12</option>
-            </select>
-            {errors.container?.message && (
-              <p className="text-red-500">{`${errors.container.message}`}</p>
-            )}
+
+          <div className="flex flex-col gap-4">
+            <div className="flex items-center gap-4">
+              <select
+                {...register("container", { required: "Informe o container" })}
+                className="border border-gray-400 rounded p-2"
+              >
+                <option disabled selected>
+                  Container...
+                </option>
+                <option value="1">Container 1</option>
+                <option value="2">Container 2</option>
+                <option value="3">Container 3</option>
+                <option value="4">Container 4</option>
+                <option value="5">Container 5</option>
+                <option value="6">Container 6</option>
+                <option value="7">Container 7</option>
+                <option value="8">Container 8</option>
+                <option value="9">Container 9</option>
+                <option value="10">Container 10</option>
+                <option value="11">Container 11</option>
+                <option value="12">Container 12</option>
+              </select>
+            </div>
+
+            <div>
+              <select
+                {...register("position", {
+                  required: "Informe a quantidade de carros",
+                })}
+                className="border border-gray-400 rounded p-2"
+                name="position"
+                id="position"
+              >
+                <option disabled selected>
+                  Quantidade de carros...
+                </option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+              </select>
+              {errors.position?.message && (
+                <p className="text-red-500">{`${errors.position.message}`}</p>
+              )}
+            </div>
           </div>
+
           <textarea
             {...register("description")}
             cols={30}
