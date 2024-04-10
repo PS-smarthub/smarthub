@@ -3,7 +3,7 @@
 import { useMsal } from "@azure/msal-react";
 import { redirect } from "next/navigation";
 import React, { useLayoutEffect } from "react";
-import Header from "@/components/header";
+import Header from "@/components/Header";
 import SideMenu from "@/components/side-menu";
 import QueryProvider from "@/providers/QueryProvider";
 import { TooltipProvider } from "@smarthub/ui";

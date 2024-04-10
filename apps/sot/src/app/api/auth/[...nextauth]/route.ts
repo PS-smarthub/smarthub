@@ -8,12 +8,10 @@ export const handler = NextAuth({
       clientId: "d3e5ad7f-3183-4811-a01c-b1ad27a3736d",
       clientSecret: "XVa8Q~WUNhs~rbbreSqEnLm1b79NZsEusLqRcaj-",
       tenantId: "0ae51e19-07c8-4e4b-bb6d-648ee58410f4",
-      idToken: true,
       authorization: {
         url: "http://localhost:3002",
         params: {
           redirect_uri: "http://localhost:3002/",
-          scope: "User.Read ChannelMessage.Send Chat.Create User.ReadBasic.All",
           response_type: "token",
         },
       },
