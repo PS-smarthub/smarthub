@@ -6,7 +6,8 @@ const poppins = Poppins({
   subsets: ["latin"],
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
 });
-import {  TooltipProvider } from "@smarthub/ui";
+import { TooltipProvider } from "@smarthub/ui";
+import Auth from "../services/msal/Auth";
 
 export const metadata: Metadata = {
   title: "Service Order Tool",
@@ -19,10 +20,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-br">
-      <body className={poppins.className}>
+    <html lang="pt-br" className="h-full">
+      <body className={`${poppins.className} h-full`}>
         <SessionProvider>
-          <TooltipProvider>{children}</TooltipProvider>
+          <TooltipProvider>
+            {children}
+            <Auth />
+          </TooltipProvider>
         </SessionProvider>
       </body>
     </html>

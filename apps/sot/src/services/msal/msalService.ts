@@ -5,7 +5,7 @@ const msalConfig = {
     clientId: "d3e5ad7f-3183-4811-a01c-b1ad27a3736d",
     authority:
       "https://login.microsoftonline.com/0ae51e19-07c8-4e4b-bb6d-648ee58410f4",
-    redirectUri: "http://localhost:3002/api/auth/callback/azure-ad",
+    redirectUri: "http://localhost:3002/",
   },
   cache: {
     cacheLocation: "sessionStorage", // This configures where your cache will be stored

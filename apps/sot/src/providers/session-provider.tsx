@@ -1,11 +1,12 @@
 "use client";
 
-import { SessionProvider as Provider } from "next-auth/react";
+import { MsalProvider as Provider } from "@azure/msal-react";
+import { msalInstance } from "../services/msal/msalService";
 
-export default function SessionProvider({
+export default function MsalProvider({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  return <Provider>{children}</Provider>;
+  return <Provider instance={msalInstance}>{children}</Provider>;
 }
