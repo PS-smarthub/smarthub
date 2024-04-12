@@ -18,7 +18,7 @@ export default function SideMenu({ options }: { options: option[] }) {
               <li className="p-5 sm:p-3 sm:text-[14px]">
                 <Link
                   href={option.href}
-                  className="flex flex-col text-center items-center justify-center font-semibold"
+                  className="flex flex-col text-center items-center justify-center font-semibold hover:text-blue-50 hover:fill-blue-50"
                 >
                   {option.icon}
                   {option.app_name}
