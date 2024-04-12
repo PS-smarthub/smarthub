@@ -28,6 +28,7 @@
     "typescript": "^5.3.3"
   },
   "dependencies": {
+    "@azure/msal-react": "^2.0.14",
     "@material-tailwind/react": "^2.1.8",
     "@radix-ui/react-dialog": "^1.0.5",
     "@radix-ui/react-dropdown-menu": "^2.0.6",

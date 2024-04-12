@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "@azure/msal-browser": "^3.9.0",
-    "@azure/msal-node": "^2.6.6",
     "@azure/msal-react": "^2.0.11",
     "@fullcalendar/core": "^6.1.10",
     "@fullcalendar/daygrid": "^6.1.10",
@@ -18,9 +17,6 @@
     "@fullcalendar/react": "^6.1.10",
     "@fullcalendar/timegrid": "^6.1.10",
     "@microsoft/microsoft-graph-client": "^3.0.7",
-    "@radix-ui/react-dialog": "^1.0.5",
-    "@radix-ui/react-toast": "^1.1.5",
-    "@radix-ui/react-tooltip": "^1.0.7",
     "@smarthub/ui": "*",
     "@tanstack/react-query": "^5.22.2",
     "axios": "^1.6.7",
@@ -36,8 +32,7 @@
     "react-hook-form": "^7.50.1",
     "react-icons": "^5.0.1",
     "tailwind-merge": "^2.2.1",
-    "tailwindcss-animate": "^1.0.7",
-    "zustand": "^4.5.1"
+    "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
     "@next/eslint-plugin-next": "^14.0.4",
