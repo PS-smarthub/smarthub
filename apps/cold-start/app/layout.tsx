@@ -1,7 +1,7 @@
 import "@smarthub/ui/src/globals.css";
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
-import MSALProvider from "@/providers/MsalProvider";
+import MsalProvider from "@/providers/MsalProvider";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -28,7 +28,7 @@ export default function RootLayout({
       className="h-full lg:overflow-y-hidden sm:overflow-auto"
     >
       <body className={`${poppins.className} h-full`}>
-        <MSALProvider>{children}</MSALProvider>
+        <MsalProvider>{children}</MsalProvider>
       </body>
     </html>
   );
