@@ -12,11 +12,11 @@ export default function DashboardLayout({
   return (
     <>
       <Auth />
-      <Header />
+      <Header logo="SOT"/>
       <main className="flex h-screen sm:h-[87%]">
         <SideMenu
           options={[
-            { app_name: "OS", href: "/os", icon: <MdMiscellaneousServices /> },
+            { app_name: "OS", href: "/os", icon: <MdMiscellaneousServices className="w-[40px] h-[40px]"/>   },
           ]}
         />
         <div className="flex-1 h-full">{children}</div>

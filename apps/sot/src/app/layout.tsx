@@ -8,7 +8,6 @@ const poppins = Poppins({
 });
 import { TooltipProvider } from "@smarthub/ui";
 import Auth from "../services/msal/Auth";
-
 export const metadata: Metadata = {
   title: "Service Order Tool",
   description: "Web app to manage service orders",
@@ -19,6 +18,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
   return (
     <html lang="pt-br" className="h-full">
       <body className={`${poppins.className} h-full`}>
