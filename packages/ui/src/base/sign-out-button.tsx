@@ -7,7 +7,7 @@ export function SignOutButton() {
   return (
     <button
       onClick={() => instance.logoutRedirect()}
-      className="w-full flex justify-center fixed bottom-8"
+      className="flex justify-center fixed bottom-8"
     >
       <MdOutlineLogout className="w-[40px] h-[40px] fill-red-500"/>
     </button>
