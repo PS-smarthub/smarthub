@@ -24,7 +24,7 @@ export default function OSPage() {
         </div>
         <div className="fixed right-1">
           {orderType == "" && (
-            <div className="flex flex-col gap-1">
+            <div className="flex flex-col gap-1 w-[300px]">
               <label className="text-[#43464A] font-semibold">
                 Tipo de ordem
               </label>
