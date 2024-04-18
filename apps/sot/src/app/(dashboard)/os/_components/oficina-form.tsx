@@ -1,6 +1,10 @@
-import React from 'react'
+import React from "react";
 
 export default function OficinaForm() {
+  const handleCreateOrder = () => {
+    console.log("Ordem criada");
+  };
+
   return (
     <form className="max-h-[450px] overflow-y-auto pb-10">
       <div className="flex gap-12">
@@ -11,8 +15,11 @@ export default function OficinaForm() {
           >
             Montadora
           </label>
-          <select className="border rounded text-[#757575] p-2 w-[200px]">
-            <option>Selecione...</option>
+          <select
+            id="automaker"
+            className="border rounded text-[#757575] p-2 w-[200px] shadow hover:border-gray-400 focus:border-blue-500 focus:shadow-outline"
+          >
+            <option selected>Selecione...</option>
             <option>Fiat</option>
             <option>Toyota</option>
             <option>Honda</option>
@@ -20,13 +27,14 @@ export default function OficinaForm() {
         </div>
 
         <div className="flex-col flex">
-          <label
-            className="text-[#43464A] font-semibold p-1"
-            htmlFor="automaker"
-          >
+          <label className="text-[#43464A] font-semibold p-1" htmlFor="project">
             Projeto
           </label>
-          <select className="border rounded text-[#757575] p-2 w-[450px]">
+          <select
+            id="project"
+            className="border rounded text-[#757575] p-2 w-[450px] shadow hover:border-gray-400 focus:border-blue-500 focus:shadow-outline"
+          >
+            <option selected>Selecione...</option>
             <option>Projeto 1</option>
             <option>Projeto 2</option>
             <option>Projeto 3</option>
@@ -40,7 +48,8 @@ export default function OficinaForm() {
           >
             Interno
           </label>
-          <select className="border rounded text-[#757575] p-2  w-[150px]">
+          <select className="border rounded text-[#757575] p-2  w-[150px] shadow hover:border-gray-400 focus:border-blue-500 focus:shadow-outline">
+            <option selected>Selecione...</option>
             <option>Sim</option>
             <option>Não</option>
           </select>
@@ -55,7 +64,8 @@ export default function OficinaForm() {
           >
             Modelo
           </label>
-          <select className="border rounded text-[#757575] p-2 w-[200px]">
+          <select className="border rounded text-[#757575] p-2 w-[200px] shadow hover:border-gray-400 focus:border-blue-500 focus:shadow-outline">
+            <option selected>Selecione...</option>
             <option>Fiat</option>
             <option>Toyota</option>
             <option>Honda</option>
@@ -69,7 +79,8 @@ export default function OficinaForm() {
           >
             Chassi
           </label>
-          <select className="border rounded text-[#757575] p-2 w-[200px]">
+          <select className="border rounded text-[#757575] p-2 w-[200px] shadow hover:border-gray-400 focus:border-blue-500 focus:shadow-outline">
+            <option selected>Selecione...</option>
             <option>Projeto 1</option>
             <option>Projeto 2</option>
             <option>Projeto 3</option>
@@ -83,7 +94,8 @@ export default function OficinaForm() {
           >
             Frota
           </label>
-          <select className="border rounded text-[#757575] p-2 w-[200px]">
+          <select className="border rounded text-[#757575] p-2 w-[200px] shadow hover:border-gray-400 focus:border-blue-500 focus:shadow-outline">
+            <option selected>Selecione...</option>
             <option>Sim</option>
             <option>Não</option>
           </select>
@@ -99,7 +111,7 @@ export default function OficinaForm() {
           </label>
           <input
             type="text"
-            className="border rounded text-[#757575] p-2 w-[400px]"
+            className="border rounded text-[#757575] p-2 w-[400px] shadow hover:border-gray-400 focus:shadow-outline"
             placeholder="Ex: Na oficina"
           />
         </div>
@@ -113,18 +125,23 @@ export default function OficinaForm() {
           </label>
           <input
             type="text"
-            className="border rounded text-[#757575] p-2 w-[400px]"
+            className="border rounded text-[#757575] p-2 w-[400px] shadow hover:border-gray-400 focus:shadow-outline"
             placeholder="Ex: No carro"
           />
         </div>
         <textarea
           placeholder="Informações do serviço"
-          className="mt-6 border rounded text-[#757575] w-[60%] h-[150px] p-2"
+          className="mt-6 border rounded text-[#757575] w-[60%] h-[150px] p-2 shadow hover:border-gray-400 focus:shadow-outline"
         />
         <div className="flex items-center space-x-28">
           <div className="flex gap-4 items-center">
-            <label className="text-[#43464A] font-semibold p-1">Data de entrega desejada:</label>
-            <input className="border rounded text-[#757575] p-2" type="date"/>
+            <label className="text-[#43464A] font-semibold p-1">
+              Data de entrega desejada:
+            </label>
+            <input
+              className="border rounded text-[#757575] p-2 shadow hover:border-gray-400 focus:shadow-outline"
+              type="date"
+            />
           </div>
           <div>
             <button
