@@ -2,6 +2,7 @@
   "name": "smarthub",
   "private": true,
   "scripts": {
+    "create-app": "cd apps; git clone ",
     "build": "turbo build",
     "build:cold-start": "turbo build --filter=cold-start",
     "build:smarthub": "turbo build --filter=smarthub",

@@ -8,9 +8,9 @@ type option = {
   icon: React.ReactNode;
 };
 
-export default function SideMenu({ options }: { options: option[] }) {
+export function SideMenu({ options }: { options: option[] }) {
   return (
-    <div className="bg-gray-100 h-full text-gray-500 flex border-r w-[100px] justify-center">
+    <div className="bg-gray-100 h-full text-gray-500 flex w-[95px] border-r justify-center">
       <div className="flex flex-col items-center space-y-10 py-6">
         <div className="space-y-48 rounded-md">
           <ul className="flex flex-col items-center w-full">

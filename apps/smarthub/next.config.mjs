@@ -4,5 +4,5 @@ const nextConfig = {
     '@smarthub/ui',
   ],
 };
- 
-module.exports = nextConfig;
+
+export default nextConfig
