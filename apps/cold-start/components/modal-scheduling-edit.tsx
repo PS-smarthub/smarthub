@@ -1,16 +1,11 @@
-import { deleteScheduling } from "@/lib/api";
+import { alocateCar, deleteScheduling } from "@/lib/api/methods";
 import { SchedulingResponse } from "@/types";
 import { useMsal } from "@azure/msal-react";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTrigger,
-  DialogTitle,
-  toast,
-} from "@smarthub/ui";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@smarthub/ui";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Dispatch, SetStateAction, useState } from "react";
+import UpdateAndDelete from "./edit-buttons";
+import { errorToast, successToast } from "@/lib/toast_functions";
 
 export default function ModalSchedulingEdit({
   setOpen,
@@ -26,39 +21,48 @@ export default function ModalSchedulingEdit({
   const { mutate } = useMutation({
     mutationFn: deleteScheduling,
     onSuccess: () => {
-      toast({
-        duration: 1500,
-        variant: "success",
-        title: "Sucesso",
-        description: "Agendamento excluído com sucesso",
-      });
-      queryClient.invalidateQueries({ queryKey: ["get-schedulings"] })
+      successToast("Agendamento excluído com sucesso");
+      queryClient.invalidateQueries({ queryKey: ["get-schedulings"] });
     },
-    onError: () =>  toast({
-      duration: 1500,
-      variant: "destructive",
-      title: "Erro",
-      description: "Erro ao excluir o agendamento",
-    })
-      
+    onError: () => errorToast("Erro ao agendar o container"),
+  });
+  const { mutate: handleAlocateCar } = useMutation({
+    mutationFn: () =>
+      alocateCar({
+        position_1: scheduling?.position_1 ? false : true,
+        position_2: true,
+        scheduling_id: scheduling?.id,
+        token: accounts[0]?.idToken,
+      }),
+    onSuccess: () => successToast("Posição alocada com sucesso"),
+    onError: () => errorToast("Erro ao alocar posição"),
   });
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild></DialogTrigger>
       <DialogContent className="sm:max-w-[425px] rounded border">
         <DialogHeader>
-          <DialogTitle className="text-left font-bold text-sm border-b  px-2 pb-4">
+          <DialogTitle className="text-left font-bold text-sm border-b px-2 pb-4">
             {`Container ${scheduling?.container_id}`}
           </DialogTitle>
         </DialogHeader>
         <div>
-          <h2>Agendado por: {scheduling?.user_name}</h2>
+          <div className="flex gap-2 flex-col">
+            <h2>Agendado por: </h2>
+            {scheduling?.user_name_1 == scheduling?.user_name_2 ? (
+              <span>{scheduling?.user_name_1}</span>
+            ) : (
+              <>
+                <span>{scheduling?.user_name_1}</span>
+                <span>{scheduling?.user_name_2}</span>
+              </>
+            )}
+          </div>
           <div className="flex flex-col justify-start gap-4 py-4">
             <div className="flex gap-4 items-center">
               <label>De:</label>
               <input
                 type="date"
-                disabled={scheduling?.user_name != accounts[0]?.name}
+                disabled={scheduling?.user_name_1 != accounts[0]?.name}
                 className="border border-gray-400 rounded p-2"
                 defaultValue={scheduling?.initial_date_time.slice(0, 10)}
               />
@@ -67,7 +71,7 @@ export default function ModalSchedulingEdit({
               <label>Até:</label>
               <input
                 type="date"
-                disabled={scheduling?.user_name != accounts[0]?.name}
+                disabled={scheduling?.user_name_1 != accounts[0]?.name}
                 className="border border-gray-400 rounded p-2"
                 defaultValue={scheduling?.ending_date_time.slice(0, 10)}
               />
@@ -90,25 +94,23 @@ export default function ModalSchedulingEdit({
                 </span>
               </p>
             </div>
-            {scheduling?.user_name == accounts[0]?.name ? (
-              <div className="flex justify-center gap-6 mt-6">
+            {scheduling?.user_name_1 == accounts[0]?.name && (
+              <UpdateAndDelete
+                functionOnCLick={() => {
+                  setOpen(false);
+                  mutate({ id: scheduling?.id, token: accounts[0]?.idToken });
+                }}
+              />
+            )}
+            {scheduling?.user_name_1 != accounts[0]?.name &&
+              !scheduling?.position_2 && (
                 <button
-                  onClick={() => {
-                    setOpen(false);
-                    mutate({ id: scheduling?.id, token: accounts[0]?.idToken });
-                  }}
-                  className="bg-red-500 hover:bg-red-600 rounded text-white font-semibold p-1 w-[30%] disabled:bg-gray-600 disabled:cursor-not-allowed"
+                  className="bg-blue-50 text-white font-semibold py-2 rounded"
+                  onClick={() => handleAlocateCar()}
                 >
-                  Excluir
+                  Alocar
                 </button>
-                <button
-                  disabled
-                  className="bg-green-400 hover:bg-green-500 rounded text-white font-semibold p-1 w-[30%] disabled:bg-gray-600 disabled:cursor-not-allowed"
-                >
-                  Atualizar
-                </button>
-              </div>
-            ): <>{!scheduling?.position_2 && <button className="bg-blue-50 text-white font-semibold py-2 rounded">Alocar</button>}</>}
+              )}
           </div>
         </div>
       </DialogContent>
