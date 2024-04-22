@@ -6,7 +6,7 @@ export default function OficinaForm() {
   };
 
   return (
-    <form className="max-h-[450px] overflow-y-auto pb-10">
+    <form className="">
       <div className="flex gap-12">
         <div className="flex-col flex">
           <label

@@ -10,7 +10,7 @@ export default function SideMenu({ options }: { options: OptionMenu[] }) {
         <div className="space-y-48 rounded-md">
           <ul className="flex flex-col items-center w-full">
             {options.map((option: OptionMenu) => (
-              <li className="p-5 sm:p-3 sm:text-[14px]">
+              <li className="p-5 sm:p-3 sm:text-[14px]" key={option.app_name}>
                 <Link
                   href={option.href}
                   className="flex flex-col text-center items-center justify-center font-semibold hover:text-blue-50 hover:fill-blue-50"
