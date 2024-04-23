@@ -4,7 +4,7 @@ const nextConfig = {
     "@smarthub/ui",
   ],
   env: {
-    API_URL: "http://10.234.84.66:8000/api/v1",
+    API_URL: "http://10.234.83.16:8000/api/v1",
   },
 };
 

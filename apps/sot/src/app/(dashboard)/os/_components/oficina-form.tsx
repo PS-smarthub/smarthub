@@ -1,9 +1,6 @@
 import React from "react";
 
 export default function OficinaForm() {
-  const handleCreateOrder = () => {
-    console.log("Ordem criada");
-  };
 
   return (
     <form className="">

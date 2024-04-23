@@ -1,6 +1,6 @@
 import "@smarthub/ui/src/globals.css";
 import { Header } from "@smarthub/ui";
-import SideMenu from "@smarthub/ui/src/base/side-menu";
+import { SideMenu } from "@smarthub/ui";
 import { MdMiscellaneousServices } from "react-icons/md";
 import { OptionMenu } from "@/src/types";
 
@@ -21,7 +21,10 @@ export default function DashboardLayout({
     <main className="h-full">
       <Header logo="SOT" />
       <section className="flex h-full">
-        <SideMenu options={MENU_OPTIONS} />
+
+        <SideMenu
+          options={MENU_OPTIONS}
+        />
         <div className="flex-1">{children}</div>
       </section>
     </main>

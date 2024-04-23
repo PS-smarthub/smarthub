@@ -4,8 +4,9 @@ import { SignOutButton } from "./sign-out-button";
 import { OptionMenu } from "@/types";
 
 export default function SideMenu({ options }: { options: OptionMenu[] }) {
+
   return (
-    <div className="bg-gray-100 min-h-screen text-gray-500 flex border-r sm:h-full w-[100px] justify-center">
+    <div className="bg-gray-100 h-full text-gray-500 flex w-[95px] border-r justify-center">
       <div className="flex flex-col items-center space-y-10 py-6">
         <div className="space-y-48 rounded-md">
           <ul className="flex flex-col items-center w-full">

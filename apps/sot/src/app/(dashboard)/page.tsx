@@ -1,9 +1,5 @@
-import { cookies } from "next/headers";
-
 export default function Home() {
-  const token = cookies().get("token");
 
-  console.log("Token cookies: ", token);
   return (
     <>
       <div className="relative inline-block w-64">
