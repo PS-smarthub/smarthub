@@ -2,10 +2,7 @@
 const nextConfig = {
     transpilePackages: [
         "@smarthub/ui"
-    ],
-    experimental: {
-        swcMinify: true
-    }
+    ]
 };
 
 export default nextConfig;

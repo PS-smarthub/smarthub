@@ -10,7 +10,7 @@ export default function DashboardLayout({
 }>) {
   return (
     <main className="h-full">
-      <Header logo="SOT" />
+      <Header logo="SOT"/>
       <section className="flex h-full">
         <SideMenu
           options={[
