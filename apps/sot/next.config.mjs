@@ -1,8 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     transpilePackages: [
-        "@smarthub/ui"
-    ]
+        '@smarthub/ui',
+    ],
 };
 
 export default nextConfig;
