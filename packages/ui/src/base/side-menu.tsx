@@ -3,7 +3,7 @@ import Link from "next/link";
 import { SignOutButton } from "./sign-out-button";
 import { OptionMenu } from "@/types";
 
-export default function SideMenu({ options }: { options: OptionMenu[] }) {
+export function SideMenu({ options }: { options: OptionMenu[] }) {
 
   return (
     <div className="bg-gray-100 h-full text-gray-500 flex w-[95px] border-r justify-center">

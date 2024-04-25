@@ -1,29 +1,25 @@
-FROM node:20-alpine as base
+FROM node:20-alpine
 
 
-FROM base AS builder
+# https://github.com/vercel/turbo/issues/2198
+# Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
 RUN apk add --no-cache libc6-compat
-RUN apk update
 
+# add turborepo
+RUN npm i -g turbo
+
+# Set working directory
 WORKDIR /app
-RUN npm config set registry https://rb-artifactory.bosch.com/artifactory/api/npm/npm-repo/ 
-RUN npm install -g turbo
 
+# Install app dependencies
+COPY  ["package-lock.json", "package.json", "./"] 
+
+# Copy source files
 COPY . .
-RUN turbo prune cold-start --docker
 
-FROM base AS installer
-RUN apk add --no-cache libc6-compat
-RUN apk update
-WORKDIR /app
+# Install app dependencies
+RUN npm install
 
-# First install the dependencies (as they change less often)
-COPY .gitignore .gitignore
-COPY turbo.json turbo.json
-COPY --from=builder /app/out/json/ .
-COPY --from=builder /app/out/package-lock.json ./package-lock.json
+EXPOSE 3000 3001 3002
 
-RUN npm install 
-
-# # Build the project
-COPY --from=builder /app/out/full/ .
+CMD ["npm", "run", "dev"]
