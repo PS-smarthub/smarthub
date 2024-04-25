@@ -10,7 +10,6 @@ import {
 } from "@smarthub/ui";
 import { IoMdAdd } from "react-icons/io";
 import { useForm } from "react-hook-form";
-import { useToast } from "@smarthub/ui";
 import { useMsal } from "@azure/msal-react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createNewScheduling } from "@/lib/api/methods";
@@ -22,7 +21,7 @@ export default function ModalScheduling() {
   const {
     register,
     handleSubmit,
-    formState: { errors, isLoading },
+    formState: { errors },
     reset,
     getValues,
   } = useForm();

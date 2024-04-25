@@ -1,7 +1,6 @@
 "use client";
 
 import { ContainerResponse, Props } from "@/types";
-import { callMsGraph } from "@/lib/teams";
 import { BackButton } from "@smarthub/ui";
 import { useMutation, useQueryClient, useQuery } from "@tanstack/react-query";
 import { useState } from "react";
@@ -13,25 +12,13 @@ import { successToast } from "@/lib/toast_functions";
 import { updateSetpoint, validation } from "@/lib/api/methods";
 
 export default function ContainerDetails({ params }: Props) {
-  const { accounts, instance } = useMsal();
+  const { accounts } = useMsal();
   const today = new Date().getDate();
   const token = accounts[0]?.idToken;
   const queryClient = useQueryClient();
   const [setPoint1, setSetPoint1] = useState<number | undefined>();
   const [setPoint2, setSetPoint2] = useState<number | undefined>();
   const [disabled, setDisabled] = useState(true);
-
-  const handleSendEmail = (position: string) => {
-    instance
-      .acquireTokenSilent({
-        account: accounts[0],
-        scopes: [],
-      })
-      .then((response: any) => {
-        //@ts-ignore
-        callMsGraph(response.accessToken, accounts[0].username, position);
-      });
-  };
 
   const {
     data: container,
@@ -49,18 +36,6 @@ export default function ContainerDetails({ params }: Props) {
       return response.data;
     },
     refetchInterval: 15000,
-  });
-
-  const { data: validate } = useQuery({
-    queryKey: ["validate"],
-    queryFn: async () => {
-      const response = await api.get(`/containers/validate/${container?.id}`, {
-        headers: {
-          token: token,
-        },
-      });
-      return response.data;
-    },
   });
 
   const { mutate, isPending: updatingSetpoint } = useMutation({

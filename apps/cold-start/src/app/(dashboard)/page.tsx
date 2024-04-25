@@ -10,7 +10,7 @@ export default function Home() {
   const { accounts } = useMsal();
 
   console.log(accounts[0]?.idToken);
-  const { data, isPending, error } = useQuery<Container[]>({
+  const { data, isPending } = useQuery<Container[]>({
     queryKey: ["get-container-list"],
     queryFn: async () => {
       const response = await api.get(`/containers/`, {

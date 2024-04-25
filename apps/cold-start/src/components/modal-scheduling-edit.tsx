@@ -3,7 +3,7 @@ import { SchedulingResponse } from "@/types";
 import { useMsal } from "@azure/msal-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@smarthub/ui";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction } from "react";
 import UpdateAndDelete from "./edit-buttons";
 import { errorToast, successToast } from "@/lib/toast_functions";
 

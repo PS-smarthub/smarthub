@@ -17,7 +17,7 @@ export default function Calendar() {
   const [open, setOpen] = useState(false);
   const [scheduling, setScheduling] = useState<SchedulingResponse>();
   const { accounts } = useMsal();
-  const { data, isPending, error } = useQuery<SchedulingResponse[]>({
+  const { data } = useQuery<SchedulingResponse[]>({
     queryKey: ["get-schedulings"],
     queryFn: async () => {
       const response = await api.get(`/schedules/?month=false&year=false`, {
