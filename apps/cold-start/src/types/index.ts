@@ -6,10 +6,6 @@ export interface Container {
   temperatures: Temperatures[];
 }
 
-export type ContainerStore = {
-  containerList: Container[];
-  setContainer: (container: Container[]) => void;
-};
 
 export type ContainerResponse = {
   id: number;

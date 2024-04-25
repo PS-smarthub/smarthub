@@ -11,8 +11,7 @@ services:
       - '3001:3001'
       - '3002:3002'
     volumes:
-      - ./:/app/
-      - /app/node_modules/
+      - .:/app/
     working_dir: /app/
     restart: on-failure
     networks:

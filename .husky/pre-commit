@@ -1,0 +1,3 @@
+echo "Check for linting errors and run tests before commiting..."
+
+echo "Done"

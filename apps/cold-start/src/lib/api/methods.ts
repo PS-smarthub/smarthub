@@ -92,7 +92,7 @@ export const validation = async ({
     `/containers/validation/${container_id}`,
     {
       in_validation_1: in_validation_1,
-      in_validation_2: in_validation_1,
+      in_validation_2: in_validation_2,
     },
     {
       headers: {
