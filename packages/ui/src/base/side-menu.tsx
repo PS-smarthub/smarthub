@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { SignOutButton } from "./sign-out-button";
-import { OptionMenu } from "@/types";
+import { OptionMenu } from "../types";
 
 export function SideMenu({ options }: { options: OptionMenu[] }) {
 

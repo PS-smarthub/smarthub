@@ -32,4 +32,4 @@ WORKDIR /app
 
 COPY --from=installer /app .
 
-CMD npm run dev
+CMD npm run dev -w=cold-start
