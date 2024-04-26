@@ -1,17 +1,15 @@
 FROM node:20-alpine AS builder
-RUN apk add --no-cache libc6-compat
-RUN apk update
 # Set working directory
 WORKDIR /app
-RUN npm i -g turbo
 COPY . .
+ARG REGISTRY
+RUN npm config set registry REGISTRY
+RUN npm i -g turbo
 # Only Take packages that are needed to compile this app
 RUN turbo prune --scope=cold-start --docker
 
 # Add lockfile and package.json's of isolated subworkspace
 FROM node:20-alpine AS installer
-RUN apk add --no-cache libc6-compat
-RUN apk update
 WORKDIR /app
 COPY --from=builder /app/out/json/ .
 COPY --from=builder /app/out/package-lock.json ./package-lock.json
@@ -20,8 +18,6 @@ RUN npm ci --frozen-lockfile
 
 
 FROM node:20-alpine AS sourcer
-RUN apk add --no-cache libc6-compat
-RUN apk update
 WORKDIR /app
 COPY --from=installer /app/ .
 COPY --from=builder /app/out/full/ .

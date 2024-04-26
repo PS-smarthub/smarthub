@@ -15,8 +15,7 @@
     "@repo/eslint-config": "*",
     "@repo/typescript-config": "*",
     "husky": "^9.0.11",
-    "prettier": "^3.1.1",
-    "turbo": "latest"
+    "prettier": "^3.1.1"
   },
   "engines": {
     "node": ">=18"
@@ -27,6 +26,7 @@
     "packages/*"
   ],
   "dependencies": {
-    "smarthub-cli": "^0.6.0"
+    "smarthub-cli": "^0.6.0",
+    "turbo": "latest"
   }
 }
