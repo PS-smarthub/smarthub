@@ -13,7 +13,7 @@ export default function DashboardLayout({
     {
       app_name: "OS",
       href: "/os",
-      icon: <MdMiscellaneousServices className="w-[40px] h-[40px]"/>,
+      icon: <MdMiscellaneousServices className="w-[40px] h-[40px]" />,
     },
   ];
 
@@ -21,9 +21,7 @@ export default function DashboardLayout({
     <main className="h-full">
       <Header logo="SOT" />
       <section className="flex h-full">
-        <SideMenu
-          options={MENU_OPTIONS}
-        />
+        <SideMenu options={MENU_OPTIONS} />
         <div className="flex-1">{children}</div>
       </section>
     </main>

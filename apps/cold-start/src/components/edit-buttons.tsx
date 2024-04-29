@@ -3,7 +3,7 @@ import { MouseEventHandler } from "react";
 export default function UpdateAndDelete({
   functionOnCLick,
 }: {
-    functionOnCLick: MouseEventHandler;
+  functionOnCLick: MouseEventHandler;
 }) {
   return (
     <div className="flex justify-center gap-6 mt-6">

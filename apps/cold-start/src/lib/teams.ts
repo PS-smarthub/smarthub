@@ -3,7 +3,7 @@ import axios from "axios";
 export async function callMsGraph(
   accessToken: string,
   emailUser: string,
-  position: string
+  position: string,
 ) {
   const headers = {
     Authorization: `Bearer ${accessToken}`,
@@ -29,6 +29,6 @@ export async function callMsGraph(
   return await axios.post(
     "https://graph.microsoft.com/v1.0/me/sendMail",
     body,
-    { headers }
+    { headers },
   );
 }

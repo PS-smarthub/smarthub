@@ -23,21 +23,21 @@ export default function CarouselApps() {
   return (
     <>
       {appList.length == 1 ? (
-          <div className="p-4">
-            <Card className="">
-              <CardContent className="flex flex-col gap-2 aspect-square items-center justify-between p-10">
-                <Image
-                  src={appList[0]?.logo}
-                  alt="App image"
-                  className="w-[150px]"
-                />
-                <p className="">{appList[0]?.name}</p>
-                <a href={appList[0]?.url} className="underline text-blue-400">
-                  Saiba mais
-                </a>
-              </CardContent>
-            </Card>
-          </div>
+        <div className="p-4">
+          <Card className="">
+            <CardContent className="flex flex-col gap-2 aspect-square items-center justify-between p-10">
+              <Image
+                src={appList[0]?.logo}
+                alt="App image"
+                className="w-[150px]"
+              />
+              <p className="">{appList[0]?.name}</p>
+              <a href={appList[0]?.url} className="underline text-blue-400">
+                Saiba mais
+              </a>
+            </CardContent>
+          </Card>
+        </div>
       ) : (
         <Carousel
           opts={{

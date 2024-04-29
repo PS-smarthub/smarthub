@@ -6,7 +6,6 @@ export interface Container {
   temperatures: Temperatures[];
 }
 
-
 export type ContainerResponse = {
   id: number;
   device: string;

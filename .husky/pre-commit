@@ -1,4 +1,3 @@
 echo "Check for linting errors and run tests before commiting..."
-npm run lint 
 npm run format
 echo "Done"

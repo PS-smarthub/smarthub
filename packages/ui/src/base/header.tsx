@@ -26,7 +26,11 @@ export function Header({ logo }: { logo: string }) {
             </Link>
             <Link href="/profile" className="p-2">
               <ToolTip text="Perfil">
-                <Image src={Logo} alt="Profile icon" className="w-[40px] h-[40px] rounded-full p-1 bg-blue-50"/>
+                <Image
+                  src={Logo}
+                  alt="Profile icon"
+                  className="w-[40px] h-[40px] rounded-full p-1 bg-blue-50"
+                />
               </ToolTip>
             </Link>
           </div>

@@ -1,7 +1,6 @@
 import React from "react";
 
 export default function OficinaForm() {
-
   return (
     <form className="">
       <div className="flex gap-12">

@@ -28,7 +28,8 @@ export default function ModalScheduling() {
   const queryClient = useQueryClient();
   const { mutate } = useMutation({
     mutationFn: createNewScheduling,
-    onMutate: () => queryClient.invalidateQueries({ queryKey: ["get-schedulings"] }), 
+    onMutate: () =>
+      queryClient.invalidateQueries({ queryKey: ["get-schedulings"] }),
     onSuccess: () => {
       reset();
       successToast("Container agendado com sucesso");
@@ -36,7 +37,7 @@ export default function ModalScheduling() {
     },
     onError: (err) =>
       errorToast(
-        err.message.includes("406") ? "Container indisponível" : err.message
+        err.message.includes("406") ? "Container indisponível" : err.message,
       ),
   });
 

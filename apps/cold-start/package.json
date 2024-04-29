@@ -18,6 +18,7 @@
     "@fullcalendar/timegrid": "^6.1.10",
     "@microsoft/microsoft-graph-client": "^3.0.7",
     "@smarthub/ui": "*",
+    "@smarthub/fonts": "*",
     "@tanstack/react-query": "^5.22.2",
     "axios": "^1.6.7",
     "chart.js": "^4.4.1",
