@@ -10,3 +10,6 @@ build.sot:
 	@printf "\033[0;32m>>> building sot from Dockerfile\033[0m\n"
 	docker build -t sot . -f apps/sot/Dockerfile
 	docker run -d -p 3000:3000 sot
+
+run.cold-start:
+	docker run -d -p 3000:3000 cold-start

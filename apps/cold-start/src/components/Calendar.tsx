@@ -39,7 +39,7 @@ export default function Calendar() {
   });
 
   return (
-    <div className="w-[60%] overflow-auto">
+    <div className="w-[60%] pb-20">
       <FullCalendar
         plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
         headerToolbar={{

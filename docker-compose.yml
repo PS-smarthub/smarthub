@@ -5,11 +5,9 @@ services:
     container_name: smarthub
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: ./apps/smarthub/Dockerfile
     ports:
-      - '3000:3000'
       - '3001:3001'
-      - '3002:3002'
     volumes:
       - .:/app/
     working_dir: /app/

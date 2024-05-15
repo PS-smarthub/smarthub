@@ -65,7 +65,7 @@ export default function ContainerDetails({ params }: Props) {
   }
 
   return (
-    <section>
+    <section className="flex-1 max-h-full overflow-y-auto">
       <BackButton page_name={container.device} />
       <div className="flex w-full gap-20">
         {/* left*/}
@@ -87,14 +87,14 @@ export default function ContainerDetails({ params }: Props) {
           </div>
 
           {/* Chart */}
-          <div className="px-6 flex justify-center h-[70%] sm:h-[56%]">
-            <div className=" border border-gray-400 w-full rounded">
+          <div className="px-6 flex justify-center">
+            <div className="border border-gray-400 w-full rounded">
               <Chart temperatures={container.temperatures} />
             </div>
           </div>
         </div>
         {/* right*/}
-        <div className=" w-[70%] h-full border border-gray-400 mt-9 rounded mr-16">
+        <div className="w-[70%] border border-gray-400 mt-9 rounded mr-16">
           <h2 className="text-center font-bold p-4">Painel de Controle</h2>
 
           <div className="flex text-center justify-center gap-20 sm:gap-4">
@@ -148,8 +148,8 @@ export default function ContainerDetails({ params }: Props) {
                 Number(
                   container.scheduling_container[0]?.initial_date_time.slice(
                     8,
-                    10,
-                  ),
+                    10
+                  )
                 ) ? (
                   container.scheduling_container[0]?.user_name_1 ==
                   container.scheduling_container[0]?.user_name_2 ? (
@@ -172,8 +172,8 @@ export default function ContainerDetails({ params }: Props) {
                   Number(
                     container.scheduling_container[0]?.ending_date_time.slice(
                       8,
-                      10,
-                    ),
+                      10
+                    )
                   ) ? (
                   <div className="flex flex-col">
                     <span>
@@ -192,7 +192,7 @@ export default function ContainerDetails({ params }: Props) {
 
           {/* Setpoints*/}
           <div className="flex pt-10 pb-12 sm:pb-6 justify-center">
-            <div className="w-[72%] h-[22rem] text-center rounded border flex justify-center items-center border-gray-400 sm:w-[72%] sm:h-[9.5rem]">
+            <div className="w-[72%] text-center rounded border flex justify-center items-center border-gray-400 sm:w-[72%]">
               <button
                 disabled={updatingSetpoint ? updatingSetpoint : disabled}
                 onClick={() =>

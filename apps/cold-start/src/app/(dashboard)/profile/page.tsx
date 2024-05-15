@@ -26,9 +26,9 @@ export default function Profile() {
   });
 
   return (
-    <section className="p-6 h-full">
+    <section className="p-6 w-full">
       <BackButton page_name="Perfil" />
-      <div className="flex w-full h-full">
+      <div className="flex w-full">
         <div className="w-[50%] p-14 flex gap-10">
           <Image
             src={UserIcon}
@@ -40,7 +40,7 @@ export default function Profile() {
             <p>{user?.username}</p>
           </div>
         </div>
-        <div className="w-[50%] border rounded py-4 px-6 h-[80%]">
+        <div className="w-[50%] border rounded py-4 px-6">
           <h1 className="font-semibold border-b ">Meus Agendamentos</h1>
           <div className="grid grid-cols-2 gap-4 mt-10 max-h-[300px] overflow-auto">
             {data &&
