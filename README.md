@@ -1,5 +1,3 @@
-
-
 <h1 align="center">
   <br>
     <img src="./screenshots/logo.png" alt="Logo image"/> 
@@ -17,8 +15,6 @@
   <a href="#support">Support</a> •
   <a href="#license">License</a>
 </p>
-
-
 
 ## About
 
@@ -39,12 +35,10 @@ To run the project, there are some requirements, you can run it using Docker or 
 The front-end of the project was developed using Nextjs and the back-end in Python using the FastApi library, so the prerequisites to execute are:
 
 - node
-- npm 
+- npm
 - python
 
-
 ### Installing and Running
-
 
 As previously mentioned, it is possible to execute the project in two ways
 
@@ -74,7 +68,6 @@ Don't forget to give the project a star! Thanks again!
 3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
-
 
 ## License
 

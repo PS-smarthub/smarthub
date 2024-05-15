@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "@smarthub/ui/src/globals.css";
-import SessionProvider from "@/src/providers/session-provider";
+
 const poppins = Poppins({
   subsets: ["latin"],
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
@@ -20,9 +20,7 @@ export default function RootLayout({
   return (
     <html lang="pt-br" className="overflow-hidden h-full">
       <body className={`${poppins.className} h-full`}>
-        <SessionProvider>
-          <TooltipProvider>{children}</TooltipProvider>
-        </SessionProvider>
+        <TooltipProvider>{children}</TooltipProvider>
       </body>
     </html>
   );

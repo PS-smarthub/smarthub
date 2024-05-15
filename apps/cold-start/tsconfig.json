@@ -7,12 +7,14 @@
       }
     ],
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./src/*"]
     }
   },
   "include": [
     "next-env.d.ts",
-    "next.config.js",
+    "next.config.mjs",
+    "tailwind.config.js",
+    "postcss.config.js",
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",

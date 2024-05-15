@@ -8,13 +8,14 @@
     "build:smarthub": "turbo build -w=smarthub",
     "dev": "turbo dev",
     "lint": "turbo lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "prepare": "husky"
   },
   "devDependencies": {
     "@repo/eslint-config": "*",
     "@repo/typescript-config": "*",
-    "prettier": "^3.1.1",
-    "turbo": "latest"
+    "husky": "^9.0.11",
+    "prettier": "^3.1.1"
   },
   "engines": {
     "node": ">=18"
@@ -25,6 +26,7 @@
     "packages/*"
   ],
   "dependencies": {
-    "smarthub-cli": "^0.6.0"
+    "smarthub-cli": "^0.6.0",
+    "turbo": "latest"
   }
 }

@@ -1,12 +1,20 @@
 version: '3.9'
 
 services:
-  cold-start:
+  smarthub:
+    container_name: smarthub
     build:
       context: .
-      dockerfile: ./docker/Dockerfile.cold-start.build
+      dockerfile: ./apps/smarthub/Dockerfile
     ports:
-      - '3000:3000'
+      - '3001:3001'
     volumes:
-      - .:/app
-      - /app/node_modules
+      - .:/app/
+    working_dir: /app/
+    restart: on-failure
+    networks:
+      - smarthub-network
+
+networks:
+  smarthub-network:
+    driver: bridge

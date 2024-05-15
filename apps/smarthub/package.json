@@ -2,8 +2,6 @@
   "name": "smarthub",
   "version": "1.0.0",
   "private": true,
-  "main": "src/index.tsx",
-  "module": "src/index.tsx",
   "scripts": {
     "dev": "next dev --port 3001",
     "build": "next build",
