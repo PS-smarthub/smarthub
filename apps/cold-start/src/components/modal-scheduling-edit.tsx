@@ -49,7 +49,7 @@ export default function ModalSchedulingEdit({
           <div className="flex gap-2 flex-col">
             <h2>Agendado por: </h2>
             {scheduling?.user_name_1 == scheduling?.user_name_2 ? (
-              <span>{scheduling?.user_name_1}</span>
+              <span className="font-semibold">{scheduling?.user_name_1}</span>
             ) : (
               <>
                 <span>{scheduling?.user_name_1}</span>

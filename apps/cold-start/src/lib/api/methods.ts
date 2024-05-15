@@ -79,16 +79,16 @@ export const updateSetpoint = async ({
 
 export const validation = async ({
   container_id,
-  token,
   in_validation_1,
   in_validation_2,
+  token,
 }: {
   container_id: number | undefined;
-  token: string | undefined;
   in_validation_1: boolean;
   in_validation_2: boolean;
+  token: string | undefined;
 }) => {
-  await api.patch(
+  return await api.patch(
     `/containers/validation/${container_id}`,
     {
       in_validation_1: in_validation_1,
