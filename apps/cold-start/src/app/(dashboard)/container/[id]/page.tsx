@@ -161,8 +161,8 @@ export default function ContainerDetails({ params }: Props) {
                 Number(
                   container.scheduling_container[0]?.initial_date_time.slice(
                     8,
-                    10
-                  )
+                    10,
+                  ),
                 ) ? (
                   container.scheduling_container[0]?.user_name_1 ==
                   container.scheduling_container[0]?.user_name_2 ? (
@@ -185,8 +185,8 @@ export default function ContainerDetails({ params }: Props) {
                   Number(
                     container.scheduling_container[0]?.ending_date_time.slice(
                       8,
-                      10
-                    )
+                      10,
+                    ),
                   ) ? (
                   <div className="flex flex-col">
                     <span>
