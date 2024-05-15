@@ -3,13 +3,13 @@
 @tailwind utilities;
 
 ::-webkit-scrollbar {
-	width: 5px;
-	height: 4px;
+  width: 5px;
+  height: 4px;
 }
 
 ::-webkit-scrollbar-thumb {
-	background: #888;
-	border-radius: 12px;
+  background: #888;
+  border-radius: 12px;
 }
 
 @layer base {
@@ -80,11 +80,23 @@
   }
 }
 @layer base {
-  *{
-    @apply border-border
+  * {
+    @apply border-border;
   }
-  body{
+  body {
     @apply bg-background text-foreground;
-    font-feature-settings: "rlig" 1, "calt" 1;
+    font-feature-settings:
+      "rlig" 1,
+      "calt" 1;
   }
+}
+
+input[type="number"] {
+  outline: none; /* remove o contorno padrão ao focar */
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  appearance: none; /* remove a aparência padrão */
+  margin: 0; /* ajusta o espaço */
 }

@@ -1,17 +1,18 @@
 version: '3.9'
 
 services:
-  smarthub:
-    container_name: smarthub
+  cold-start:
+    container_name: cold-start
     build:
       context: .
-      dockerfile: ./apps/smarthub/Dockerfile
+      dockerfile: ./apps/cold-start/Dockerfile
     ports:
-      - '3001:3001'
+      - '3000:3000'
     volumes:
       - .:/app/
     working_dir: /app/
     restart: on-failure
+    command: npm start
     networks:
       - smarthub-network
 

@@ -16,10 +16,21 @@ export default function ContainerDetails({ params }: Props) {
   const today = new Date().getDate();
   const token = accounts[0]?.idToken;
   const queryClient = useQueryClient();
+  const [test_1, setTest1] = useState<boolean>();
+  const [test_2, setTest2] = useState<boolean>();
   const [setPoint1, setSetPoint1] = useState<number | undefined>();
   const [setPoint2, setSetPoint2] = useState<number | undefined>();
   const [disabled, setDisabled] = useState(true);
+  console.log(token);
+  const getValidate = useQuery({
+    queryKey: ["get-validation"],
+    queryFn: async () => {
+      const { data } = await api.get(`/containers/validate/${params.id}`);
 
+      setTest1(data.test_1);
+      setTest2(data.test_2);
+    },
+  });
   const {
     data: container,
     error,
@@ -35,6 +46,7 @@ export default function ContainerDetails({ params }: Props) {
 
       return response.data;
     },
+
     refetchInterval: 15000,
   });
 
@@ -43,16 +55,17 @@ export default function ContainerDetails({ params }: Props) {
     onSuccess: async () => {
       successToast("Set point alterado com sucesso");
       setDisabled(true);
+
       validation({
         container_id: container?.id,
-        in_validation_1: true,
-        in_validation_2: true,
+        in_validation_1: test_1 ? true : setPoint1 !== undefined ? true : false,
+        in_validation_2: test_2 ? true : setPoint2 !== undefined ? true : false,
         token: token,
       });
+      setPoint1 == undefined && setSetPoint1(undefined);
+      setPoint2 == undefined && setSetPoint2(undefined);
+
       queryClient.invalidateQueries({ queryKey: ["set-point"] });
-    },
-    onMutate: async () => {
-      console.log("Mutou");
     },
   });
 
@@ -65,9 +78,9 @@ export default function ContainerDetails({ params }: Props) {
   }
 
   return (
-    <section className="flex-1 max-h-full overflow-y-auto">
+    <section className="flex-1 max-h-full overflow-y-auto pb-32">
       <BackButton page_name={container.device} />
-      <div className="flex w-full gap-20">
+      <div className="flex w-full gap-20 sm:gap-10">
         {/* left*/}
         <div className="w-full">
           {/* container temperatures */}
@@ -94,7 +107,7 @@ export default function ContainerDetails({ params }: Props) {
           </div>
         </div>
         {/* right*/}
-        <div className="w-[70%] border border-gray-400 mt-9 rounded mr-16">
+        <div className=" border border-gray-400 mt-9 rounded mr-16 px-10">
           <h2 className="text-center font-bold p-4">Painel de Controle</h2>
 
           <div className="flex text-center justify-center gap-20 sm:gap-4">
@@ -142,14 +155,14 @@ export default function ContainerDetails({ params }: Props) {
           {/* Agendamento*/}
           <div className="flex flex-col items-center pt-8">
             <h2 className="text-center font-bold p-2">Agendamento</h2>
-            <div className="font-semibold border w-[72%] border-gray-400 p-4 rounded flex items-center justify-between sm:p-0">
+            <div className="font-semibold border border-gray-400 p-4 rounded w-full items-center justify-between sm:p-0">
               <h3 className="sm:py-4 pl-2">
                 {today >=
                 Number(
                   container.scheduling_container[0]?.initial_date_time.slice(
                     8,
-                    10
-                  )
+                    10,
+                  ),
                 ) ? (
                   container.scheduling_container[0]?.user_name_1 ==
                   container.scheduling_container[0]?.user_name_2 ? (
@@ -172,8 +185,8 @@ export default function ContainerDetails({ params }: Props) {
                   Number(
                     container.scheduling_container[0]?.ending_date_time.slice(
                       8,
-                      10
-                    )
+                      10,
+                    ),
                   ) ? (
                   <div className="flex flex-col">
                     <span>
@@ -191,29 +204,23 @@ export default function ContainerDetails({ params }: Props) {
           </div>
 
           {/* Setpoints*/}
-          <div className="flex pt-10 pb-12 sm:pb-6 justify-center">
-            <div className="w-[72%] text-center rounded border flex justify-center items-center border-gray-400 sm:w-[72%]">
-              <button
-                disabled={updatingSetpoint ? updatingSetpoint : disabled}
-                onClick={() =>
-                  mutate({
-                    container_id: container.id,
-                    token: token,
-                    set_point_1:
-                      setPoint1 != undefined
-                        ? setPoint1
-                        : container.set_point_1,
-                    set_point_2:
-                      setPoint2 != undefined
-                        ? setPoint2
-                        : container.set_point_2,
-                  })
-                }
-                className={`bg-green-400 font-semibold hover:bg-green-500 text-white p-2 rounded disabled:bg-gray-500 disabled:cursor-not-allowed`}
-              >
-                {updatingSetpoint ? "Salvando..." : "Salvar"}
-              </button>
-            </div>
+          <div className="text-center rounded border mt-12 w-full py-32 justify-center items-center border-gray-400 sm:py-10">
+            <button
+              disabled={updatingSetpoint ? updatingSetpoint : disabled}
+              onClick={() =>
+                mutate({
+                  container_id: container.id,
+                  token: token,
+                  set_point_1:
+                    setPoint1 != undefined ? setPoint1 : container.set_point_1,
+                  set_point_2:
+                    setPoint2 != undefined ? setPoint2 : container.set_point_2,
+                })
+              }
+              className={`bg-green-400 font-semibold hover:bg-green-500 text-white p-2 rounded disabled:bg-gray-500 disabled:cursor-not-allowed`}
+            >
+              {updatingSetpoint ? "Salvando..." : "Salvar"}
+            </button>
           </div>
         </div>
       </div>
