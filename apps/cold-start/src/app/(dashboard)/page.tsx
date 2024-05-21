@@ -21,6 +21,7 @@ export default function Home() {
     },
   });
 
+  console.log(accounts[0]?.idToken);
   if (isPending) {
     return <p className="p-2">Pending...</p>;
   }

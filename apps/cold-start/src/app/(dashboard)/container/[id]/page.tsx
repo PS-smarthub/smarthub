@@ -10,27 +10,27 @@ import { api } from "@/lib/api";
 import CardTemperature from "@/components/temperature-view";
 import { successToast } from "@/lib/toast_functions";
 import { updateSetpoint, validation } from "@/lib/api/methods";
+import { callMsGraph } from "@/lib/teams";
 
 export default function ContainerDetails({ params }: Props) {
   const { accounts } = useMsal();
   const today = new Date().getDate();
   const token = accounts[0]?.idToken;
   const queryClient = useQueryClient();
-  const [test_1, setTest1] = useState<boolean>();
-  const [test_2, setTest2] = useState<boolean>();
-  const [setPoint1, setSetPoint1] = useState<number | undefined>();
-  const [setPoint2, setSetPoint2] = useState<number | undefined>();
+  const [setPoint, setSetPoint] = useState<number | undefined>();
   const [disabled, setDisabled] = useState(true);
-  console.log(token);
-  const getValidate = useQuery({
+  const user = accounts[0]
+  // console.log(token);
+
+  const { data: validateSetpointTemperature } = useQuery({
     queryKey: ["get-validation"],
     queryFn: async () => {
-      const { data } = await api.get(`/containers/validate/${params.id}`);
+      const response = await api.get(`/containers/validate/${params.id}`);
 
-      setTest1(data.test_1);
-      setTest2(data.test_2);
+      return response.data;
     },
   });
+  console.log(token)
   const {
     data: container,
     error,
@@ -49,6 +49,19 @@ export default function ContainerDetails({ params }: Props) {
 
     refetchInterval: 15000,
   });
+  // const checkSetPoint = useQuery({
+  //   queryKey: ["check-setpoint"],
+  //   queryFn: () => {
+  //     if(validateSetpointTemperature) {
+  //       if(container?.temperatures[0]?.room_temperature == container?.set_point) {
+  //         callMsGraph(token, user?.username)
+          
+  //       }
+  //     }
+  //     return null
+  //   }
+  // });
+  // callMsGraph(token, user?.username)
 
   const { mutate, isPending: updatingSetpoint } = useMutation({
     mutationFn: updateSetpoint,
@@ -58,12 +71,10 @@ export default function ContainerDetails({ params }: Props) {
 
       validation({
         container_id: container?.id,
-        in_validation_1: test_1 ? true : setPoint1 !== undefined ? true : false,
-        in_validation_2: test_2 ? true : setPoint2 !== undefined ? true : false,
         token: token,
+        in_validation: true,
       });
-      setPoint1 == undefined && setSetPoint1(undefined);
-      setPoint2 == undefined && setSetPoint2(undefined);
+      setPoint == undefined && setSetPoint(undefined);
 
       queryClient.invalidateQueries({ queryKey: ["set-point"] });
     },
@@ -107,15 +118,15 @@ export default function ContainerDetails({ params }: Props) {
           </div>
         </div>
         {/* right*/}
-        <div className=" border border-gray-400 mt-9 rounded mr-16 px-10">
+        <div className="border border-gray-400 mt-9 w-[40%] rounded mr-16 px-10">
           <h2 className="text-center font-bold p-4">Painel de Controle</h2>
 
           <div className="flex text-center justify-center gap-20 sm:gap-4">
             <div>
-              <h3 className="font-bold">Set Point 1</h3>
+              <h3 className="font-bold">Set Point</h3>
               <input
                 type="number"
-                defaultValue={container.set_point_1}
+                defaultValue={container.set_point}
                 disabled={
                   accounts[0]?.name ==
                   container.scheduling_container[0]?.user_name_1
@@ -124,30 +135,10 @@ export default function ContainerDetails({ params }: Props) {
                 }
                 step={"0.25"}
                 onChange={(e) => {
-                  const number = parseFloat(e.target.value);
-                  setSetPoint1(number);
+                  const value = parseFloat(e.target.value);
+                  setSetPoint(value);
                   setDisabled(false);
                 }}
-                className="border border-gray-400 rounded h-20 sm:h-10 sm:w-[150px] text-center"
-              />
-            </div>
-            <div>
-              <h3 className="font-bold">Set Point 2</h3>
-              <input
-                type="number"
-                step={"0.25"}
-                disabled={
-                  accounts[0]?.name ==
-                  container.scheduling_container[0]?.user_name_2
-                    ? false
-                    : true
-                }
-                onChange={(e) => {
-                  const number = parseFloat(e.target.value);
-                  setSetPoint2(number);
-                  setDisabled(false);
-                }}
-                defaultValue={container.set_point_2}
                 className="border border-gray-400 rounded h-20 sm:h-10 sm:w-[150px] text-center"
               />
             </div>
@@ -161,8 +152,8 @@ export default function ContainerDetails({ params }: Props) {
                 Number(
                   container.scheduling_container[0]?.initial_date_time.slice(
                     8,
-                    10,
-                  ),
+                    10
+                  )
                 ) ? (
                   container.scheduling_container[0]?.user_name_1 ==
                   container.scheduling_container[0]?.user_name_2 ? (
@@ -185,8 +176,8 @@ export default function ContainerDetails({ params }: Props) {
                   Number(
                     container.scheduling_container[0]?.ending_date_time.slice(
                       8,
-                      10,
-                    ),
+                      10
+                    )
                   ) ? (
                   <div className="flex flex-col">
                     <span>
@@ -211,10 +202,7 @@ export default function ContainerDetails({ params }: Props) {
                 mutate({
                   container_id: container.id,
                   token: token,
-                  set_point_1:
-                    setPoint1 != undefined ? setPoint1 : container.set_point_1,
-                  set_point_2:
-                    setPoint2 != undefined ? setPoint2 : container.set_point_2,
+                  set_point: setPoint,
                 })
               }
               className={`bg-green-400 font-semibold hover:bg-green-500 text-white p-2 rounded disabled:bg-gray-500 disabled:cursor-not-allowed`}

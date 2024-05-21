@@ -49,55 +49,50 @@ export const alocateCar = async ({
       headers: {
         token: token,
       },
-    },
+    }
   );
 
   return response.data;
 };
 
 export const updateSetpoint = async ({
-  set_point_1,
-  set_point_2,
+  set_point,
   token,
   container_id,
 }: {
-  set_point_1: number | undefined;
-  set_point_2: number | undefined;
+  set_point: number | undefined;
   token: string | undefined;
   container_id: number | undefined;
 }) => {
   return await api.patch(
     `/containers/setpoint/${container_id}`,
-    { set_point_1, set_point_2 },
+    { set_point: set_point },
     {
       headers: {
         token: token,
       },
-    },
+    }
   );
 };
 
 export const validation = async ({
   container_id,
-  in_validation_1,
-  in_validation_2,
   token,
+  in_validation,
 }: {
   container_id: number | undefined;
-  in_validation_1: boolean;
-  in_validation_2: boolean;
   token: string | undefined;
+  in_validation: boolean;
 }) => {
   return await api.patch(
     `/containers/validation/${container_id}`,
     {
-      in_validation_1: in_validation_1,
-      in_validation_2: in_validation_2,
+      in_validation: in_validation,
     },
     {
       headers: {
         token: token,
       },
-    },
+    }
   );
 };

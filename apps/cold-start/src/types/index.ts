@@ -1,16 +1,14 @@
 export interface Container {
   id: number;
   device: string;
-  set_point_1: number;
-  set_point_2: number;
-  temperatures: Temperatures[];
+  set_point: number;
+  in_validation: boolean;
 }
 
 export type ContainerResponse = {
   id: number;
   device: string;
-  set_point_1: number;
-  set_point_2: number;
+  set_point: number;
   in_validation: boolean;
   temperatures: Temperatures[];
   scheduling_container: SchedulingResponse[];
