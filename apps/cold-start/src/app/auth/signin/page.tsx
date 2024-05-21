@@ -1,21 +1,9 @@
-"use client";
-
 import SignInButton from "@/components/sign-in-button";
 import Image from "next/image";
 import login_image from "@/public/mockup-mac.svg";
-import { useMsal } from "@azure/msal-react";
-import { useLayoutEffect } from "react";
-import { redirect } from "next/navigation";
 
 export default function LoginPage() {
-  const { accounts } = useMsal();
-  const user = accounts[0];
 
-  useLayoutEffect(() => {
-    if (user) {
-      redirect("/");
-    }
-  }, [user]);
   return (
     <>
       <div className="w-full h-full flex">

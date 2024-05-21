@@ -10,17 +10,17 @@ import { api } from "@/lib/api";
 import CardTemperature from "@/components/temperature-view";
 import { successToast } from "@/lib/toast_functions";
 import { updateSetpoint, validation } from "@/lib/api/methods";
-import { callMsGraph } from "@/lib/teams";
+import { getToken } from "@/lib/session";
+import { getContainer } from "@/server/actions";
 
 export default function ContainerDetails({ params }: Props) {
   const { accounts } = useMsal();
   const today = new Date().getDate();
-  const token = accounts[0]?.idToken;
+  const token = getToken();
   const queryClient = useQueryClient();
   const [setPoint, setSetPoint] = useState<number | undefined>();
   const [disabled, setDisabled] = useState(true);
-  const user = accounts[0]
-  // console.log(token);
+  const user = accounts[0];
 
   const { data: validateSetpointTemperature } = useQuery({
     queryKey: ["get-validation"],
@@ -30,22 +30,14 @@ export default function ContainerDetails({ params }: Props) {
       return response.data;
     },
   });
-  console.log(token)
+  console.log(token);
   const {
     data: container,
     error,
     isPending,
   } = useQuery<ContainerResponse>({
     queryKey: ["get-container"],
-    queryFn: async () => {
-      const response = await api.get(`/containers/${params.id}`, {
-        headers: {
-          token: token,
-        },
-      });
-
-      return response.data;
-    },
+    queryFn: async () => await getContainer(params.id),
 
     refetchInterval: 15000,
   });
@@ -55,13 +47,12 @@ export default function ContainerDetails({ params }: Props) {
   //     if(validateSetpointTemperature) {
   //       if(container?.temperatures[0]?.room_temperature == container?.set_point) {
   //         callMsGraph(token, user?.username)
-          
+
   //       }
   //     }
   //     return null
   //   }
   // });
-  // callMsGraph(token, user?.username)
 
   const { mutate, isPending: updatingSetpoint } = useMutation({
     mutationFn: updateSetpoint,

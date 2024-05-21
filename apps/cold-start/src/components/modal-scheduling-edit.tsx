@@ -1,21 +1,21 @@
+"use client"
+
 import { alocateCar, deleteScheduling } from "@/lib/api/methods";
 import { SchedulingResponse } from "@/types";
 import { useMsal } from "@azure/msal-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@smarthub/ui";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { Dispatch, SetStateAction } from "react";
+import {  useState } from "react";
 import UpdateAndDelete from "./edit-buttons";
 import { errorToast, successToast } from "@/lib/toast_functions";
 
 export default function ModalSchedulingEdit({
-  setOpen,
-  open,
+  
   scheduling,
 }: {
-  setOpen: Dispatch<SetStateAction<boolean>>;
-  open: boolean;
   scheduling?: SchedulingResponse;
 }) {
+  const [open, setOpen] = useState(false)
   const { accounts } = useMsal();
   const queryClient = useQueryClient();
   const { mutate } = useMutation({

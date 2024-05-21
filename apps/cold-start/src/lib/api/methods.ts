@@ -49,7 +49,7 @@ export const alocateCar = async ({
       headers: {
         token: token,
       },
-    }
+    },
   );
 
   return response.data;
@@ -71,7 +71,7 @@ export const updateSetpoint = async ({
       headers: {
         token: token,
       },
-    }
+    },
   );
 };
 
@@ -93,6 +93,6 @@ export const validation = async ({
       headers: {
         token: token,
       },
-    }
+    },
   );
 };

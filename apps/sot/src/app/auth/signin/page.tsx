@@ -1,9 +1,9 @@
-"use client"
+"use client";
 
 import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
-  const router = useRouter()
+  const router = useRouter();
   return (
     <>
       <div className="w-full h-full flex">

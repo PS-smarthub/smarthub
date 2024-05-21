@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@azure/msal-browser": "^3.9.0",
+    "@azure/msal-node": "^2.8.1",
     "@azure/msal-react": "^2.0.11",
     "@fullcalendar/core": "^6.1.10",
     "@fullcalendar/daygrid": "^6.1.10",
@@ -17,8 +18,8 @@
     "@fullcalendar/react": "^6.1.10",
     "@fullcalendar/timegrid": "^6.1.10",
     "@microsoft/microsoft-graph-client": "^3.0.7",
-    "@smarthub/ui": "*",
     "@smarthub/fonts": "*",
+    "@smarthub/ui": "*",
     "@tanstack/react-query": "^5.22.2",
     "axios": "^1.6.7",
     "chart.js": "^4.4.1",
