@@ -8,5 +8,5 @@ export async function logout() {
 
   cookieINstance.set("cold-start-user-token", "", { expires: new Date(0) });
 
-  redirect("/auth/signin");
+  return redirect("/auth/signin");
 }

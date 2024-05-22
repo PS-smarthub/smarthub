@@ -5,7 +5,7 @@ import { getToken } from "./lib/session";
 export async function middleware(request: NextRequest) {
   const token = await getToken();
   const { pathname } = request.nextUrl;
-  console.log("token: ",token)
+  console.log("token: ", token);
 
   if (token == "") {
     return NextResponse.redirect(new URL("/auth/signin", request.url));

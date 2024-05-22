@@ -3,8 +3,6 @@ import { logout } from "@/server/logout";
 import { MdOutlineLogout } from "react-icons/md";
 
 export default function SignOutButton() {
-
-
   return (
     <button
       onClick={() => logout()}

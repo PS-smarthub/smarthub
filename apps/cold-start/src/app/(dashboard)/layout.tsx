@@ -10,8 +10,6 @@ export default function InsideLayout({
 }: {
   children: React.ReactNode;
 }) {
-
-
   return (
     <QueryProvider>
       <TooltipProvider>

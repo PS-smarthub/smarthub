@@ -1,16 +1,17 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { getToken } from "@/lib/session";
-import { cookies } from "next/headers";
+import { getContainerList } from "./server/actions";
 
 export async function middleware(request: NextRequest) {
   const res = NextResponse.next();
 
-  const token = getToken();
+  const token = getToken()
+  const get = await getContainerList()
   const { pathname } = request.nextUrl;
-  const siginInURL = new URL("/auth/signin", request.url);
+  const siginInURL = new URL("/auth/signin", request.url); 
 
-  if (token == "") {
+  if (token === undefined || get === null) {
     if (request.nextUrl.pathname == "/auth/signin") {
       return NextResponse.next();
     }
@@ -18,10 +19,10 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(siginInURL);
   }
 
-  if (token != "" && pathname.startsWith("/auth")) {
+  if (token && pathname.startsWith("/auth")) {
     return NextResponse.redirect(new URL("/", request.url));
   }
-  
+
   return res;
 }
 

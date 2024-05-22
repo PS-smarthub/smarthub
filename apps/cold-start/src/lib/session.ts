@@ -7,3 +7,5 @@ export const getToken = () => {
   const token = cookieInstance.get("cold-start-user-token");
   return token?.value;
 };
+
+

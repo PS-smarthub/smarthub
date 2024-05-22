@@ -1,29 +1,26 @@
-"use client";
-
 import Image from "next/image";
 import UserIcon from "@/public/user.svg";
 import { BackButton } from "@smarthub/ui";
-import { useMsal } from "@azure/msal-react";
-import { deleteScheduling, getMySchedulings } from "@/lib/api/methods";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { SchedulingResponse } from "@/types";
-import { FaRegTrashAlt } from "react-icons/fa";
+// import { deleteScheduling, getMySchedulings } from "@/lib/api/methods";
+// import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+// import { SchedulingResponse, User } from "@/types";
+// import { FaRegTrashAlt } from "react-icons/fa";
+import { getUser } from "@/server/actions";
 
-export default function Profile() {
-  const { accounts } = useMsal();
-  const user = accounts[0];
-  const queryClient = useQueryClient();
+export default async function Profile() {
+  const user = await getUser();
+  // const queryClient = useQueryClient();
 
-  const { data, error, isPending } = useQuery({
-    queryKey: ["get-my-schedulings"],
-    queryFn: () => getMySchedulings(accounts[0]?.idToken),
-  });
+  // const { data, error, isPending } = useQuery({
+  //   queryKey: ["get-my-schedulings"],
+  //   queryFn: () => getMySchedulings(accounts[0]?.idToken),
+  // });
 
-  const { mutate } = useMutation({
-    mutationFn: deleteScheduling,
-    onSuccess: () =>
-      queryClient.invalidateQueries({ queryKey: ["get-my-schedulings"] }),
-  });
+  // const { mutate } = useMutation({
+  //   mutationFn: deleteScheduling,
+  //   onSuccess: () =>
+  //     queryClient.invalidateQueries({ queryKey: ["get-my-schedulings"] }),
+  // });
 
   return (
     <section className="p-6 w-full">
@@ -37,13 +34,13 @@ export default function Profile() {
           />
           <div>
             <h1 className="font-semibold text-xl">{user?.name}</h1>
-            <p>{user?.username}</p>
+            <p>{user?.unique_name}</p>
           </div>
         </div>
         <div className="w-[50%] border rounded py-4 px-6">
           <h1 className="font-semibold border-b ">Meus Agendamentos</h1>
           <div className="grid grid-cols-2 gap-4 mt-10 max-h-[300px] overflow-auto">
-            {data &&
+            {/* {data &&
               data.map((schedule: SchedulingResponse) => (
                 <div className="flex rounded bg-gray-300 border-l-[7px] font-semibold justify-between p-2 border-blue-600">
                   <div className="flex flex-col">
@@ -63,7 +60,7 @@ export default function Profile() {
                 </div>
               ))}
             {isPending && <p>Carregando agendamentos...</p>}
-            {error && <p>Erro ao buscar seus agendamentos</p>}
+            {error && <p>Erro ao buscar seus agendamentos</p>} */}
           </div>
         </div>
       </div>

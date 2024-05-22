@@ -1,13 +1,10 @@
-import { CardContainerHome } from "@/components/card-container-home";
-import { api } from "@/lib/api";
-import { getToken } from "@/lib/session";
-import { getContainerList } from "@/server/actions";
-import { Container } from "@/types";
-import { useQuery } from "@tanstack/react-query";
+"use server";
 
+import { CardContainerHome } from "@/components/card-container-home";
+import { getContainerList} from "@/server/actions";
+import { Container } from "@/types";
 export default async function Home() {
   const containerList = await getContainerList();
-  console.log(containerList);
 
   return (
     <section className="w-full justify-center items-center ">

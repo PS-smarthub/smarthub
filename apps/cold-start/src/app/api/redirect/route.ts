@@ -1,9 +1,9 @@
 import { pca } from "@/services/msal";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import { NextRequest, NextResponse } from "next/server";
+import { NextRequest } from "next/server";
 
-export async function handler(req: NextRequest, res: any) {
+export async function handler(req: NextRequest) {
   const url = new URL(req.url);
   const searchParams = new URLSearchParams(url.searchParams);
   const code = searchParams.get("code");
@@ -21,10 +21,10 @@ export async function handler(req: NextRequest, res: any) {
   const cookieInstance = cookies();
   //@ts-ignore
   const response = await pca.acquireTokenByCode(tokenRequest);
-  const expires = new Date(Date.now() + 10 * 1000)
-
+  
   cookieInstance.set("cold-start-user-token", response.accessToken, {
     httpOnly: true,
+    // secure: true
   });
   return redirect("/");
 }

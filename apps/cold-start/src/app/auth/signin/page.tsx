@@ -3,7 +3,6 @@ import Image from "next/image";
 import login_image from "@/public/mockup-mac.svg";
 
 export default function LoginPage() {
-
   return (
     <>
       <div className="w-full h-full flex">

@@ -1,23 +1,21 @@
 "use client";
 
-import { useState } from "react";
 import {
   Dialog,
+  DialogTrigger,
   DialogContent,
   DialogHeader,
-  DialogTrigger,
   DialogTitle,
 } from "@smarthub/ui";
-import { IoMdAdd } from "react-icons/io";
-import { useForm } from "react-hook-form";
-import { useMsal } from "@azure/msal-react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { createNewScheduling } from "@/lib/api/methods";
+import { useForm } from "react-hook-form";
+import React, { useState } from "react";
+import { IoMdAdd } from "react-icons/io";
 import { errorToast, successToast } from "@/lib/toast_functions";
+import { createNewScheduling } from "@/server/actions";
 
 export default function ModalScheduling() {
   const [open, setOpen] = useState(false);
-  const { accounts } = useMsal();
   const {
     register,
     handleSubmit,
@@ -37,10 +35,9 @@ export default function ModalScheduling() {
     },
     onError: (err) =>
       errorToast(
-        err.message.includes("406") ? "Container indisponível" : err.message,
+        err.message.includes("406") ? "Container indisponível" : err.message
       ),
   });
-
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
@@ -68,7 +65,6 @@ export default function ModalScheduling() {
                 position_1: true,
                 position_2: getValues("position") == 2 ? true : false,
               },
-              token: accounts[0]?.idToken,
             });
           })}
         >
