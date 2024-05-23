@@ -21,9 +21,10 @@ export async function handler(req: NextRequest) {
   const cookieInstance = cookies();
   //@ts-ignore
   const response = await pca.acquireTokenByCode(tokenRequest);
-  
+
   cookieInstance.set("cold-start-user-token", response.accessToken, {
     httpOnly: true,
+    
     // secure: true
   });
   return redirect("/");

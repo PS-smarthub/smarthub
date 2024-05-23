@@ -1,6 +1,5 @@
 // import { DeleteSchedulingProps, CreateSchedulingProps } from "@/types";
 
-
 // export const deleteScheduling = async (props: DeleteSchedulingProps) => {
 //   return await api.delete(`/schedules/${props.id}`, {
 //     headers: {

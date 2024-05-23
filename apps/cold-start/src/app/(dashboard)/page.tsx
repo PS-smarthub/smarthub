@@ -1,7 +1,5 @@
-"use server";
-
 import { CardContainerHome } from "@/components/card-container-home";
-import { getContainerList} from "@/server/actions";
+import { getContainerList } from "@/server/actions";
 import { Container } from "@/types";
 export default async function Home() {
   const containerList = await getContainerList();

@@ -5,11 +5,12 @@ import { Chart } from "@/components/chart-container";
 import CardTemperature from "@/components/temperature-view";
 import { getContainer, getUser } from "@/server/actions";
 import ControlPainel from "./_components/control-painel";
+import { getToken } from "@/lib/session";
 
 export default async function ContainerDetails({ params }: Props) {
   const container = await getContainer(params.id);
   const user = await getUser();
-  
+
   // const token = getToken();
   // const queryClient = useQueryClient();
   // const [setPoint, setSetPoint] = useState<number | undefined>();

@@ -6,10 +6,10 @@ import { getContainerList } from "./server/actions";
 export async function middleware(request: NextRequest) {
   const res = NextResponse.next();
 
-  const token = getToken()
-  const get = await getContainerList()
+  const token = getToken();
+  const get = await getContainerList();
   const { pathname } = request.nextUrl;
-  const siginInURL = new URL("/auth/signin", request.url); 
+  const siginInURL = new URL("/auth/signin", request.url);
 
   if (token === undefined || get === null) {
     if (request.nextUrl.pathname == "/auth/signin") {

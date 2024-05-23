@@ -5,13 +5,17 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import { Scheduling } from "@/types";
+import { useState } from "react";
+import EditModalScheduling from "@/app/(dashboard)/agenda/_components/edit-modal-scheduling";
 
 export default function Calendar({
   schedulingList,
 }: {
-  schedulingList: Scheduling[];
+  schedulingList: Scheduling[] | undefined;
 }) {
   const schedulings: Scheduling[] = [];
+  const [open, setOpen] = useState(false);
+  const [scheduling, setScheduling] = useState()
 
   schedulingList?.forEach((element: any) => {
     schedulings.push({
@@ -40,6 +44,19 @@ export default function Calendar({
         editable={true}
         selectMirror={true}
         selectable={true}
+        eventClick={({ event }) => {
+          setOpen(true);
+          schedulingList?.forEach((element: any) => {
+            if (element.id == Number(event.id)) {
+              setScheduling(element)
+            }
+          });
+        }}
+      />
+      <EditModalScheduling
+        open={open}
+        setOpen={setOpen}
+        scheduling={scheduling}
       />
     </div>
   );
