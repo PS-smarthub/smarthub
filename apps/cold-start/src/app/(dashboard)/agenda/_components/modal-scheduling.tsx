@@ -30,7 +30,7 @@ export default function ModalScheduling() {
             Agendamento
           </DialogTitle>
         </DialogHeader>
-        <FormScheduling />
+        <FormScheduling setOpen={setOpen} />
       </DialogContent>
     </Dialog>
   );

@@ -1,11 +1,12 @@
 import Image from "next/image";
 import UserIcon from "@/public/user.svg";
 import { BackButton } from "@smarthub/ui";
-import { getUser } from "@/server/actions";
+
 import MySchedulings from "./_components/my-schedulings";
+import { getUser } from "@/lib/getUser";
 
 export default async function Profile() {
-  const user = await getUser();
+  const user = getUser();
 
   return (
     <section className="p-6 w-full">

@@ -2,6 +2,8 @@
 import { SchedulingResponse } from "@/types";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@smarthub/ui";
 import FormSchedulingEdit from "./form-scheduling-edit";
+import { useQuery } from "@tanstack/react-query";
+import { getUser } from "@/lib/getUser";
 
 export default function EditModalSchedling({
   scheduling,
@@ -32,14 +34,27 @@ export default function EditModalSchedling({
   //     onSuccess: () => successToast("Posição alocada com sucesso"),
   //     onError: () => errorToast("Erro ao alocar posição"),
   //   });
+  const { data: user } = useQuery({
+    queryKey: ["get-user"],
+    queryFn: async () => {
+      return await getUser();
+    },
+  });
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogContent className="sm:max-w-[425px] rounded border">
         <DialogHeader>
-          <DialogTitle className="text-left font-bold text-sm border-b px-2 pb-4">
-            {`Container ${scheduling?.container_id}`}
-            <FormSchedulingEdit />
-          </DialogTitle>
+          {user && (
+            <DialogTitle className="text-left font-bold text-sm border-b px-2 pb-4">
+              {`Container ${scheduling?.container_id}`}
+              <FormSchedulingEdit
+                scheduling={scheduling}
+                user={user}
+                setOpen={setOpen}
+              />
+            </DialogTitle>
+          )}
+          {!user && <span>Loading...</span>}
         </DialogHeader>
       </DialogContent>
     </Dialog>

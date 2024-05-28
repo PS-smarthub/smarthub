@@ -1,9 +1,11 @@
+"use client"
+
 import { errorToast, successToast } from "@/lib/toast_functions";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { createNewScheduling } from "@/server/actions";
 
-export default function FormScheduling() {
+export default function FormScheduling({setOpen}: {setOpen: any}) {
   const {
     register,
     handleSubmit,
@@ -12,11 +14,12 @@ export default function FormScheduling() {
     getValues,
   } = useForm();
   const queryClient = useQueryClient();
-  const { mutate } = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationFn: createNewScheduling,
     onMutate: () =>
       queryClient.invalidateQueries({ queryKey: ["get-schedulings"] }),
     onSuccess: () => {
+      setOpen(false)
       reset();
       successToast("Container agendado com sucesso");
     },
@@ -119,6 +122,7 @@ export default function FormScheduling() {
       <div className="flex w-full justify-center">
         <button
           type="submit"
+          disabled={isPending ? true : false}
           className="bg-green-400 hover:bg-green-500 rounded text-white font-semibold p-1 w-[40%] disabled:bg-gray-600"
         >
           Confirmar
