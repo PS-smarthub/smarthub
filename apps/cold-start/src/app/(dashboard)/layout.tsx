@@ -1,8 +1,3 @@
-"use client";
-
-import { useMsal } from "@azure/msal-react";
-import { redirect } from "next/navigation";
-import React, { useLayoutEffect } from "react";
 import Header from "@/components/header";
 import SideMenu from "@/components/side-menu";
 import QueryProvider from "@/providers/QueryProvider";
@@ -15,16 +10,6 @@ export default function InsideLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const { accounts } = useMsal();
-
-  const user = accounts[0];
-
-  useLayoutEffect(() => {
-    if (!user) {
-      redirect("/auth/signin");
-    }
-  }, [user]);
-
   return (
     <QueryProvider>
       <TooltipProvider>

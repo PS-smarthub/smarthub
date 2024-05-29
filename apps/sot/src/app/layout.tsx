@@ -1,11 +1,6 @@
 import type { Metadata } from "next";
-import { Poppins } from "next/font/google";
+import { bosch_sans_global } from "@smarthub/fonts";
 import "@smarthub/ui/src/globals.css";
-
-const poppins = Poppins({
-  subsets: ["latin"],
-  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
-});
 import { TooltipProvider } from "@smarthub/ui";
 export const metadata: Metadata = {
   title: "Service Order Tool",
@@ -19,7 +14,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-br" className="overflow-hidden h-full">
-      <body className={`${poppins.className} h-full`}>
+      <body className={`${bosch_sans_global.className} h-full`}>
         <TooltipProvider>{children}</TooltipProvider>
       </body>
     </html>

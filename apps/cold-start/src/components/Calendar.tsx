@@ -4,32 +4,20 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
-import ModalScheduling from "./modal-scheduling";
-import { useQuery } from "@tanstack/react-query";
-import { Scheduling, SchedulingResponse } from "@/types";
-import { useMsal } from "@azure/msal-react";
-import { api } from "@/lib/api";
-import ModalSchedulingInfos from "./modal-scheduling-edit";
+import { Scheduling } from "@/types";
 import { useState } from "react";
+import EditModalScheduling from "@/app/(dashboard)/agenda/_components/edit-modal-scheduling";
 
-export default function Calendar() {
+export default function Calendar({
+  schedulingList,
+}: {
+  schedulingList: Scheduling[] | undefined;
+}) {
   const schedulings: Scheduling[] = [];
   const [open, setOpen] = useState(false);
-  const [scheduling, setScheduling] = useState<SchedulingResponse>();
-  const { accounts } = useMsal();
-  const { data } = useQuery<SchedulingResponse[]>({
-    queryKey: ["get-schedulings"],
-    queryFn: async () => {
-      const response = await api.get(`/schedules/?month=false&year=false`, {
-        headers: {
-          token: accounts[0]?.idToken,
-        },
-      });
-      return response.data;
-    },
-  });
+  const [scheduling, setScheduling] = useState();
 
-  data?.forEach((element: SchedulingResponse) => {
+  schedulingList?.forEach((element: any) => {
     schedulings.push({
       start: element.initial_date_time,
       end: element.ending_date_time.slice(0, 10).concat("T01:00"),
@@ -58,15 +46,14 @@ export default function Calendar() {
         selectable={true}
         eventClick={({ event }) => {
           setOpen(true);
-          data?.forEach((element) => {
+          schedulingList?.forEach((element: any) => {
             if (element.id == Number(event.id)) {
               setScheduling(element);
             }
           });
         }}
       />
-      <ModalScheduling />
-      <ModalSchedulingInfos
+      <EditModalScheduling
         open={open}
         setOpen={setOpen}
         scheduling={scheduling}

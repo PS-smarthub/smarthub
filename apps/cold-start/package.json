@@ -9,22 +9,21 @@
     "lint": "eslint . --max-warnings 0"
   },
   "dependencies": {
-    "@azure/msal-browser": "^3.9.0",
-    "@azure/msal-react": "^2.0.11",
+    "@azure/msal-node": "^2.8.1",
     "@fullcalendar/core": "^6.1.10",
     "@fullcalendar/daygrid": "^6.1.10",
     "@fullcalendar/interaction": "^6.1.10",
     "@fullcalendar/react": "^6.1.10",
     "@fullcalendar/timegrid": "^6.1.10",
     "@microsoft/microsoft-graph-client": "^3.0.7",
-    "@smarthub/ui": "*",
     "@smarthub/fonts": "*",
+    "@smarthub/ui": "*",
     "@tanstack/react-query": "^5.22.2",
-    "axios": "^1.6.7",
     "chart.js": "^4.4.1",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
     "dayjs": "^1.11.10",
+    "jwt-decode": "^4.0.0",
     "lucide-react": "^0.323.0",
     "next": "^14.0.4",
     "react": "^18.2.0",
@@ -33,7 +32,8 @@
     "react-hook-form": "^7.50.1",
     "react-icons": "^5.0.1",
     "tailwind-merge": "^2.2.1",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "zustand": "^4.5.2"
   },
   "devDependencies": {
     "@next/eslint-plugin-next": "^14.0.4",
