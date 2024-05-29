@@ -6,7 +6,7 @@
     "build": "turbo build",
     "build:cold-start": "turbo build -w=cold-start",
     "build:smarthub": "turbo build -w=smarthub",
-    "dev": "turbo dev",
+    "dev": "dotenv -- turbo dev",
     "lint": "turbo lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "prepare": "husky"
@@ -26,6 +26,7 @@
     "packages/*"
   ],
   "dependencies": {
+    "dotenv-cli": "^7.4.2",
     "smarthub-cli": "^0.6.0",
     "turbo": "latest"
   }

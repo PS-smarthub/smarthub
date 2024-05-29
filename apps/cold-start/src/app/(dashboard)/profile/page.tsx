@@ -6,7 +6,7 @@ import MySchedulings from "./_components/my-schedulings";
 import { getUser } from "@/lib/getUser";
 
 export default async function Profile() {
-  const user = getUser();
+  const user = await getUser();
 
   return (
     <section className="p-6 w-full">

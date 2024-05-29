@@ -16,4 +16,3 @@ export async function GET(req: NextRequest, res: NextResponse) {
 
   return NextResponse.redirect(response);
 }
-

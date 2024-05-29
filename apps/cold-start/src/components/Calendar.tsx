@@ -15,7 +15,7 @@ export default function Calendar({
 }) {
   const schedulings: Scheduling[] = [];
   const [open, setOpen] = useState(false);
-  const [scheduling, setScheduling] = useState()
+  const [scheduling, setScheduling] = useState();
 
   schedulingList?.forEach((element: any) => {
     schedulings.push({
@@ -48,7 +48,7 @@ export default function Calendar({
           setOpen(true);
           schedulingList?.forEach((element: any) => {
             if (element.id == Number(event.id)) {
-              setScheduling(element)
+              setScheduling(element);
             }
           });
         }}

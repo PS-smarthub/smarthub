@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import InputSetPoint from "./input-set-point";
 import { ContainerResponse } from "@/types";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { updateSetPoint } from "@/server/actions";
@@ -68,7 +67,7 @@ export default function ControlPainel({
           <h3 className="sm:py-4 pl-2">
             {today >=
             Number(
-              container.scheduling_container[0]?.initial_date_time.slice(8, 10)
+              container.scheduling_container[0]?.initial_date_time.slice(8, 10),
             ) ? (
               container.scheduling_container[0]?.user_name_1 ==
               container.scheduling_container[0]?.user_name_2 ? (
@@ -83,7 +82,10 @@ export default function ControlPainel({
               )
             ) : today ==
               Number(
-                container.scheduling_container[0]?.ending_date_time.slice(8, 10)
+                container.scheduling_container[0]?.ending_date_time.slice(
+                  8,
+                  10,
+                ),
               ) ? (
               <div className="flex flex-col">
                 <span>{container.scheduling_container[0]?.user_name_1}</span>

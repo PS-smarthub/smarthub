@@ -1,11 +1,13 @@
 import * as msal from "@azure/msal-node";
+const client_id = process.env.AZURE_ENTRA_ID_CLIENT_ID
+const tenant = process.env.AZURE_ENTRA_ID_TENANT_ID
 
 const msalConfig = {
   auth: {
-    clientId: "d3e5ad7f-3183-4811-a01c-b1ad27a3736d",
+    clientId: client_id,
     authority:
-      "https://login.microsoftonline.com/0ae51e19-07c8-4e4b-bb6d-648ee58410f4",
-    clientSecret: "GB78Q~dzJYwKumb5OxRf9Mwggi0SKoB-NSpEuboJ",
+      `https://login.microsoftonline.com/${tenant}`,
+    clientSecret: process.env.AZURE_ENTRA_ID_SECRET,
   },
   system: {
     loggerOptions: {

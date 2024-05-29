@@ -24,9 +24,6 @@ export async function GET(req: NextRequest) {
 
   cookieInstance.set("cold-start-user-token", response.accessToken, {
     httpOnly: true,
-    
-    // secure: true
   });
   return redirect("/");
 }
-

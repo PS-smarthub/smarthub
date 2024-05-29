@@ -1,11 +1,11 @@
-"use client"
+"use client";
 
 import { errorToast, successToast } from "@/lib/toast_functions";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { createNewScheduling } from "@/server/actions";
 
-export default function FormScheduling({setOpen}: {setOpen: any}) {
+export default function FormScheduling({ setOpen }: { setOpen: any }) {
   const {
     register,
     handleSubmit,
@@ -19,13 +19,13 @@ export default function FormScheduling({setOpen}: {setOpen: any}) {
     onMutate: () =>
       queryClient.invalidateQueries({ queryKey: ["get-schedulings"] }),
     onSuccess: () => {
-      setOpen(false)
+      setOpen(false);
       reset();
       successToast("Container agendado com sucesso");
     },
     onError: (err) =>
       errorToast(
-        err.message.includes("406") ? "Container indisponível" : err.message
+        err.message.includes("406") ? "Container indisponível" : err.message,
       ),
   });
 

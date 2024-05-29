@@ -6,7 +6,7 @@ import { getContainerList } from "./server/actions";
 export async function middleware(request: NextRequest) {
   const res = NextResponse.next();
 
-  const token = getToken();
+  const token = await getToken();
   const get = await getContainerList();
   const { pathname } = request.nextUrl;
   const siginInURL = new URL("/auth/signin", request.url);

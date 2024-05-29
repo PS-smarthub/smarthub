@@ -2,7 +2,6 @@ import CalendarComponent from "@/components/calendar";
 import ModalScheduling from "./_components/modal-scheduling";
 import { getSchedules } from "@/server/actions";
 
-
 export default async function Agenda() {
   const scheduling = await getSchedules();
   return (

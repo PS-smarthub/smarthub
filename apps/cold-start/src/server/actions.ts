@@ -3,20 +3,23 @@
 import { getToken } from "@/lib/session";
 import { Scheduling, SchedulingDTO, SchedulingResponse } from "@/types";
 
+const api_url = process.env.COLD_START_API_URL
+
 export async function getContainerList() {
   const token = await getToken();
 
   try {
     const response = await fetch(
-      "http://10.234.83.16:8000/api/v1/containers/",
+      `${api_url}/containers/`,
       {
+        cache: "force-cache",
         method: "GET",
         headers: {
           token: String(token),
         },
       }
     );
-    if (response.status === 403) {
+    if (response.status !== 200) {
       return null;
     } else {
       return response.json();
@@ -30,7 +33,7 @@ export async function getContainer(container_id: number) {
   const token = await getToken();
   try {
     const response = await fetch(
-      `http://10.234.83.16:8000/api/v1/containers/${container_id}`,
+      `${api_url}/containers/${container_id}`,
       {
         method: "GET",
         headers: {
@@ -48,7 +51,7 @@ export async function getSchedules(): Promise<Scheduling[] | undefined> {
   const token = await getToken();
   try {
     const response = await fetch(
-      `http://10.234.83.16:8000/api/v1/schedules/?month=false&year=false`,
+      `${api_url}/schedules/?month=false&year=false`,
       {
         method: "GET",
         headers: {
@@ -69,7 +72,7 @@ export async function createNewScheduling({
 }) {
   try {
     const token = await getToken();
-    const response = await fetch("http://10.234.83.16:8000/api/v1/schedules/", {
+    const response = await fetch(`${api_url}/schedules/`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -96,7 +99,7 @@ export async function getMySchedulings(): Promise<
 
   try {
     const response = await fetch(
-      `http://10.234.83.16:8000/api/v1/schedules/?${params.toString()}`,
+      `${api_url}/schedules/?${params.toString()}`,
       {
         method: "GET",
         headers: {
@@ -114,7 +117,7 @@ export async function deleteScheduling(id: number) {
   const token = await getToken();
 
   try {
-    await fetch(`http://10.234.83.16:8000/api/v1/schedules/${id.toString()}`, {
+    await fetch(`${api_url}/schedules/${id.toString()}`, {
       method: "delete",
       headers: {
         "Content-Type": "application/json",
@@ -125,26 +128,6 @@ export async function deleteScheduling(id: number) {
     console.log(error);
   }
 }
-// export const updateSetpoint = async ({
-//   set_point,
-//   token,
-//   container_id,
-// }: {
-//   set_point: number | undefined;
-//   token: string | undefined;
-//   container_id: number | undefined;
-// }) => {
-//   return await api.patch(
-//     `/containers/setpoint/${container_id}`,
-//     { set_point: set_point },
-//     {
-//       headers: {
-//         token: token,
-//       },
-//     },
-//   );
-// };
-
 export async function updateSetPoint({
   set_point,
   container_id,
@@ -156,7 +139,7 @@ export async function updateSetPoint({
   console.log(set_point, container_id);
   try {
     const response = await fetch(
-      `http://10.234.83.16:8000/api/v1/containers/setpoint/${container_id?.toString()}`,
+      `${api_url}/containers/setpoint/${container_id?.toString()}`,
       {
         method: "PATCH",
         body: JSON.stringify({ set_point: set_point }),
