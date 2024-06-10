@@ -24,7 +24,6 @@ export default function Home() {
         <div className="w-full justify-center flex mt-10">
           <CarouselApps />
         </div>
-
       </main>
       <Footer />
     </>

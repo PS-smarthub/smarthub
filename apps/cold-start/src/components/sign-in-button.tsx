@@ -12,7 +12,7 @@ export default function SignInButton() {
     <Button
       onClick={() => {
         setLoading(true);
-        router.push("/api/login")
+        router.push("/api/login");
       }}
       disabled={loading}
       className="bg-blue-50 p-2 text-white font-semibold hover:bg-blue-600 dark:bg-blue-700 dark:hover:bg-blue-25 dark:bg-blue-950"
