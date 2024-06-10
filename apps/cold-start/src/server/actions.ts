@@ -3,22 +3,19 @@
 import { getToken } from "@/lib/session";
 import { Scheduling, SchedulingDTO, SchedulingResponse } from "@/types";
 
-const api_url = process.env.COLD_START_API_URL
+const api_url = process.env.COLD_START_API_URL;
 
 export async function getContainerList() {
   const token = await getToken();
 
   try {
-    const response = await fetch(
-      `${api_url}/containers/`,
-      {
-        cache: "force-cache",
-        method: "GET",
-        headers: {
-          token: String(token),
-        },
-      }
-    );
+    const response = await fetch(`${api_url}/containers/`, {
+      cache: "force-cache",
+      method: "GET",
+      headers: {
+        token: String(token),
+      },
+    });
     if (response.status !== 200) {
       return null;
     } else {
@@ -32,15 +29,12 @@ export async function getContainerList() {
 export async function getContainer(container_id: number) {
   const token = await getToken();
   try {
-    const response = await fetch(
-      `${api_url}/containers/${container_id}`,
-      {
-        method: "GET",
-        headers: {
-          token: String(token),
-        },
-      }
-    );
+    const response = await fetch(`${api_url}/containers/${container_id}`, {
+      method: "GET",
+      headers: {
+        token: String(token),
+      },
+    });
     return response.json();
   } catch (error) {
     console.error(error);
@@ -57,7 +51,7 @@ export async function getSchedules(): Promise<Scheduling[] | undefined> {
         headers: {
           token: String(token),
         },
-      }
+      },
     );
     return response.json();
   } catch (error) {
@@ -98,15 +92,12 @@ export async function getMySchedulings(): Promise<
   });
 
   try {
-    const response = await fetch(
-      `${api_url}/schedules/?${params.toString()}`,
-      {
-        method: "GET",
-        headers: {
-          token: token,
-        },
-      }
-    );
+    const response = await fetch(`${api_url}/schedules/?${params.toString()}`, {
+      method: "GET",
+      headers: {
+        token: token,
+      },
+    });
     return response.json();
   } catch (error) {
     console.error(error);
@@ -147,7 +138,7 @@ export async function updateSetPoint({
           "Content-Type": "application/json",
           token: token,
         },
-      }
+      },
     );
     return response.json();
   } catch (error) {
