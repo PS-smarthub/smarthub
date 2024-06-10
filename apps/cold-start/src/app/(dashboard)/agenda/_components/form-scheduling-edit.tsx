@@ -2,10 +2,7 @@
 
 import { SchedulingResponse, User } from "@/types";
 import AlocateCarButton from "./alocate-car-button";
-import { getUser } from "@/lib/getUser";
-import UpdateAndDelete from "./edit-buttons";
-import { useEffect, useState } from "react";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { deleteScheduling } from "@/server/actions";
 import { errorToast, successToast } from "@/lib/toast_functions";
 

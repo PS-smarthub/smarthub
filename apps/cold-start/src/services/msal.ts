@@ -1,12 +1,13 @@
 import * as msal from "@azure/msal-node";
-const client_id = process.env.AZURE_ENTRA_ID_CLIENT_ID;
-const tenant = process.env.AZURE_ENTRA_ID_TENANT_ID;
+const client_id = String(process.env.AZURE_ENTRA_ID_CLIENT_ID);
+const tenant = String(process.env.AZURE_ENTRA_ID_TENANT_ID);
+const secret = String(process.env.AZURE_ENTRA_ID_SECRET)
 
 const msalConfig = {
   auth: {
     clientId: client_id,
     authority: `https://login.microsoftonline.com/${tenant}`,
-    clientSecret: process.env.AZURE_ENTRA_ID_SECRET,
+    clientSecret: secret,
   },
   system: {
     loggerOptions: {
@@ -16,4 +17,4 @@ const msalConfig = {
   },
 };
 
-export const pca = new msal.ConfidentialClientApplication(msalConfig);
+export const pca = new msal.ConfidentialClientApplication(msalConfig) ;
