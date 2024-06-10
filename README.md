@@ -1,6 +1,6 @@
 <h1 align="center">
   <br>
-    <img src="./screenshots/logo.png" alt="Logo image"/> 
+    <img src="./screenshots/SMART_HUB.png" alt="Logo image"/> 
   <br>
   Smarthub
   <br>
