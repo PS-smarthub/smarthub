@@ -6,7 +6,7 @@
   <br>
 </h1>
 
-<h4 align="center">Centralize suas aplicações em um só lugar
+<h4 align="center">Centralize your applications in one place, the PS digitization platform</h4>
 
 <p align="center">
   <a href="#about">About</a> •
