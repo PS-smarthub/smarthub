@@ -24,7 +24,6 @@ ChartJS.register(
 );
 
 export function Chart({ temperatures }: { temperatures: Temperatures[] }) {
-  
   const lista = temperatures;
   const lista_filtrada = lista.length > 20 ? lista.slice(0, 20) : lista;
 

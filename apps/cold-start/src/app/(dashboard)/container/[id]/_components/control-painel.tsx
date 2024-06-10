@@ -16,7 +16,7 @@ export default function ControlPainel({
   const [value, setValue] = useState<number>();
   const [updatingSetPoint, setUpdatingSetPoint] = useState(false);
   const [setPointChanged, setSetPointChanged] = useState(false);
-  const { data, mutate } = useMutation({
+  const { mutate } = useMutation({
     mutationKey: ["set-point"],
     mutationFn: updateSetPoint,
     onSuccess: () => {

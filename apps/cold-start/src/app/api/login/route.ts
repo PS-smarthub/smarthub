@@ -1,7 +1,7 @@
 import { pca } from "@/services/msal";
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 
-export async function GET(req: NextRequest, res: NextResponse) {
+export async function GET() {
   const authCodeUrlParameters = {
     scopes: [
       "User.Read",
