@@ -3,6 +3,7 @@
   "private": true,
   "scripts": {
     "create-app": "cd ./apps/ && smarthub-cli create-app",
+    "start": "turbo start",
     "build": "turbo build",
     "build:cold-start": "turbo build -w=cold-start",
     "build:smarthub": "turbo build -w=smarthub",

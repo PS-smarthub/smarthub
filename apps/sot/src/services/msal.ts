@@ -15,5 +15,5 @@ const msalConfig = {
     },
   },
 };
-
+//@ts-ignore
 export const pca = new msal.ConfidentialClientApplication(msalConfig);
