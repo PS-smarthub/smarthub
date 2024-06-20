@@ -1,15 +1,19 @@
 services:
-  # nats-container:
-  #   image: nats
-  #   ports:
-  #     - "4222:4222"
-  # db:
-  #   image: mysql:8.0.30-debian
-  #   ports:
-  #     - 3306:3306
-  #   environment:
-  #     - MYSQL_ROOT_PASSWORD=root
-  #     - MYSQL_DATABASE=my-db
+  nats-container:
+    image: nats
+    ports:
+      - "4222:4222"
+
+  service-order-ms-db:
+    container_name: service-order-ms-db
+    image: mysql:8.0.30-debian
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=service-order
+    cap_add:
+      - SYS_NICE
   
   service-order-ms:
     container_name: service-order-ms
@@ -17,4 +21,15 @@ services:
     volumes:
       - ./apps/sot-backend/service-order/src:/usr/src/app/src
     command: npm run start:dev
+
+  api_gateway:
+    container_name: api-gateway
+    build: ./apps/sot-backend/http-gateway
+    ports: 
+      - "3000:3000"
+    volumes:
+      - ./apps/sot-backend/http-gateway/src:/usr/src/app/src
+    command: npm run start:dev
+    environment:
+      - PORT=3000
     
