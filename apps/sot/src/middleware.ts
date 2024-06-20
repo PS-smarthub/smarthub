@@ -1,14 +1,18 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import { getToken } from "./lib/session";
 
 export async function middleware(request: NextRequest) {
-  const token = await getToken();
+  const { cookies } = request;
+  const token = cookies.get("sot-user-token");
   const { pathname } = request.nextUrl;
-  console.log("token: ", token);
+  const siginInURL = new URL("/auth/signin", request.url);
 
-  if (token == "") {
-    return NextResponse.redirect(new URL("/auth/signin", request.url));
+  if (token === undefined) {
+    if (request.nextUrl.pathname == "/auth/signin") {
+      return NextResponse.next();
+    }
+
+    return NextResponse.redirect(siginInURL);
   }
 
   if (token != undefined && pathname.startsWith("/auth")) {

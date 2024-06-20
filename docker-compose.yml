@@ -1,21 +1,20 @@
-version: '3.9'
-
 services:
-  cold-start:
-    container_name: cold-start
-    build:
-      context: .
-      dockerfile: ./apps/cold-start/Dockerfile
-    ports:
-      - '3000:3000'
+  # nats-container:
+  #   image: nats
+  #   ports:
+  #     - "4222:4222"
+  # db:
+  #   image: mysql:8.0.30-debian
+  #   ports:
+  #     - 3306:3306
+  #   environment:
+  #     - MYSQL_ROOT_PASSWORD=root
+  #     - MYSQL_DATABASE=my-db
+  
+  service-order-ms:
+    container_name: service-order-ms
+    build: ./apps/sot-backend/service-order
     volumes:
-      - .:/app/
-    working_dir: /app/
-    restart: on-failure
-    command: npm start
-    networks:
-      - smarthub-network
-
-networks:
-  smarthub-network:
-    driver: bridge
+      - ./apps/sot-backend/service-order/src:/usr/src/app/src
+    command: npm run start:dev
+    

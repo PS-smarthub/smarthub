@@ -21,6 +21,12 @@ export async function GET(req: NextRequest) {
   const cookieInstance = cookies();
   //@ts-ignore
   const response = await pca.acquireTokenByCode(tokenRequest);
-  cookieInstance.set("session", response.accessToken);
+  cookieInstance.set("sot-user-token", response.accessToken, {
+    maxAge: 60 * 60 * 24 * 1,
+    sameSite: "strict",
+    path: "/",
+    secure: process.env.NODE_ENV === "production",
+    httpOnly: true,
+  });
   return redirect("/");
 }

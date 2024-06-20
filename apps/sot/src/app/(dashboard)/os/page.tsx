@@ -19,7 +19,7 @@ export default function OSPage() {
         }
       />
       <div className="w-full flex">
-        <div className="flex-1 pl-14 py-1 pt-6 max-h-[450px] overflow-y-auto pb-10">
+        <div className="flex-1 pl-14 py-1 pt-6 max-h-[80vh] overflow-y-auto pb-10">
           {orderType == "oficina" && <OficinaForm />}
         </div>
         <div className="fixed right-1">
