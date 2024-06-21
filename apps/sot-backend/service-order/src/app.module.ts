@@ -1,13 +1,13 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ServiceOrderWorkshop } from './typeorm/entities/ServiceOrderWorkshop';
-import { ConfigModule } from "@nestjs/config"
+import { ConfigModule } from '@nestjs/config';
 import { ServiceOrderModule } from './service-order/service-order.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath: ".env",
+      envFilePath: '.env',
     }),
     TypeOrmModule.forRoot({
       type: 'mysql',
@@ -17,11 +17,11 @@ import { ServiceOrderModule } from './service-order/service-order.module';
       entities: [ServiceOrderWorkshop],
       synchronize: true,
       username: process.env.SERVICE_ORDER_MS_DB_USERNAME,
-      password: process.env.SERVICE_ORDER_MS_DB_PASSWORD
+      password: process.env.SERVICE_ORDER_MS_DB_PASSWORD,
     }),
-    ServiceOrderModule
+    ServiceOrderModule,
   ],
   controllers: [],
   providers: [],
 })
-export class AppModule { }
+export class AppModule {}

@@ -5,10 +5,8 @@ import { ServiceOrderController } from './service-order.controller';
 import { ServiceOrderService } from './service-order.service';
 
 @Module({
-    imports: [
-        TypeOrmModule.forFeature([ServiceOrderWorkshop]),
-    ],
-    controllers: [ServiceOrderController],
-    providers: [ServiceOrderService],
+  imports: [TypeOrmModule.forFeature([ServiceOrderWorkshop])],
+  controllers: [ServiceOrderController],
+  providers: [ServiceOrderService],
 })
-export class ServiceOrderModule { }
+export class ServiceOrderModule {}
