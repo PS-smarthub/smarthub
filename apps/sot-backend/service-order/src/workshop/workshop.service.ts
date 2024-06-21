@@ -1,15 +1,15 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { ServiceOrderWorkshop } from 'src/typeorm/entities/ServiceOrderWorkshop';
 import { Repository } from 'typeorm';
 import { CreateServiceOrderWorkshopDto } from './dtos/CreateServiceOrderWorkshop.dto';
+import { ServiceOrderWorkshop } from './infra/typeorm/ServiceOrderWorkshop';
 
 @Injectable()
-export class ServiceOrderService {
+export class WorkshopService {
   constructor(
     @InjectRepository(ServiceOrderWorkshop)
     private readonly serviceOrderRepository: Repository<ServiceOrderWorkshop>,
-  ) {}
+  ) { }
 
   createServiceOrderWorkshop(
     createServiceOrderWorkshopDto: CreateServiceOrderWorkshopDto,
