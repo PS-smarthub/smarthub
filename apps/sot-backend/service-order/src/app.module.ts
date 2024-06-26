@@ -16,18 +16,15 @@ import { LeiModule } from './lei/lei.module';
       host: 'service-order-ms-db',
       port: 3306,
       database: 'service-order',
-      entities: [
-        ServiceOrderWorkshop,
-        EquipmentOrmEntity
-      ],
+      entities: [ServiceOrderWorkshop, EquipmentOrmEntity],
       synchronize: true,
       username: process.env.SERVICE_ORDER_MS_DB_USERNAME,
       password: process.env.SERVICE_ORDER_MS_DB_PASSWORD,
     }),
     WorkshopModule,
-    LeiModule
+    LeiModule,
   ],
   controllers: [],
   providers: [],
 })
-export class AppModule { }
+export class AppModule {}

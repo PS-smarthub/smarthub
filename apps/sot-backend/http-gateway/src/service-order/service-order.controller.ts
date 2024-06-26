@@ -1,6 +1,6 @@
 import { Body, Controller, Inject, Post } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
-import { CreateServiceOrderWorkshop } from './dtos/service-order-workshop/CreateServiceOrderWorkshop.dto';
+import { CreateServiceOrderWorkshopDto } from './dtos/service-order-workshop/CreateServiceOrderWorkshop.dto';
 import { CreateEquipmentDto } from './dtos/lei/CreateEquipment.dto';
 
 @Controller('service-order')
@@ -9,9 +9,9 @@ export class ServiceOrderController {
     @Inject('NATS_SERVICE') private readonly natsClient: ClientProxy,
   ) { }
 
-  @Post()
+  @Post("/workshop")
   createWorkshopServiceOrder(
-    @Body() createWorkshopServiceOrderDto: CreateServiceOrderWorkshop,
+    @Body() createWorkshopServiceOrderDto: CreateServiceOrderWorkshopDto,
   ) {
     return this.natsClient.send(
       { cmd: 'createServiceOrderWorkshop' },
@@ -19,8 +19,8 @@ export class ServiceOrderController {
     );
   }
 
-  @Post("equipments")
+  @Post('equipments')
   createEquipment(@Body() createEquipmentDto: CreateEquipmentDto) {
-    return this.natsClient.send({ cmd: "createEquipment" }, createEquipmentDto)
+    return this.natsClient.send({ cmd: 'createEquipment' }, createEquipmentDto);
   }
 }

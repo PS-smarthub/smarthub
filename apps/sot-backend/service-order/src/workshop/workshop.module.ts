@@ -9,4 +9,4 @@ import { ServiceOrderWorkshop } from './infra/typeorm/ServiceOrderWorkshop';
   controllers: [WorkshopController],
   providers: [WorkshopService],
 })
-export class WorkshopModule { }
+export class WorkshopModule {}

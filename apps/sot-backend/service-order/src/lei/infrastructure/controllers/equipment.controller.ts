@@ -6,13 +6,13 @@ import { MessagePattern, Payload } from '@nestjs/microservices';
 
 @Controller('equipments')
 export class EquipmentController {
-    constructor(
-        private readonly createEquipmentUseCase: CreateEquipmentUseCase,
-        private readonly equipmentService: EquipmentService,
-    ) { }
+  constructor(
+    private readonly createEquipmentUseCase: CreateEquipmentUseCase,
+    private readonly equipmentService: EquipmentService,
+  ) {}
 
-    @MessagePattern({ cmd: 'createEquipment' })
-    async create(@Payload() createEquipmentDto: CreateEquipmentDto) {
-        return this.createEquipmentUseCase.execute(createEquipmentDto);
-    }
+  @MessagePattern({ cmd: 'createEquipment' })
+  async create(@Payload() createEquipmentDto: CreateEquipmentDto) {
+    return this.createEquipmentUseCase.execute(createEquipmentDto);
+  }
 }

@@ -1,40 +1,40 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity({ name: "equipments" })
+@Entity({ name: 'equipments' })
 export class EquipmentOrmEntity {
-    @PrimaryGeneratedColumn()
-    id: number;
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @Column()
-    equipment_id: number;
+  @Column()
+  equipment_id: number;
 
-    @Column()
-    type: string;
+  @Column()
+  type: string;
 
-    @Column()
-    name: string;
+  @Column()
+  name: string;
 
-    @Column()
-    manufacturer: string;
+  @Column()
+  manufacturer: string;
 
-    @Column()
-    model: string;
+  @Column()
+  model: string;
 
-    @Column({ nullable: true })
-    description: string;
+  @Column({ nullable: true })
+  description: string;
 
-    @Column()
-    sn: string;
+  @Column()
+  sn: string;
 
-    @Column()
-    calibration_frequency_in_years: string;
+  @Column()
+  calibration_frequency_in_years: string;
 
-    @Column()
-    inventory: string;
+  @Column()
+  inventory: string;
 
-    @Column()
-    QMM_no_EIME: string;
+  @Column()
+  QMM_no_EIME: string;
 
-    @Column()
-    storage_location: string;
+  @Column()
+  storage_location: string;
 }

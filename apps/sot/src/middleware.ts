@@ -1,13 +1,15 @@
+import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 export async function middleware(request: NextRequest) {
-  const { cookies } = request;
-  const token = cookies.get("sot-user-token");
+  const res = NextResponse.next();
+  const cookie = cookies().get("sot-user-token")?.value;
   const { pathname } = request.nextUrl;
+
   const siginInURL = new URL("/auth/signin", request.url);
 
-  if (token === undefined) {
+  if (cookie === undefined) {
     if (request.nextUrl.pathname == "/auth/signin") {
       return NextResponse.next();
     }
@@ -15,11 +17,11 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(siginInURL);
   }
 
-  if (token != undefined && pathname.startsWith("/auth")) {
+  if (cookie && pathname.startsWith("/auth")) {
     return NextResponse.redirect(new URL("/", request.url));
   }
 
-  return NextResponse.next();
+  return res;
 }
 
 export const config = {

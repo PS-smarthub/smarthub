@@ -6,10 +6,10 @@ import {
   IsString,
 } from 'class-validator';
 
-export class CreateServiceOrderWorkshop {
+export class CreateServiceOrderWorkshopDto {
   @IsNotEmpty()
   @IsString()
-  montadora: string;
+  automaker: string;
 
   @IsNotEmpty()
   @IsString()

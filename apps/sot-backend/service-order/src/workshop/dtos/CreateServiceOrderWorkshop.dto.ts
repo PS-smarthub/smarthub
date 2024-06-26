@@ -1,5 +1,5 @@
 export class CreateServiceOrderWorkshopDto {
-  montadora: string;
+  automaker: string;
   project: string;
   isIntern: boolean;
   model: string;

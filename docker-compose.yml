@@ -30,6 +30,3 @@ services:
     volumes:
       - ./apps/sot-backend/http-gateway/src:/usr/src/app/src
     command: npm run start:dev
-    environment:
-      - PORT=3000
-    

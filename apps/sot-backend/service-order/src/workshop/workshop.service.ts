@@ -9,7 +9,7 @@ export class WorkshopService {
   constructor(
     @InjectRepository(ServiceOrderWorkshop)
     private readonly serviceOrderRepository: Repository<ServiceOrderWorkshop>,
-  ) { }
+  ) {}
 
   createServiceOrderWorkshop(
     createServiceOrderWorkshopDto: CreateServiceOrderWorkshopDto,

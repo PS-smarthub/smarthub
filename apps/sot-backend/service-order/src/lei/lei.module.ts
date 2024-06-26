@@ -7,14 +7,8 @@ import { EquipmentOrmEntity } from './infrastructure/typeorm/equipment.orm-entit
 import { EquipmentRepository } from './infrastructure/repositories/equipment.repository';
 
 @Module({
-    imports: [
-        TypeOrmModule.forFeature([EquipmentOrmEntity]),
-    ],
-    controllers: [EquipmentController],
-    providers: [
-        CreateEquipmentUseCase,
-        EquipmentService,
-        EquipmentRepository,
-    ],
+  imports: [TypeOrmModule.forFeature([EquipmentOrmEntity])],
+  controllers: [EquipmentController],
+  providers: [CreateEquipmentUseCase, EquipmentService, EquipmentRepository],
 })
-export class LeiModule { }
+export class LeiModule {}
