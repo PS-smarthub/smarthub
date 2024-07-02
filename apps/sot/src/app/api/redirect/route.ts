@@ -1,4 +1,5 @@
 import { pca } from "@/services/msal";
+import { AuthorizationCodeRequest } from "@azure/msal-node";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { NextRequest } from "next/server";
@@ -17,11 +18,13 @@ export async function GET(req: NextRequest) {
       "User.ReadBasic.All",
     ],
     redirectUri: "http://localhost:3002/api/redirect",
-  };
+    
+  } as AuthorizationCodeRequest
+
   const cookieInstance = cookies();
-  //@ts-ignore
   const response = await pca.acquireTokenByCode(tokenRequest);
-  cookieInstance.set("sot-user-token", response.accessToken, {
+  
+  cookieInstance.set("sot-user-token", response.idToken, {
     maxAge: 60 * 60 * 24 * 1,
     sameSite: "strict",
     path: "/",

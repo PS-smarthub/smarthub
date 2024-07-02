@@ -11,10 +11,12 @@
   "dependencies": {
     "@azure/msal-node": "^2.8.1",
     "@hookform/resolvers": "^3.6.0",
+    "@microsoft/microsoft-graph-client": "^3.0.7",
     "@smarthub/ui": "*",
     "@tanstack/react-query": "^5.47.0",
     "axios": "^1.7.2",
     "jose": "^5.4.1",
+    "jwt-decode": "^4.0.0",
     "next": "^14.0.4",
     "react": "^18",
     "react-dom": "^18",

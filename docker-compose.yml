@@ -8,10 +8,22 @@ services:
     container_name: service-order-ms-db
     image: mysql:8.0.30-debian
     ports:
-      - 3306:3306
+      - "3306:3306"
     environment:
       - MYSQL_ROOT_PASSWORD=root
       - MYSQL_DATABASE=service-order
+    cap_add:
+      - SYS_NICE
+
+  material-ms-db:
+    container_name: material-ms-db
+    image: mysql:8.0.30-debian
+    ports:
+      - "3307:3307"
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=material
+      - MYSQL_TCP_PORT=3307
     cap_add:
       - SYS_NICE
   
@@ -21,6 +33,17 @@ services:
     volumes:
       - ./apps/sot-backend/service-order/src:/usr/src/app/src
     command: npm run start:dev
+    depends_on:
+      - service-order-ms-db
+  
+  material-ms:
+    container_name: material-ms
+    build: ./apps/sot-backend/material
+    volumes:
+      - ./apps/sot-backend/material/src:/usr/src/app/src
+    command: npm run start:dev
+    depends_on:
+      - material-ms-db
 
   api_gateway:
     container_name: api-gateway

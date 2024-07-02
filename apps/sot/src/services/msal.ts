@@ -14,6 +14,6 @@ const msalConfig = {
       logLevel: msal.LogLevel.Info,
     },
   },
-};
-//@ts-ignore
+} as msal.Configuration;
+
 export const pca = new msal.ConfidentialClientApplication(msalConfig);
