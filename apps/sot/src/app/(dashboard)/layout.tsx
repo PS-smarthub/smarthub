@@ -24,7 +24,7 @@ export default function DashboardLayout({
         <Header logo="SOT" />
         <section className="flex h-full">
           <SideMenu options={MENU_OPTIONS} />
-          <div className="flex-1">{children}</div>
+          <div className="min-h-screen w-full">{children}</div>
         </section>
       </main>
       <Toaster />
