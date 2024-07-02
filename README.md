@@ -75,4 +75,4 @@ MIT
 
 ---
 
-> Developed by [@AngeloCarnevale](https://github.com/AngeloCarnevale) &nbsp;&middot;&nbsp; [@diegwl](https://github.com/diegwl) &nbsp;&middot;&nbsp; [@giivieira](https://github.com/giivieira)
+> Developed by [@AngeloCarnevale](https://github.com/AngeloCarnevale) &nbsp;&middot;&nbsp; [@diegwl](https://github.com/diegwl)
