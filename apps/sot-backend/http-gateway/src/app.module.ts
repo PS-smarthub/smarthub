@@ -1,9 +1,9 @@
-import { MiddlewareConsumer, Module, RequestMethod } from '@nestjs/common';
+import { MiddlewareConsumer, Module } from '@nestjs/common';
 import { NatsClientModule } from './nats-client/nats-client.module';
 import { ServiceOrderModule } from './service-order/service-order.module';
 import { ConfigModule } from '@nestjs/config';
 import { MaterialModule } from './material/material.module';
-import { AzureEntraIdMiddleware } from "./middlewares/AzureEntraId.middleware"
+import { AzureEntraIdMiddleware } from './middlewares/AzureEntraId.middleware';
 
 @Module({
   imports: [
@@ -12,7 +12,7 @@ import { AzureEntraIdMiddleware } from "./middlewares/AzureEntraId.middleware"
     MaterialModule,
     ConfigModule.forRoot({
       envFilePath: '.env',
-      isGlobal: true
+      isGlobal: true,
     }),
   ],
   controllers: [],
@@ -20,8 +20,6 @@ import { AzureEntraIdMiddleware } from "./middlewares/AzureEntraId.middleware"
 })
 export class AppModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer
-      .apply(AzureEntraIdMiddleware)
-      .forRoutes("*")
+    consumer.apply(AzureEntraIdMiddleware).forRoutes('*');
   }
 }

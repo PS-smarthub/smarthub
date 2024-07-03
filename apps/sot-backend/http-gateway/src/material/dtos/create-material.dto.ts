@@ -1,3 +1,1 @@
-export class CreateMaterialDto {
-    
-}
+export class CreateMaterialDto {}

@@ -9,4 +9,4 @@ import { Material } from './entities/material.entity';
   controllers: [MaterialController],
   providers: [MaterialService],
 })
-export class MaterialModule { }
+export class MaterialModule {}

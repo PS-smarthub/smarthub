@@ -26,4 +26,4 @@ export interface SimpleUserDto {
   name: string;
   email: string;
   roles: string[];
-} 
+}

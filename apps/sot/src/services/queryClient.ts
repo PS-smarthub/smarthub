@@ -1,10 +1,10 @@
 // src/queryClient.js
 
-import { QueryClient } from '@tanstack/react-query';
+import { QueryClient } from "@tanstack/react-query";
 
 const fetcher = async ({ queryKey, ...rest }) => {
   const [url, options] = queryKey;
-  const token = localStorage.getItem('token'); // ou de onde você estiver armazenando o token
+  const token = localStorage.getItem("token"); // ou de onde você estiver armazenando o token
 
   const response = await fetch(url, {
     ...options,
@@ -15,7 +15,7 @@ const fetcher = async ({ queryKey, ...rest }) => {
   });
 
   if (!response.ok) {
-    throw new Error('Network response was not ok');
+    throw new Error("Network response was not ok");
   }
 
   return response.json();
