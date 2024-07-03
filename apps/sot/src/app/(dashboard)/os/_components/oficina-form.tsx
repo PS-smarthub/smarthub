@@ -1,43 +1,32 @@
 import { useForm } from "react-hook-form";
 import {
   CreateWorkshopOrderSchema,
-  FormData,
+  formSchema,
 } from "@/schemas/CreateWorkshopOrderSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import axios from "axios";
-import { errorToast } from "@/lib/toast";
+import { errorToast, successToast } from "@/lib/toast";
+import { createNewWorkshopServiceOrder } from "../actions";
+import LabelForm from "./label-form";
 
 export default function OficinaForm() {
   const {
     register,
     reset,
     handleSubmit,
-    formState: { errors },
-  } = useForm<FormData>({
+    formState: { errors, isValidating, isSubmitting },
+  } = useForm<formSchema>({
     resolver: zodResolver(CreateWorkshopOrderSchema),
   });
 
-  const createWorkshopOrder = async (data: FormData) => {
+  const createWorkshopOrder = async (data: formSchema) => {
     try {
-      const response = await axios.post(
-        "http://localhost:3030/service-order/workshop",
-        {
-          automaker: data.automaker,
-          project: data.project,
-          isIntern: data.isIntern,
-          model: data.model,
-          chassis: data.chassis,
-          fleet: data.fleet,
-          vehicleLocation: data.vehicle_location,
-          keyLocation: data.key_location,
-          deliveryDate: data.delivery_date,
-          serviceInformations: data.description,
-        }
-      );
+      const result = await createNewWorkshopServiceOrder(data);
 
+      successToast("Ordem de serviço criada com sucesso.");
       reset();
     } catch (err) {
-      errorToast("Erro ao criar ordem de serviço");
+      errorToast("Erro ao criar ordem de serviço.");
+      console.log(err);
     }
   };
 
@@ -45,12 +34,7 @@ export default function OficinaForm() {
     <form onSubmit={handleSubmit(createWorkshopOrder)}>
       <div className="flex gap-12">
         <div className="flex-col flex">
-          <label
-            className="text-[#43464A] font-semibold p-1"
-            htmlFor="automaker"
-          >
-            Montadora
-          </label>
+          <LabelForm htmlFor="automaker">Montadora</LabelForm>
           <select
             {...register("automaker", { required: true })}
             id="automaker"
@@ -65,9 +49,7 @@ export default function OficinaForm() {
         </div>
 
         <div className="flex-col flex">
-          <label className="text-[#43464A] font-semibold p-1" htmlFor="project">
-            Projeto
-          </label>
+          <LabelForm htmlFor="project">Projeto</LabelForm>
           <select
             {...register("project", { required: true })}
             id="project"
@@ -82,12 +64,7 @@ export default function OficinaForm() {
         </div>
 
         <div className="flex-col flex">
-          <label
-            className="text-[#43464A] font-semibold p-1"
-            htmlFor="isIntern"
-          >
-            Interno
-          </label>
+          <LabelForm htmlFor="isInter">Interno</LabelForm>
           <select
             {...register("isIntern", {
               required: true,
@@ -106,9 +83,7 @@ export default function OficinaForm() {
 
       <div className="flex gap-12 mt-8">
         <div className="flex-col flex">
-          <label className="text-[#43464A] font-semibold p-1" htmlFor="model">
-            Modelo
-          </label>
+          <LabelForm htmlFor="model">Modelo</LabelForm>
           <select
             {...register("model", { required: true })}
             className="border rounded text-[#757575] p-2 w-[200px] shadow hover:border-gray-400 focus:border-blue-500 focus:shadow-outline"
@@ -123,9 +98,7 @@ export default function OficinaForm() {
         </div>
 
         <div className="flex-col flex">
-          <label className="text-[#43464A] font-semibold p-1" htmlFor="chassis">
-            Chassi
-          </label>
+          <LabelForm htmlFor="chassis">Chassi</LabelForm>
           <select
             {...register("chassis", { required: true })}
             id="chassis"
@@ -137,13 +110,10 @@ export default function OficinaForm() {
             <option>123132</option>
             <option>984873945</option>
           </select>
-          {errors.chassis && <p>{errors.chassis.message}</p>}
         </div>
 
         <div className="flex-col flex">
-          <label className="text-[#43464A] font-semibold p-1" htmlFor="fleet">
-            Frota
-          </label>
+          <LabelForm htmlFor="fleet">Frota</LabelForm>
           <select
             {...register("fleet", { required: true })}
             id="fleet"
@@ -158,16 +128,13 @@ export default function OficinaForm() {
       </div>
       <div className="mt-8 flex flex-col gap-6">
         <div className="flex-col flex">
-          <label
-            className="text-[#43464A] font-semibold p-1"
-            htmlFor="vehicle_location"
-          >
+          <LabelForm htmlFor="vehicleLocation">
             Localização do veículo
-          </label>
+          </LabelForm>
           <input
-            {...register("vehicle_location", { required: true })}
-            id="vehicle_location"
-            name="vehicle_location"
+            {...register("vehicleLocation", { required: true })}
+            id="vehicleLocation"
+            name="vehicleLocation"
             type="text"
             className="border rounded text-[#757575] p-2 w-[400px] shadow hover:border-gray-400 focus:shadow-outline"
             placeholder="Ex: Na oficina"
@@ -175,16 +142,11 @@ export default function OficinaForm() {
         </div>
 
         <div className="flex-col flex">
-          <label
-            className="text-[#43464A] font-semibold p-1"
-            htmlFor="key_location"
-          >
-            Localização da chave
-          </label>
+          <LabelForm htmlFor="project">Localização da chave</LabelForm>
           <input
-            {...register("key_location", { required: true })}
-            id="key_location"
-            name="key_location"
+            {...register("keyLocation", { required: true })}
+            id="keyLocation"
+            name="keyLocation"
             type="text"
             className="border rounded text-[#757575] p-2 w-[400px] shadow hover:border-gray-400 focus:shadow-outline"
             placeholder="Ex: No carro"
@@ -199,16 +161,13 @@ export default function OficinaForm() {
         />
         <div className="flex items-center space-x-28">
           <div className="flex gap-4 items-center">
-            <label
-              className="text-[#43464A] font-semibold p-1"
-              htmlFor="delivery_date"
-            >
+            <LabelForm htmlFor="deliveryDate">
               Data de entrega desejada:
-            </label>
+            </LabelForm>
             <input
-              {...register("delivery_date", { required: true })}
-              id="delivery_date"
-              name="delivery_date"
+              {...register("deliveryDate", { required: true })}
+              id="deliveryDate"
+              name="deliveryDate"
               className="border rounded text-[#757575] p-2 shadow hover:border-gray-400 focus:shadow-outline"
               type="date"
             />
@@ -216,9 +175,10 @@ export default function OficinaForm() {
           <div>
             <button
               type="submit"
+              disabled={isSubmitting}
               className="bg-green-400 hover:bg-green-500 rounded py-2 px-4 text-white font-semibold"
             >
-              Criar ordem
+              {isSubmitting ? "Criando ordem..." : "Criar ordem"}
             </button>
           </div>
         </div>

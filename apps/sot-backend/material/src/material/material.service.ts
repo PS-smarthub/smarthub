@@ -7,10 +7,13 @@ import { Repository } from 'typeorm';
 
 @Injectable()
 export class MaterialService {
-  constructor(@InjectRepository(Material) private readonly materialRepository: Repository<Material>,) { }
+  constructor(
+    @InjectRepository(Material)
+    private readonly materialRepository: Repository<Material>,
+  ) {}
 
   create(createMaterialDto: CreateMaterialDto) {
-    const newMaterial = this.materialRepository.create(createMaterialDto)
+    const newMaterial = this.materialRepository.create(createMaterialDto);
 
     return this.materialRepository.save(newMaterial);
   }

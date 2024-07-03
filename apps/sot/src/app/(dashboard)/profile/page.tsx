@@ -3,7 +3,7 @@ import { BackButton } from "@smarthub/ui";
 
 export default async function Profile() {
   const user = await getUser();
-  
+
   return (
     <section className="p-6 w-full">
       <BackButton page_name="Perfil" />

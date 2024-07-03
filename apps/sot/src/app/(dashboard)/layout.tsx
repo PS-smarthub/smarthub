@@ -1,9 +1,10 @@
 import "@smarthub/ui/src/globals.css";
-import { Header, Toaster } from "@smarthub/ui";
+import { Toaster } from "@smarthub/ui";
 import { MdMiscellaneousServices } from "react-icons/md";
 import { OptionMenu } from "@/types";
 import { SideMenu } from "@/components/SideMenu";
 import ToastProvider from "@/providers/ToastProvider";
+import { Header } from "@/components/Header";
 
 export default function DashboardLayout({
   children,
@@ -21,7 +22,7 @@ export default function DashboardLayout({
   return (
     <ToastProvider>
       <main className="h-full">
-        <Header logo="SOT" />
+        <Header />
         <section className="flex h-full">
           <SideMenu options={MENU_OPTIONS} />
           <div className="min-h-screen w-full">{children}</div>

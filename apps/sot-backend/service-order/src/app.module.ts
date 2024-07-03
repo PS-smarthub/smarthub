@@ -13,7 +13,7 @@ import { LeiModule } from './lei/lei.module';
     }),
     TypeOrmModule.forRoot({
       type: 'mysql',
-      host: "service-order-ms-db",
+      host: 'service-order-ms-db',
       port: Number(process.env.DB_PORT),
       database: 'service-order',
       entities: [ServiceOrderWorkshop, EquipmentOrmEntity],

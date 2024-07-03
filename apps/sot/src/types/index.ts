@@ -5,13 +5,13 @@ export type OptionMenu = {
 };
 
 export type CreateWorkshopOrderDto = {
-  automaker: string,
-	project: string,
-	isIntern: boolean,
-	model: string,
-	chassis: string,
-	fleet: string,
-	vehicleLocation: string,
-	keyLocation: string,
-	deliveryDate: Date
-}
+  automaker: string;
+  project: string;
+  isIntern: boolean;
+  model: string;
+  chassis: string;
+  fleet: string;
+  vehicleLocation: string;
+  keyLocation: string;
+  deliveryDate: Date;
+};

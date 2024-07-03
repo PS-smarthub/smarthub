@@ -7,8 +7,10 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe());
   const PORT = process.env.API_GATEWAI_PORT || 3030;
   app.enableCors({
-    origin: process.env.CLIENT_BASE_URL
-  })
+    origin: process.env.CLIENT_BASE_URL,
+    allowedHeaders: ['Content-Type'],
+    methods: ['GET', 'PUT', 'DELETE', 'PATCH', 'HEAD', 'OPTIONS']
+  });
   await app.listen(PORT, () => console.log(`Running on PORT ${PORT}`));
 }
 bootstrap();

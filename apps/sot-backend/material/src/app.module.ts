@@ -4,27 +4,25 @@ import { ConfigModule } from '@nestjs/config';
 import { MaterialModule } from './material/material.module';
 import { Material } from './material/entities/material.entity';
 
-
 @Module({
-
   imports: [
     ConfigModule.forRoot({
       envFilePath: '.env',
-      isGlobal: true
+      isGlobal: true,
     }),
     TypeOrmModule.forRoot({
       type: 'mysql',
-      host: "material-ms-db",
+      host: 'material-ms-db',
       port: 3307,
-      database: "material",
+      database: 'material',
       entities: [Material],
       synchronize: true,
-      username: "root",
-      password: "root",
+      username: 'root',
+      password: 'root',
     }),
     MaterialModule,
   ],
   controllers: [],
   providers: [],
 })
-export class AppModule { }
+export class AppModule {}

@@ -1,10 +1,10 @@
-import "server-only"
+import "server-only";
 
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { SignJWT } from "jose";
 
-const key = new TextEncoder().encode(process.env.JWT_SECRET_KEY)
+const key = new TextEncoder().encode(process.env.JWT_SECRET_KEY);
 
 const cookie_options = {
   name: "sot-user-token",
@@ -29,7 +29,7 @@ export async function verifySession() {
   const session = cookies().get(cookie_options.name)?.value;
 
   if (!session) {
-    redirect("/auth/signin")
+    redirect("/auth/signin");
   }
 
   return session;
