@@ -2,6 +2,8 @@ import Link from "next/link";
 import { ToolTip } from "@smarthub/ui";
 import { IoIosNotificationsOutline } from "react-icons/io";
 import { AiOutlineUser } from "react-icons/ai";
+import Image from "next/image";
+import BoschLogo from "@/assets/images/boschx.png";
 
 export function Header() {
   return (
@@ -13,7 +15,7 @@ export function Header() {
             className="font-bold text-blue-50 text-xl py-2 flex items-center gap-2"
           >
             <div className="flex items-center">
-              <span>SOT</span>
+              <Image src={BoschLogo} alt="Bosch logo" className="w-full h-full sm:w-[100px]"  loading="lazy"/>
             </div>
           </a>
           <div className="flex items-center gap-5">

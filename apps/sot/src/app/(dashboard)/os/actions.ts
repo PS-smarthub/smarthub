@@ -5,7 +5,7 @@ import { formSchema } from "@/schemas/CreateWorkshopOrderSchema"
 
 export async function createNewWorkshopServiceOrder(formSchema: formSchema) {
     const token = await verifySession()
-    console.log(token)
+    
     try {
         const response = await fetch("http://localhost:3030/service-order/workshop", {
             headers: {

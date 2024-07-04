@@ -20,10 +20,13 @@ export class AzureEntraIdMiddleware implements NestMiddleware {
     if (!token) {
       return res.status(401).send('Unauthorized');
     }
+    console.log("token: ", token)
 
     const getKey = (header: any, callback: any) => {
+      console.log(header.kid)
       this.jwksClient.getSigningKey(header.kid, (err, key) => {
-        const signingKey = key.getPublicKey();
+      
+        const signingKey = header.kid
         callback(null, signingKey);
       });
     };

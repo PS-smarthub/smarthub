@@ -2,7 +2,11 @@
 
 import { BackButton } from "@smarthub/ui";
 import { useState } from "react";
-import OficinaForm from "./_components/oficina-form";
+import dynamic from "next/dynamic";
+const OficinaForm = dynamic(() => import("./_components/oficina-form"), {
+  ssr: true,
+  loading: ()=> <p>Loading...</p>
+});
 
 export default function OSPage() {
   const [orderType, setOrderType] = useState("");

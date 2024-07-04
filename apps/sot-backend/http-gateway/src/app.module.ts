@@ -19,7 +19,7 @@ import { AzureEntraIdMiddleware } from './middlewares/AzureEntraId.middleware';
   providers: [],
 })
 export class AppModule {
-  configure(consumer: MiddlewareConsumer) {
-    consumer.apply(AzureEntraIdMiddleware).forRoutes('*');
-  }
+  // configure(consumer: MiddlewareConsumer) {
+  //   consumer.apply(AzureEntraIdMiddleware).forRoutes('*');
+  // }
 }
