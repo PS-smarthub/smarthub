@@ -3,12 +3,14 @@
 import { verifySession } from "@/lib/session";
 import { formSchema } from "@/schemas/CreateWorkshopOrderSchema";
 
+const url = "http://localhost:3030"
+
 export async function createNewWorkshopServiceOrder(formSchema: formSchema) {
   const token = await verifySession();
 
   try {
     const response = await fetch(
-      "http://localhost:3030/service-order/workshop",
+      `${url}/service-order/workshop`,
       {
         headers: {
           "Content-Type": "application/json",
@@ -26,6 +28,24 @@ export async function createNewWorkshopServiceOrder(formSchema: formSchema) {
     const data = await response.json();
     return data;
   } catch (err) {
-    console.log(err);
+    console.error(err);
+  }
+}
+
+export async function fetchAllField(field: string | undefined): Promise<string[] | undefined> {
+  const token = await verifySession()
+
+  try {
+    const response = await fetch(`${url}/service-order/?field=${field}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      method: "GET",
+    },)
+
+    return await response.json()
+  } catch (err) {
+    console.error(err)
   }
 }

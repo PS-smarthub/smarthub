@@ -22,8 +22,8 @@ export class WorkshopService {
 
   async getAllField(field: string) {
     const orders = await this.serviceOrderRepository.find();
+    const resultString = orders.map(order => order[field])
 
-    return orders.map(order => ({ [field]: order[field] }))
-
+    return resultString
   }
 }
