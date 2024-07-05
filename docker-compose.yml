@@ -1,21 +1,55 @@
-version: '3.9'
-
 services:
-  cold-start:
-    container_name: cold-start
-    build:
-      context: .
-      dockerfile: ./apps/cold-start/Dockerfile
+  nats-container:
+    image: nats
     ports:
-      - '3000:3000'
-    volumes:
-      - .:/app/
-    working_dir: /app/
-    restart: on-failure
-    command: npm start
-    networks:
-      - smarthub-network
+      - "4222:4222"
 
-networks:
-  smarthub-network:
-    driver: bridge
+  service-order-ms-db:
+    container_name: service-order-ms-db
+    image: mysql:8.0.30-debian
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=service-order
+    cap_add:
+      - SYS_NICE
+
+  material-ms-db:
+    container_name: material-ms-db
+    image: mysql:8.0.30-debian
+    ports:
+      - "3307:3307"
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=material
+      - MYSQL_TCP_PORT=3307
+    cap_add:
+      - SYS_NICE
+  
+  service-order-ms:
+    container_name: service-order-ms
+    build: ./apps/sot-backend/service-order
+    volumes:
+      - ./apps/sot-backend/service-order/src:/usr/src/app/src
+    command: npm run start:dev
+    depends_on:
+      - service-order-ms-db
+  
+  material-ms:
+    container_name: material-ms
+    build: ./apps/sot-backend/material
+    volumes:
+      - ./apps/sot-backend/material/src:/usr/src/app/src
+    command: npm run start:dev
+    depends_on:
+      - material-ms-db
+
+  api_gateway:
+    container_name: api-gateway
+    build: ./apps/sot-backend/http-gateway
+    ports: 
+      - "3030:3030"
+    volumes:
+      - ./apps/sot-backend/http-gateway/src:/usr/src/app/src
+    command: npm run start:dev

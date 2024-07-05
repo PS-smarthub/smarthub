@@ -1,5 +1,3 @@
-import React from "react";
-
-export default function page() {
-  return <div>page</div>;
+export default async function Home() {
+  return <section className="p-6 w-full min-h-screen"></section>;
 }

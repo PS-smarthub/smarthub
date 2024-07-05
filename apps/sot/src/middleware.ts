@@ -1,21 +1,27 @@
+import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import { getToken } from "./lib/session";
 
 export async function middleware(request: NextRequest) {
-  const token = await getToken();
+  const res = NextResponse.next();
+  const cookie = cookies().get("sot-user-token")?.value;
   const { pathname } = request.nextUrl;
-  console.log("token: ", token);
 
-  if (token == "") {
-    return NextResponse.redirect(new URL("/auth/signin", request.url));
+  const siginInURL = new URL("/auth/signin", request.url);
+
+  if (cookie === undefined) {
+    if (request.nextUrl.pathname == "/auth/signin") {
+      return NextResponse.next();
+    }
+
+    return NextResponse.redirect(siginInURL);
   }
 
-  if (token != undefined && pathname.startsWith("/auth")) {
+  if (cookie && pathname.startsWith("/auth")) {
     return NextResponse.redirect(new URL("/", request.url));
   }
 
-  return NextResponse.next();
+  return res;
 }
 
 export const config = {
