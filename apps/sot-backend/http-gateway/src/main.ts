@@ -9,7 +9,7 @@ async function bootstrap() {
   app.enableCors({
     origin: process.env.CLIENT_BASE_URL,
     allowedHeaders: ['Content-Type'],
-    methods: ['GET', 'PUT', 'DELETE', 'PATCH', 'HEAD', 'OPTIONS']
+    methods: ['GET', 'PUT', 'DELETE', 'PATCH', 'HEAD', 'OPTIONS'],
   });
   await app.listen(PORT, () => console.log(`Running on PORT ${PORT}`));
 }

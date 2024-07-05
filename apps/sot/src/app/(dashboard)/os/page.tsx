@@ -5,7 +5,7 @@ import { useState } from "react";
 import dynamic from "next/dynamic";
 const OficinaForm = dynamic(() => import("./_components/oficina-form"), {
   ssr: true,
-  loading: ()=> <p>Loading...</p>
+  loading: () => <p>Loading...</p>,
 });
 
 export default function OSPage() {

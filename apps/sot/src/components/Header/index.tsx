@@ -15,7 +15,12 @@ export function Header() {
             className="font-bold text-blue-50 text-xl py-2 flex items-center gap-2"
           >
             <div className="flex items-center">
-              <Image src={BoschLogo} alt="Bosch logo" className="w-full h-full sm:w-[100px]"  loading="lazy"/>
+              <Image
+                src={BoschLogo}
+                alt="Bosch logo"
+                className="w-full h-full sm:w-[100px]"
+                loading="lazy"
+              />
             </div>
           </a>
           <div className="flex items-center gap-5">

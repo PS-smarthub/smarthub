@@ -9,7 +9,7 @@ export class WorkshopService {
   constructor(
     @InjectRepository(ServiceOrderWorkshop)
     private readonly serviceOrderRepository: Repository<ServiceOrderWorkshop>,
-  ) {}
+  ) { }
 
   createServiceOrderWorkshop(
     createServiceOrderWorkshopDto: CreateServiceOrderWorkshopDto,
@@ -18,5 +18,12 @@ export class WorkshopService {
       createServiceOrderWorkshopDto,
     );
     return this.serviceOrderRepository.save(newUser);
+  }
+
+  async getAllField(field: string) {
+    const orders = await this.serviceOrderRepository.find();
+
+    return orders.map(order => ({ [field]: order[field] }))
+
   }
 }

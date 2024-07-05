@@ -21,7 +21,7 @@ export default function OficinaForm() {
   const createWorkshopOrder = async (data: formSchema) => {
     try {
       const result = await createNewWorkshopServiceOrder(data);
-      console.log(result)
+      console.log(result);
       successToast("Ordem de serviço criada com sucesso.");
       reset();
     } catch (err) {
