@@ -1,7 +1,6 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "globalDependencies": ["**/.env.*local"],
-  "globalEnv": ["COLD_START_API_URL"],
   "pipeline": {
     "build": {
       "dependsOn": ["^build"],
@@ -14,7 +13,9 @@
       "cache": false,
       "persistent": true,
       "env": [
-        "API_URL",
+        "COLD_START_API_URL",
+        "SOT_API_URL",
+        "JWT_SECRET_KEY",
         "AZURE_ENTRA_ID_CLIENT_ID",
         "AZURE_ENTRA_ID_TENANT_ID",
         "AZURE_ENTRA_ID_SECRET"

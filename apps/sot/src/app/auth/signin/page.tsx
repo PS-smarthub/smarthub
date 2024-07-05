@@ -1,9 +1,6 @@
-"use client";
-
-import { useRouter } from "next/navigation";
+import SignInButton from "@/components/sign-in-button";
 
 export default function LoginPage() {
-  const router = useRouter();
   return (
     <>
       <div className="w-full h-full flex">
@@ -11,7 +8,7 @@ export default function LoginPage() {
         <div className="w-[50%] h-full flex justify-center items-center">
           <div className="flex flex-col gap-8 w-[50%] text-center">
             <h1 className="font-bold text-xl">Login para funcionários</h1>
-            <button onClick={() => router.push("/api/login")}>Login</button>
+            <SignInButton />
           </div>
         </div>
       </div>
