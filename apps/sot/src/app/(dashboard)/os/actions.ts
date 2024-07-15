@@ -3,23 +3,20 @@
 import { verifySession } from "@/lib/session";
 import { formSchema } from "@/schemas/CreateWorkshopOrderSchema";
 
-const url = "http://localhost:3030"
+const url = "http://localhost:3030";
 
 export async function createNewWorkshopServiceOrder(formSchema: formSchema) {
   const token = await verifySession();
 
   try {
-    const response = await fetch(
-      `${url}/service-order/workshop`,
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        method: "POST",
-        body: JSON.stringify(formSchema),
+    const response = await fetch(`${url}/service-order/workshop`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
-    );
+      method: "POST",
+      body: JSON.stringify(formSchema),
+    });
 
     if (!response.ok) {
       throw new Error(`Erro ao criar ordem, código ${response.status}`);
@@ -32,8 +29,10 @@ export async function createNewWorkshopServiceOrder(formSchema: formSchema) {
   }
 }
 
-export async function fetchAllField(field: string | undefined): Promise<string[] | undefined> {
-  const token = await verifySession()
+export async function fetchAllField(
+  field: string | undefined,
+): Promise<string[] | undefined> {
+  const token = await verifySession();
 
   try {
     const response = await fetch(`${url}/service-order/?field=${field}`, {
@@ -42,10 +41,10 @@ export async function fetchAllField(field: string | undefined): Promise<string[]
         Authorization: `Bearer ${token}`,
       },
       method: "GET",
-    },)
+    });
 
-    return await response.json()
+    return await response.json();
   } catch (err) {
-    console.error(err)
+    console.error(err);
   }
 }

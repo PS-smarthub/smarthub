@@ -10,7 +10,11 @@ export default async function SelectForm(props: SelectFormProps) {
       className={`border rounded text-[#757575] p-2 w-[200px] shadow hover:border-gray-400 focus:border-blue-500 focus:shadow-outline ${props.className}`}
     >
       <option value="">Selecione...</option>
-      {options?.map((optionString) => <option>{optionString}</option>)}
+      {options?.map((optionString, index) => (
+        <option key={index} value={optionString}>
+          {optionString}
+        </option>
+      ))}
     </select>
   );
 }

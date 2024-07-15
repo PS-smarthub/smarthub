@@ -5,11 +5,11 @@ import {
 } from "@/schemas/CreateWorkshopOrderSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { errorToast, successToast } from "@/lib/toast";
-import { createNewWorkshopServiceOrder } from "../actions";
+import { createNewWorkshopServiceOrder, fetchAllField } from "../actions";
 import LabelForm from "./label-form";
 import SelectForm from "./select-form";
 
-export default function OficinaForm() {
+export default async function OficinaForm() {
   const {
     register,
     reset,
@@ -18,7 +18,7 @@ export default function OficinaForm() {
   } = useForm<formSchema>({
     resolver: zodResolver(CreateWorkshopOrderSchema),
   });
-
+  
   const createWorkshopOrder = async (data: formSchema) => {
     try {
       const result = await createNewWorkshopServiceOrder(data);
@@ -44,17 +44,16 @@ export default function OficinaForm() {
 
         <div className="flex-col flex">
           <LabelForm htmlFor="project">Projeto</LabelForm>
-          <SelectForm
+          {/* <SelectForm
             {...register("project", { required: true })}
             id="project"
             name="project"
             className="w-[450px]"
-          />
+          /> */}
         </div>
 
         <div className="flex-col flex">
           <LabelForm htmlFor="isInter">Interno</LabelForm>
-
           <select
             {...register("isIntern", {
               required: true,
@@ -74,29 +73,29 @@ export default function OficinaForm() {
       <div className="flex gap-12 mt-8">
         <div className="flex-col flex">
           <LabelForm htmlFor="model">Modelo</LabelForm>
-          <SelectForm
+          {/* <SelectForm
             {...register("model", { required: true })}
             id="model"
             name="model"
-          />
+          /> */}
         </div>
 
         <div className="flex-col flex">
           <LabelForm htmlFor="chassis">Chassi</LabelForm>
-          <SelectForm
+          {/* <SelectForm
             {...register("chassis", { required: true })}
             id="chassis"
             name="chassis"
-          />
+          /> */}
         </div>
 
         <div className="flex-col flex">
           <LabelForm htmlFor="fleet">Frota</LabelForm>
-          <SelectForm
+          {/* <SelectForm
             {...register("fleet", { required: true })}
             id="fleet"
             name="fleet"
-          />
+          /> */}
         </div>
       </div>
       <div className="mt-8 flex flex-col gap-6">
