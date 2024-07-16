@@ -38,7 +38,7 @@ export default function OSPage() {
                 onChange={(e) => setOrderType(e.target.value)}
                 className="border rounded text-[#757575] p-2 w-[60%]"
               >
-                <option>Selecione...</option>
+                <option value={""}>Selecione...</option>
                 <option value={"oficina"}>Ordem da Oficina</option>
                 <option value={"LEI"}>Ordem do LEI</option>
               </select>

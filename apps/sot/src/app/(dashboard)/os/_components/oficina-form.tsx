@@ -1,4 +1,4 @@
-import { Controller, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import {
   CreateWorkshopOrderSchema,
   formSchema,
@@ -34,7 +34,7 @@ export default function OficinaForm() {
     <form onSubmit={handleSubmit(createWorkshopOrder)}>
       <div className="flex gap-12">
         <div className="flex-col flex">
-          <LabelForm htmlFor="automaker">Montadora</LabelForm>
+          <LabelForm htmlFor="automaker">Montadora</LabelForm>  
           <SelectForm
             id="automaker"
             {...register("automaker", { required: true })}
@@ -114,7 +114,7 @@ export default function OficinaForm() {
         </div>
 
         <div className="flex-col flex">
-          <LabelForm htmlFor="project">Localização da chave</LabelForm>
+          <LabelForm htmlFor="keyLocation">Localização da chave</LabelForm>
           <input
             {...register("keyLocation", { required: true })}
             id="keyLocation"

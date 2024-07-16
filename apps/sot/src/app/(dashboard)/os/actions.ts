@@ -33,7 +33,7 @@ export async function fetchAllField(
   field: string | undefined,
 ): Promise<string[] | undefined> {
   const token = await verifySession();
-
+  
   try {
     const response = await fetch(`${url}/service-order/?field=${field}`, {
       headers: {
