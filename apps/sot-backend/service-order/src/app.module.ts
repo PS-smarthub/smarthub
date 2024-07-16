@@ -4,6 +4,7 @@ import { ConfigModule } from '@nestjs/config';
 import { WorkshopModule } from './workshop/workshop.module';
 import { ServiceOrderWorkshop } from './workshop/infra/typeorm/ServiceOrderWorkshop';
 import { LeiModule } from './lei/lei.module';
+import { Vehicle } from './lei/vehicles/entities/vehicle.entity';
 
 @Module({
   imports: [
@@ -15,7 +16,7 @@ import { LeiModule } from './lei/lei.module';
       host: 'service-order-ms-db',
       port: Number(process.env.DB_PORT),
       database: 'service-order',
-      entities: [ServiceOrderWorkshop],
+      entities: [ServiceOrderWorkshop, Vehicle],
       synchronize: true,
       username: process.env.DB_USERNAME,
       password: 'root',
@@ -26,4 +27,4 @@ import { LeiModule } from './lei/lei.module';
   controllers: [],
   providers: [],
 })
-export class AppModule {}
+export class AppModule { }

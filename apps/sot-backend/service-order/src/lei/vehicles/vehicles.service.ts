@@ -6,22 +6,21 @@ import { Repository } from 'typeorm';
 
 @Injectable()
 export class VehiclesService {
-
-  constructor(@InjectRepository(Vehicle)
-  private readonly repository: Repository<Vehicle>,) { }
-
+  constructor(
+    @InjectRepository(Vehicle)
+    private readonly repository: Repository<Vehicle>,
+  ) {}
 
   create(createVehicleDto: CreateVehicleDto) {
-    const newVehicle = this.repository.create(createVehicleDto)
-    return this.repository.save(newVehicle)
+    const newVehicle = this.repository.create(createVehicleDto);
+    return this.repository.save(newVehicle);
   }
 
   findAll() {
-    return this.repository.find()
+    return this.repository.find();
   }
 
   findOne(id: number) {
-    return this.repository.findOneBy({ id })
+    return this.repository.findOneBy({ id });
   }
-
 }

@@ -9,7 +9,7 @@ export class VehiclesController {
 
   @MessagePattern({ cmd: 'createVehicle' })
   create(@Payload() createVehicleDto: CreateVehicleDto) {
-    console.log("Cheguei")
+    console.log('Cheguei');
     return this.vehiclesService.create(createVehicleDto);
   }
 

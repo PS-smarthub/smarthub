@@ -4,17 +4,12 @@ import { CreateVehicleDto } from './dtos/create-vehicle.dto';
 
 @Controller()
 export class VehicleController {
-    constructor(
-        @Inject('NATS_SERVICE') private readonly natsClient: ClientProxy,
-    ) { }
+  constructor(
+    @Inject('NATS_SERVICE') private readonly natsClient: ClientProxy,
+  ) {}
 
-    @Post("vehicle")
-    createWorkshopServiceOrder(
-        @Body() createVehicleDto: CreateVehicleDto,
-    ) {
-        return this.natsClient.send(
-            { cmd: 'createVehicle' },
-            createVehicleDto,
-        );
-    }
+  @Post('vehicle')
+  createWorkshopServiceOrder(@Body() createVehicleDto: CreateVehicleDto) {
+    return this.natsClient.send({ cmd: 'createVehicle' }, createVehicleDto);
+  }
 }
