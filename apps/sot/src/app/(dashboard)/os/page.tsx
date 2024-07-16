@@ -3,6 +3,7 @@
 import { BackButton } from "@smarthub/ui";
 import { useState } from "react";
 import dynamic from "next/dynamic";
+import LeiSelect from "./_components/lei-select";
 const OficinaForm = dynamic(() => import("./_components/oficina-form"), {
   ssr: true,
   loading: () => <p>Loading...</p>,
@@ -10,7 +11,6 @@ const OficinaForm = dynamic(() => import("./_components/oficina-form"), {
 
 export default function OSPage() {
   const [orderType, setOrderType] = useState("");
-  
 
   return (
     <>
@@ -26,6 +26,7 @@ export default function OSPage() {
       <div className="w-full flex">
         <div className="flex-1 pl-14 py-1 pt-6 max-h-[80vh] overflow-y-auto pb-10">
           {orderType == "oficina" && <OficinaForm />}
+          {orderType == "LEI" && <LeiSelect />}
         </div>
         <div className="fixed right-1">
           {orderType == "" && (

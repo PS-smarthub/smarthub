@@ -1,4 +1,4 @@
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import {
   CreateWorkshopOrderSchema,
   formSchema,
@@ -7,7 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { errorToast, successToast } from "@/lib/toast";
 import { createNewWorkshopServiceOrder } from "../actions";
 import LabelForm from "./label-form";
-import SelectForm from "./select-form";
+import { SelectForm } from "./select-form";
 
 export default function OficinaForm() {
   const {
@@ -36,8 +36,8 @@ export default function OficinaForm() {
         <div className="flex-col flex">
           <LabelForm htmlFor="automaker">Montadora</LabelForm>
           <SelectForm
-            {...register("automaker", { required: true })}
             id="automaker"
+            {...register("automaker", { required: true })}
             name="automaker"
           />
         </div>
@@ -48,13 +48,12 @@ export default function OficinaForm() {
             {...register("project", { required: true })}
             id="project"
             name="project"
-            className="w-[450px]"
+            className="sm:w-[450px]"
           />
         </div>
 
         <div className="flex-col flex">
-          <LabelForm htmlFor="isInter">Interno</LabelForm>
-
+          <LabelForm htmlFor="isIntern">Interno</LabelForm>
           <select
             {...register("isIntern", {
               required: true,
@@ -64,7 +63,7 @@ export default function OficinaForm() {
             name="isIntern"
             id="isIntern"
           >
-            <option value="">Selecione...</option>
+            <option value={""}>Selecione...</option>
             <option>Sim</option>
             <option>Não</option>
           </select>
@@ -151,7 +150,7 @@ export default function OficinaForm() {
               disabled={isSubmitting}
               className="bg-green-400 hover:bg-green-500 rounded py-2 px-4 text-white font-semibold"
             >
-              {isSubmitting ? "Criando ordem..." : "Criar ordem"}
+              {isSubmitting ? "Criando ordem..." : "Criar"}
             </button>
           </div>
         </div>
