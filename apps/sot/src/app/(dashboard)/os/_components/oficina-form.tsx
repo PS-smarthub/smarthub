@@ -1,15 +1,15 @@
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import {
   CreateWorkshopOrderSchema,
   formSchema,
 } from "@/schemas/CreateWorkshopOrderSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { errorToast, successToast } from "@/lib/toast";
-import { createNewWorkshopServiceOrder, fetchAllField } from "../actions";
+import { createNewWorkshopServiceOrder } from "../actions";
 import LabelForm from "./label-form";
-import SelectForm from "./select-form";
+import { SelectForm } from "./select-form";
 
-export default async function OficinaForm() {
+export default function OficinaForm() {
   const {
     register,
     reset,
@@ -18,7 +18,7 @@ export default async function OficinaForm() {
   } = useForm<formSchema>({
     resolver: zodResolver(CreateWorkshopOrderSchema),
   });
-  
+
   const createWorkshopOrder = async (data: formSchema) => {
     try {
       const result = await createNewWorkshopServiceOrder(data);
@@ -36,24 +36,24 @@ export default async function OficinaForm() {
         <div className="flex-col flex">
           <LabelForm htmlFor="automaker">Montadora</LabelForm>
           <SelectForm
-            {...register("automaker", { required: true })}
             id="automaker"
+            {...register("automaker", { required: true })}
             name="automaker"
           />
         </div>
 
         <div className="flex-col flex">
           <LabelForm htmlFor="project">Projeto</LabelForm>
-          {/* <SelectForm
+          <SelectForm
             {...register("project", { required: true })}
             id="project"
             name="project"
-            className="w-[450px]"
-          /> */}
+            className="sm:w-[450px]"
+          />
         </div>
 
         <div className="flex-col flex">
-          <LabelForm htmlFor="isInter">Interno</LabelForm>
+          <LabelForm htmlFor="isIntern">Interno</LabelForm>
           <select
             {...register("isIntern", {
               required: true,
@@ -63,7 +63,7 @@ export default async function OficinaForm() {
             name="isIntern"
             id="isIntern"
           >
-            <option value="">Selecione...</option>
+            <option value={""}>Selecione...</option>
             <option>Sim</option>
             <option>Não</option>
           </select>
@@ -73,29 +73,29 @@ export default async function OficinaForm() {
       <div className="flex gap-12 mt-8">
         <div className="flex-col flex">
           <LabelForm htmlFor="model">Modelo</LabelForm>
-          {/* <SelectForm
+          <SelectForm
             {...register("model", { required: true })}
             id="model"
             name="model"
-          /> */}
+          />
         </div>
 
         <div className="flex-col flex">
           <LabelForm htmlFor="chassis">Chassi</LabelForm>
-          {/* <SelectForm
+          <SelectForm
             {...register("chassis", { required: true })}
             id="chassis"
             name="chassis"
-          /> */}
+          />
         </div>
 
         <div className="flex-col flex">
           <LabelForm htmlFor="fleet">Frota</LabelForm>
-          {/* <SelectForm
+          <SelectForm
             {...register("fleet", { required: true })}
             id="fleet"
             name="fleet"
-          /> */}
+          />
         </div>
       </div>
       <div className="mt-8 flex flex-col gap-6">
@@ -150,7 +150,7 @@ export default async function OficinaForm() {
               disabled={isSubmitting}
               className="bg-green-400 hover:bg-green-500 rounded py-2 px-4 text-white font-semibold"
             >
-              {isSubmitting ? "Criando ordem..." : "Criar ordem"}
+              {isSubmitting ? "Criando ordem..." : "Criar"}
             </button>
           </div>
         </div>
