@@ -19,11 +19,51 @@ export class WorkshopService {
     );
     return this.serviceOrderRepository.save(newUser);
   }
+  async getAllAutomaker({ query }: any) {
 
-  async getAllField(field: string) {
-    const orders = await this.serviceOrderRepository.find();
-    const resultString = orders.map((order) => order[field]);
-
-    return resultString;
+    const queryBuilder = this.serviceOrderRepository.createQueryBuilder(
+      'service-order-workshop',
+    );
+    if (query.id) {
+      const orders = await queryBuilder
+        .select('order')
+        .from(ServiceOrderWorkshop, 'order')
+        .where(`order.id = :id`, { id: query.id })
+        .getOne();
+      return orders;
+    }
+    if (query.automaker) {
+      const orders = await queryBuilder
+        .select('order')
+        .from(ServiceOrderWorkshop, 'order')
+        .where(`order.automaker = :automaker`, { automaker: query.automaker })
+        .getMany();
+      return orders;
+    }
+    if (query.project) {
+      const orders = await queryBuilder
+        .select('order')
+        .from(ServiceOrderWorkshop, 'order')
+        .where(`order.project = :project`, { project: query.project })
+        .getMany();
+      return orders;
+    }
+    if (query.model) {
+      const orders = await queryBuilder
+        .select('order')
+        .from(ServiceOrderWorkshop, 'order')
+        .where(`order.model = :model`, { model: query.model })
+        .getMany();
+      return orders;
+    }
+    if (query.fleet) {
+      const orders = await queryBuilder
+        .select('order')
+        .from(ServiceOrderWorkshop, 'order')
+        .where(`order.fleet = :fleet`, { fleet: query.fleet })
+        .getMany();
+      return orders;
+    }
+    return await queryBuilder.getMany();
   }
 }
