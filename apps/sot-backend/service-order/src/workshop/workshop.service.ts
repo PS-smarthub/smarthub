@@ -19,22 +19,11 @@ export class WorkshopService {
     );
     return this.serviceOrderRepository.save(newUser);
   }
-
   async getAllAutomaker({ query }: any) {
-    // const orders = await this.serviceOrderRepository.find({
-    //   select: { automaker: true }
-    // });
-    // return orders
 
     const queryBuilder = this.serviceOrderRepository.createQueryBuilder(
       'service-order-workshop',
     );
-    // if (query.id) {
-    //   console.log(query)
-    //   // queryBuilder.andWhere('service-order-workshop.automaker = :automaker', { automaker: `${query.query.automaker}` });
-    //   return queryBuilder.where("service-order-workshop.id = :id", { query })
-    // }
-    console.log(query);
     if (query.id) {
       const orders = await queryBuilder
         .select('order')

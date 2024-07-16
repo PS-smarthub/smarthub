@@ -5,6 +5,7 @@ import { OptionMenu } from "@/types";
 import { SideMenu } from "@/components/SideMenu";
 import ToastProvider from "@/providers/ToastProvider";
 import { Header } from "@/components/Header";
+import QueryProvider from "@/providers/QueryProvider";
 
 export default function DashboardLayout({
   children,
@@ -20,15 +21,17 @@ export default function DashboardLayout({
   ];
 
   return (
-    <ToastProvider>
-      <main className="h-full">
-        <Header />
-        <section className="flex h-full">
-          <SideMenu options={MENU_OPTIONS} />
-          <div className="min-h-screen w-full">{children}</div>
-        </section>
-      </main>
-      <Toaster />
-    </ToastProvider>
+    <QueryProvider>
+      <ToastProvider>
+        <main className="h-full">
+          <Header />
+          <section className="flex h-full">
+            <SideMenu options={MENU_OPTIONS} />
+            <div className="min-h-screen w-full">{children}</div>
+          </section>
+        </main>
+        <Toaster />
+      </ToastProvider>
+    </QueryProvider>
   );
 }

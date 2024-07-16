@@ -1,4 +1,4 @@
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import {
   CreateWorkshopOrderSchema,
   formSchema,
@@ -7,6 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { errorToast, successToast } from "@/lib/toast";
 import { createNewWorkshopServiceOrder } from "../actions";
 import LabelForm from "./label-form";
+import { SelectForm } from "./select-form";
 
 export default function OficinaForm() {
   const {
@@ -21,7 +22,6 @@ export default function OficinaForm() {
   const createWorkshopOrder = async (data: formSchema) => {
     try {
       const result = await createNewWorkshopServiceOrder(data);
-      console.log(result);
       successToast("Ordem de serviço criada com sucesso.");
       reset();
     } catch (err) {
@@ -35,48 +35,37 @@ export default function OficinaForm() {
       <div className="flex gap-12">
         <div className="flex-col flex">
           <LabelForm htmlFor="automaker">Montadora</LabelForm>
-          <select
-            {...register("automaker", { required: true })}
+          <SelectForm
             id="automaker"
+            {...register("automaker", { required: true })}
             name="automaker"
-            className={`border rounded text-[#757575] p-2 w-[200px] shadow hover:border-gray-400 focus:border-blue-500 focus:shadow-outline`}
-          >
-            <option value="">Selecione...</option>
-            <option>Fiat</option>
-            <option>Toyota</option>
-            <option>Honda</option>
-          </select>
+          />
         </div>
 
         <div className="flex-col flex">
           <LabelForm htmlFor="project">Projeto</LabelForm>
-          <select
+          <SelectForm
             {...register("project", { required: true })}
             id="project"
             name="project"
-            className="border rounded text-[#757575] p-2 w-[450px] shadow hover:border-gray-400 focus:border-blue-500 focus:shadow-outline"
-          >
-            <option value="">Selecione...</option>
-            <option>Projeto 1</option>
-            <option>Projeto 2</option>
-            <option>Projeto 3</option>
-          </select>
+            className="sm:w-[450px]"
+          />
         </div>
 
         <div className="flex-col flex">
-          <LabelForm htmlFor="isInter">Interno</LabelForm>
+          <LabelForm htmlFor="isIntern">Interno</LabelForm>
           <select
             {...register("isIntern", {
               required: true,
               setValueAs: (v) => v === "true",
             })}
-            className="border rounded text-[#757575] p-2  w-[150px] shadow hover:border-gray-400 focus:border-blue-500 focus:shadow-outline"
+            className="border rounded text-[#757575] p-2 shadow hover:border-gray-400 focus:border-blue-500 focus:shadow-outline w-[150px]"
             name="isIntern"
             id="isIntern"
           >
-            <option value="">Selecione...</option>
-            <option value={"true"}>Sim</option>
-            <option value={"false"}>Não</option>
+            <option value={""}>Selecione...</option>
+            <option>Sim</option>
+            <option>Não</option>
           </select>
         </div>
       </div>
@@ -84,46 +73,29 @@ export default function OficinaForm() {
       <div className="flex gap-12 mt-8">
         <div className="flex-col flex">
           <LabelForm htmlFor="model">Modelo</LabelForm>
-          <select
+          <SelectForm
             {...register("model", { required: true })}
-            className="border rounded text-[#757575] p-2 w-[200px] shadow hover:border-gray-400 focus:border-blue-500 focus:shadow-outline"
             id="model"
             name="model"
-          >
-            <option value="">Selecione...</option>
-            <option>Fiat</option>
-            <option>Toyota</option>
-            <option>Honda</option>
-          </select>
+          />
         </div>
 
         <div className="flex-col flex">
           <LabelForm htmlFor="chassis">Chassi</LabelForm>
-          <select
+          <SelectForm
             {...register("chassis", { required: true })}
             id="chassis"
             name="chassis"
-            className="border rounded text-[#757575] p-2 w-[200px] shadow hover:border-gray-400 focus:border-blue-500 focus:shadow-outline"
-          >
-            <option value="">Selecione...</option>
-            <option>Chassi 1</option>
-            <option>123132</option>
-            <option>984873945</option>
-          </select>
+          />
         </div>
 
         <div className="flex-col flex">
           <LabelForm htmlFor="fleet">Frota</LabelForm>
-          <select
+          <SelectForm
             {...register("fleet", { required: true })}
             id="fleet"
             name="fleet"
-            className="border rounded text-[#757575] p-2 w-[200px] shadow hover:border-gray-400 focus:border-blue-500 focus:shadow-outline"
-          >
-            <option value="">Selecione...</option>
-            <option>Sim</option>
-            <option>Não</option>
-          </select>
+          />
         </div>
       </div>
       <div className="mt-8 flex flex-col gap-6">
@@ -178,7 +150,7 @@ export default function OficinaForm() {
               disabled={isSubmitting}
               className="bg-green-400 hover:bg-green-500 rounded py-2 px-4 text-white font-semibold"
             >
-              {isSubmitting ? "Criando ordem..." : "Criar ordem"}
+              {isSubmitting ? "Criando ordem..." : "Criar"}
             </button>
           </div>
         </div>
