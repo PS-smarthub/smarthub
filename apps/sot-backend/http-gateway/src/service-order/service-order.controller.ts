@@ -7,7 +7,7 @@ import { CreateEquipmentDto } from './dtos/lei/CreateEquipment.dto';
 export class ServiceOrderController {
   constructor(
     @Inject('NATS_SERVICE') private readonly natsClient: ClientProxy,
-  ) { }
+  ) {}
 
   @Post('workshop')
   createWorkshopServiceOrder(
@@ -24,8 +24,9 @@ export class ServiceOrderController {
     return this.natsClient.send({ cmd: 'createEquipment' }, createEquipmentDto);
   }
 
-  @Get("orders")
+  @Get()
   findOrders(@Query() query: any) {
-    return this.natsClient.send({ cmd: "getAllField" }, {query})
+    return this.natsClient.send({ cmd: 'getAllField' }, { query });
   }
+
 }

@@ -23,7 +23,7 @@ export async function GET(req: NextRequest) {
   const cookieInstance = cookies();
   const response = await pca.acquireTokenByCode(tokenRequest);
 
-  console.log(response.idToken)
+  console.log(response.idToken);
 
   cookieInstance.set("sot-user-token", response.idToken, {
     maxAge: 60 * 60 * 24 * 1,

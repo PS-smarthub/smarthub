@@ -5,15 +5,15 @@ import { WorkshopService } from './workshop.service';
 
 @Controller()
 export class WorkshopController {
-  constructor(private workshopService: WorkshopService) { }
+  constructor(private workshopService: WorkshopService) {}
 
   @MessagePattern({ cmd: 'createServiceOrderWorkshop' })
   createServiceOrderWorkshop(@Payload() data: CreateServiceOrderWorkshopDto) {
     return this.workshopService.createServiceOrderWorkshop(data);
   }
 
-  @MessagePattern({ cmd: "getAllField" })
+  @MessagePattern({ cmd: 'getAllField' })
   getAllAutomaker(query: any) {
-    return this.workshopService.getAllAutomaker(query)
+    return this.workshopService.getAllAutomaker(query);
   }
 }
