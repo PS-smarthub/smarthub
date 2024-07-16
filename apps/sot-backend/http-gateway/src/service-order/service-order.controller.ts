@@ -24,8 +24,8 @@ export class ServiceOrderController {
     return this.natsClient.send({ cmd: 'createEquipment' }, createEquipmentDto);
   }
 
-  @Get()
-  getAllField(@Query("field") field: string) {
-    return this.natsClient.send({ cmd: "getAllField" }, field)
+  @Get("orders")
+  findOrders(@Query() query: any) {
+    return this.natsClient.send({ cmd: "getAllField" }, {query})
   }
 }
