@@ -1,56 +1,29 @@
-import { useForm } from "react-hook-form";
-import {
-  CreateWorkshopOrderSchema,
-  formSchema,
-} from "@/schemas/CreateWorkshopOrderSchema";
+import LabelForm from "@/components/label-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { errorToast, successToast } from "@/lib/toast";
-import { createNewWorkshopServiceOrder } from "../actions";
-import LabelForm from "./label-form";
-import { SelectForm } from "./select-form";
+import React from "react";
+import { useForm } from "react-hook-form";
 
-export default function OficinaForm() {
+export default function RegisterVehicleForm() {
+
   const {
     register,
     reset,
     handleSubmit,
     getValues,
     formState: { isSubmitting },
-  } = useForm<formSchema>({
-    resolver: zodResolver(CreateWorkshopOrderSchema),
+  } = useForm({
+    // resolver: zodResolver(),
   });
 
-  const createWorkshopOrder = async (data: formSchema) => {
-    try {
-      const result = await createNewWorkshopServiceOrder(data);
-      successToast("Ordem de serviço criada com sucesso.");
-      reset();
-    } catch (err) {
-      errorToast("Erro ao criar ordem de serviço.");
-      console.log(err);
-    }
-  };
-
   return (
-    <form onSubmit={handleSubmit(createWorkshopOrder)}>
+    <>
+      <form onSubmit={handleSubmit(()=> console.log("Hello"))}>
       <div className="flex gap-12">
         <div className="flex-col flex">
           <LabelForm htmlFor="automaker">Montadora</LabelForm>
-          {/* <SelectForm
-            id="automaker"
-            {...register("automaker", { required: true })}
-            name="automaker"
-          /> */}
         </div>
-
         <div className="flex-col flex">
           <LabelForm htmlFor="project">Projeto</LabelForm>
-          {/* <SelectForm
-            {...register("project", { required: true })}
-            id="project"
-            name="project"
-            className="sm:w-[450px]"
-          /> */}
         </div>
 
         <div className="flex-col flex">
@@ -160,5 +133,6 @@ export default function OficinaForm() {
         </div>
       </div>
     </form>
+    </>
   );
 }

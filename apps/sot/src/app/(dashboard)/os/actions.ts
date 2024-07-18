@@ -30,12 +30,12 @@ export async function createNewWorkshopServiceOrder(formSchema: formSchema) {
 }
 
 export async function fetchAllField(
-  field: string | undefined,
+  query: any | undefined,
 ): Promise<string[] | undefined> {
   const token = await verifySession();
   
   try {
-    const response = await fetch(`${url}/service-order/?field=${field}`, {
+    const response = await fetch(`${url}/service-order${query}`, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,

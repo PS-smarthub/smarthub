@@ -5,7 +5,7 @@ import { WorkshopService } from './workshop.service';
 
 @Controller()
 export class WorkshopController {
-  constructor(private workshopService: WorkshopService) {}
+  constructor(private workshopService: WorkshopService) { }
 
   @MessagePattern({ cmd: 'createServiceOrderWorkshop' })
   createServiceOrderWorkshop(@Payload() data: CreateServiceOrderWorkshopDto) {
@@ -13,7 +13,7 @@ export class WorkshopController {
   }
 
   @MessagePattern({ cmd: 'getAllField' })
-  getAllAutomaker(query: any) {
-    return this.workshopService.getAllAutomaker(query);
+  getAllByQuery(query: any) {
+    return this.workshopService.getAllByQuery(query);
   }
 }

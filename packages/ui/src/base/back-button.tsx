@@ -10,9 +10,9 @@ export const BackButton = ({ page_name }: { page_name?: string }) => {
       <button
         onClick={back}
         data-tooltip-target="tooltip-default"
-        className="font-bold text-xl flex items-center"
+        className="font-bold text-xl gap-2 flex items-center"
       >
-        <div className="p-4">
+        <div>
           <MdArrowBackIosNew />
         </div>
         {page_name}

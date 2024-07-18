@@ -12,4 +12,6 @@ export interface IFormValues {
   deliveryDate: Date;
 }
 
-export interface SelectFormProps extends ComponentProps<"select"> {}
+export interface SelectFormProps extends ComponentProps<"select"> {
+  query?: string
+}

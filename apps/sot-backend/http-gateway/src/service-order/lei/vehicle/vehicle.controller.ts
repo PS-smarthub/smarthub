@@ -8,7 +8,7 @@ export class VehicleController {
     @Inject('NATS_SERVICE') private readonly natsClient: ClientProxy,
   ) {}
 
-  @Post('vehicle')
+  @Post('vehicles')
   createWorkshopServiceOrder(@Body() createVehicleDto: CreateVehicleDto) {
     return this.natsClient.send({ cmd: 'createVehicle' }, createVehicleDto);
   }
