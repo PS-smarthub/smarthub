@@ -10,8 +10,8 @@ export const SelectForm = React.forwardRef<
   HTMLSelectElement,
   SelectFormProps & ReturnType<UseFormRegister<IFormValues>>
 >((props: SelectFormProps, ref) => {
-  const [value, setValue] = useState("")
-  
+  const [value, setValue] = useState("");
+
   const { data: options } = useQuery({
     staleTime: 1000 * 60 * 5,
     refetchInterval: 1000 * 60 * 5,

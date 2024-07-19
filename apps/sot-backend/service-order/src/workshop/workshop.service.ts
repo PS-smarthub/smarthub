@@ -9,7 +9,7 @@ export class WorkshopService {
   constructor(
     @InjectRepository(ServiceOrderWorkshop)
     private readonly serviceOrderRepository: Repository<ServiceOrderWorkshop>,
-  ) { }
+  ) {}
 
   createServiceOrderWorkshop(
     createServiceOrderWorkshopDto: CreateServiceOrderWorkshopDto,
@@ -20,20 +20,23 @@ export class WorkshopService {
     return this.serviceOrderRepository.save(newUser);
   }
   async getAllByQuery({ query }: any) {
-    const queryBuilder = this.serviceOrderRepository.createQueryBuilder("order");
+    const queryBuilder =
+      this.serviceOrderRepository.createQueryBuilder('order');
 
-    if (query.field == "automaker") {
+    if (query.field == 'automaker') {
       const automakerList = await this.serviceOrderRepository.find({
-        select: ["automaker"]
-      })
+        select: ['automaker'],
+      });
 
-      return automakerList.map(record => record.automaker)
+      return automakerList.map((record) => record.automaker);
     }
 
     if (query.automaker) {
       if (query.project) {
-        const projectList = await queryBuilder.andWhere(`order.project = :project`, { project: query.project }).getMany()
-        return projectList.map(record => record.project)
+        const projectList = await queryBuilder
+          .andWhere(`order.project = :project`, { project: query.project })
+          .getMany();
+        return projectList.map((record) => record.project);
       }
       // Object.keys(query).forEach((key) => {
       //   if (query[key]) {
@@ -42,7 +45,6 @@ export class WorkshopService {
       // })
     }
 
-    return await queryBuilder.getMany()
+    return await queryBuilder.getMany();
   }
-
 }

@@ -13,5 +13,5 @@ export interface IFormValues {
 }
 
 export interface SelectFormProps extends ComponentProps<"select"> {
-  query?: string
+  query?: string;
 }

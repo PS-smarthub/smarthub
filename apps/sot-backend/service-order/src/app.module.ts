@@ -27,4 +27,4 @@ import { Vehicle } from './lei/vehicles/entities/vehicle.entity';
   controllers: [],
   providers: [],
 })
-export class AppModule { }
+export class AppModule {}

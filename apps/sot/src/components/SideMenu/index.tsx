@@ -2,18 +2,21 @@
 import Link from "next/link";
 import { OptionMenu } from "../../types";
 import { SignOutButton } from "./sign-out-button";
+import { usePathname } from "next/navigation";
 
 export function SideMenu({ options }: { options: OptionMenu[] }) {
+  const pathname = usePathname();
+
   return (
     <div className="bg-gray-100 h-full text-gray-500 flex w-[95px] border-r justify-center">
       <div className="flex flex-col items-center space-y-10 py-6">
         <div className="space-y-48 rounded-md">
           <ul className="flex flex-col items-center w-full">
             {options.map((option: OptionMenu) => (
-              <li className="p-5 sm:p-3 sm:text-[14px]" key={option.app_name}>
+              <li className="p-2 sm:p-3 sm:text-[14px]" key={option.app_name}>
                 <Link
                   href={option.href}
-                  className="flex flex-col text-center items-center justify-center font-semibold hover:text-blue-50 hover:fill-blue-50"
+                  className={`flex flex-col text-center items-center justify-center font-semibold hover:text-blue-50 hover:fill-blue-50 ${pathname === option.href && "text-blue-50 fill-blue-50"}`}
                 >
                   {option.icon}
                   {option.app_name}
