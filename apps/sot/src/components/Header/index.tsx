@@ -18,7 +18,7 @@ export function Header() {
               <Image
                 src={BoschLogo}
                 alt="Bosch logo"
-                className="w-full h-full sm:w-[100px] lg:w-[150px]"
+                className="w-full h-full sm:w-[100px]"
                 loading="lazy"
               />
             </div>
