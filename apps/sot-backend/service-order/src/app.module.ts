@@ -25,7 +25,7 @@ import { Project } from './projects/entities/project.entity';
     }),
     WorkshopModule,
     LeiModule,
-    ProjectsModule
+    ProjectsModule,
   ],
   controllers: [],
   providers: [],

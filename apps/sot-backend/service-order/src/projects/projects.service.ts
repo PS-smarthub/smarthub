@@ -9,13 +9,13 @@ export class ProjectsService {
   constructor(
     @InjectRepository(Project)
     private readonly projectsService: Repository<Project>,
-  ) {}
+  ) { }
 
   create(createProjectDto: CreateProjectDto) {
     return this.projectsService.save(createProjectDto);
   }
 
   findAll() {
-    return `This action returns all projects`;
+    return this.projectsService.find();
   }
 }
