@@ -6,10 +6,13 @@ import { Repository } from 'typeorm';
 
 @Injectable()
 export class ProjectsService {
-  constructor(@InjectRepository(Project) private readonly projectsService: Repository<Project>) { }
+  constructor(
+    @InjectRepository(Project)
+    private readonly projectsService: Repository<Project>,
+  ) {}
 
   create(createProjectDto: CreateProjectDto) {
-    return this.projectsService.save(createProjectDto)
+    return this.projectsService.save(createProjectDto);
   }
 
   findAll() {

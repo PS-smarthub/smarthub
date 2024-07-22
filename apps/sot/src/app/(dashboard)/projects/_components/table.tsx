@@ -1,7 +1,6 @@
 import React from "react";
 
 export default function Table() {
-    
   return (
     <div className="overflow-x-auto">
       <table className="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
