@@ -13,7 +13,7 @@ export class WorkshopController {
   }
 
   @MessagePattern({ cmd: 'getAllField' })
-  getAllAutomaker(query: any) {
-    return this.workshopService.getAllAutomaker(query);
+  getAllByQuery(query: any) {
+    return this.workshopService.getAllByQuery(query);
   }
 }

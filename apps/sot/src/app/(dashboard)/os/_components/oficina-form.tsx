@@ -1,4 +1,4 @@
-import { Controller, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import {
   CreateWorkshopOrderSchema,
   formSchema,
@@ -14,6 +14,7 @@ export default function OficinaForm() {
     register,
     reset,
     handleSubmit,
+    getValues,
     formState: { isSubmitting },
   } = useForm<formSchema>({
     resolver: zodResolver(CreateWorkshopOrderSchema),
@@ -35,21 +36,21 @@ export default function OficinaForm() {
       <div className="flex gap-12">
         <div className="flex-col flex">
           <LabelForm htmlFor="automaker">Montadora</LabelForm>
-          <SelectForm
+          {/* <SelectForm
             id="automaker"
             {...register("automaker", { required: true })}
             name="automaker"
-          />
+          /> */}
         </div>
 
         <div className="flex-col flex">
           <LabelForm htmlFor="project">Projeto</LabelForm>
-          <SelectForm
+          {/* <SelectForm
             {...register("project", { required: true })}
             id="project"
             name="project"
             className="sm:w-[450px]"
-          />
+          /> */}
         </div>
 
         <div className="flex-col flex">
@@ -73,29 +74,32 @@ export default function OficinaForm() {
       <div className="flex gap-12 mt-8">
         <div className="flex-col flex">
           <LabelForm htmlFor="model">Modelo</LabelForm>
-          <SelectForm
+          {/* <SelectForm
+            search_params=""
             {...register("model", { required: true })}
             id="model"
             name="model"
-          />
+          /> */}
         </div>
 
         <div className="flex-col flex">
           <LabelForm htmlFor="chassis">Chassi</LabelForm>
-          <SelectForm
+          {/* <SelectForm
+            search_params=""
             {...register("chassis", { required: true })}
             id="chassis"
             name="chassis"
-          />
+          /> */}
         </div>
 
         <div className="flex-col flex">
           <LabelForm htmlFor="fleet">Frota</LabelForm>
-          <SelectForm
+          {/* <SelectForm
+            search_params="automaker"
             {...register("fleet", { required: true })}
             id="fleet"
             name="fleet"
-          />
+          /> */}
         </div>
       </div>
       <div className="mt-8 flex flex-col gap-6">
@@ -114,7 +118,7 @@ export default function OficinaForm() {
         </div>
 
         <div className="flex-col flex">
-          <LabelForm htmlFor="project">Localização da chave</LabelForm>
+          <LabelForm htmlFor="keyLocation">Localização da chave</LabelForm>
           <input
             {...register("keyLocation", { required: true })}
             id="keyLocation"
@@ -146,7 +150,7 @@ export default function OficinaForm() {
           </div>
           <div>
             <button
-              type="submit"
+              type={"submit"}
               disabled={isSubmitting}
               className="bg-green-400 hover:bg-green-500 rounded py-2 px-4 text-white font-semibold"
             >
