@@ -10,7 +10,7 @@ export function SignOutButton() {
       onClick={() => router.push("/api/logout")}
       className="flex justify-center fixed bottom-8"
     >
-      <MdOutlineLogout className="w-[40px] h-[40px] fill-red-500" />
+      <MdOutlineLogout className="w-[40px] h-[40px] fill-red-500 hover:fill-red-600" />
     </button>
   );
 }

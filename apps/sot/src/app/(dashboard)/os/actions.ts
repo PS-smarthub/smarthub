@@ -1,11 +1,11 @@
 "use server";
 
 import { verifySession } from "@/lib/session";
-import { formSchema } from "@/schemas/CreateWorkshopOrderSchema";
+import { workshopSchema } from "@/schemas/CreateWorkshopOrderSchema";
 
 const url = "http://localhost:3030";
 
-export async function createNewWorkshopServiceOrder(formSchema: formSchema) {
+export async function createNewWorkshopServiceOrder(formSchema: workshopSchema) {
   const token = await verifySession();
 
   try {
@@ -29,13 +29,13 @@ export async function createNewWorkshopServiceOrder(formSchema: formSchema) {
   }
 }
 
-export async function fetchAllField(
+export async function fetchByQuery(
   query: any | undefined,
 ): Promise<string[] | undefined> {
   const token = await verifySession();
 
   try {
-    const response = await fetch(`${url}/service-order${query}`, {
+    const response = await fetch(`${url}/vehicles${query}`, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,

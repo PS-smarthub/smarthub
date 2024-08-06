@@ -3,9 +3,10 @@ FROM node:20-alpine AS builder
 WORKDIR /app
 COPY . .
 
-RUN npm i -g turbo
+ENV NEXT_TELEMETRY_DISABLED 1
+
 # Only Take packages that are needed to compile this app
-RUN turbo prune --scope=cold-start --docker
+RUN npx turbo prune --scope=cold-start --docker
 
 # Add lockfile and package.json's of isolated subworkspace
 FROM node:20-alpine AS installer
@@ -13,17 +14,16 @@ WORKDIR /app
 COPY --from=builder /app/out/json/ .
 COPY --from=builder /app/out/package-lock.json ./package-lock.json
 COPY --from=builder /app/turbo.json ./turbo.json
-RUN npm i
+RUN npm install
 
 
 FROM node:20-alpine AS sourcer
 WORKDIR /app
 COPY --from=installer /app/ .
 COPY --from=builder /app/out/full/ .
-COPY .gitignore .gitignore
-RUN npx turbo run build --scope=cold-start --include-dependencies --no-deps
+RUN npx turbo build --filter=cold-start
 
-FROM node:20-alpine as runner
+FROM node:20-alpine AS runner
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
 COPY --from=sourcer /app/ .

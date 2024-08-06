@@ -1,0 +1,44 @@
+services:
+  # cold-start:
+  #   container_name: cold-start
+  #   build:
+  #     context: .
+  #     dockerfile: apps/cold-start/Dockerfile
+  #   ports:
+  #     - "3000:3000"
+  #   volumes:
+  #     - .:/app
+  sot:
+    container_name: sot
+    build:
+      context: .
+      dockerfile: apps/sot/Dockerfile
+    ports:
+      - "3002:3002"
+    volumes:
+      - ./apps/sot:/app
+
+  nginx:
+    image: nginx:alpine
+    container_name: nginx
+    ports:
+      - "81:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      # - cold-start
+      - sot
+  
+#   portainer:
+#     image: portainer/portainer-ce
+#     container_name: portainer
+#     ports:
+#       - "9000:9000"
+#       - "8000:8000"
+#     restart: always
+#     volumes:
+#       - /var/run/docker.sock:/var/run/docker.sock
+#       - portainer_data:/data
+
+# volumes:
+#   portainer_data:

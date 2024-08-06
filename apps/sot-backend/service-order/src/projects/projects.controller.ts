@@ -13,7 +13,7 @@ export class ProjectsController {
   }
 
   @MessagePattern({ cmd: "getProjects" })
-  getAll() {
-    return this.projectsService.findAll()
+  getAll(query: any) {
+    return this.projectsService.findAll(query)
   }
 }

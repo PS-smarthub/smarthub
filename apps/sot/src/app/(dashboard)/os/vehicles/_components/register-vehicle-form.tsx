@@ -2,6 +2,7 @@ import LabelForm from "@/components/label-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import React from "react";
 import { useForm } from "react-hook-form";
+import { SelectForm } from "../_components/select-form";
 
 export default function RegisterVehicleForm() {
   const {
@@ -16,29 +17,44 @@ export default function RegisterVehicleForm() {
 
   return (
     <>
-      <form onSubmit={handleSubmit(() => console.log("Hello"))}>
+      <form onSubmit={handleSubmit(() => console.log("Hello"))} className="">
         <div className="flex gap-12">
           <div className="flex-col flex">
             <LabelForm htmlFor="automaker">Montadora</LabelForm>
-          </div>
-          <div className="flex-col flex">
-            <LabelForm htmlFor="project">Projeto</LabelForm>
-          </div>
-
-          <div className="flex-col flex">
-            <LabelForm htmlFor="isIntern">Interno</LabelForm>
             <select
               {...register("isIntern", {
                 required: true,
                 setValueAs: (v) => v === "true",
               })}
+              className="border rounded text-[#757575] p-2 shadow hover:border-gray-400 focus:border-blue-500 focus:shadow-outline w-[250px]"
+              name="isIntern"
+              id="isIntern"
+            >
+              <option value={""}>Selecione...</option>
+              <option>Bosch BR</option>
+              <option>Toyota</option>
+            </select>
+          </div>
+          <div className="flex-col flex">
+            <LabelForm htmlFor="project">Projeto</LabelForm>
+            <SelectForm
+              {...register("projects", { required: true })}
+              id="projects"
+              name="projects"
+              className="sm:w-[450px]"
+            />
+          </div>
+
+          <div className="flex-col flex">
+            <LabelForm htmlFor="isIntern">Responsável</LabelForm>
+            <select
               className="border rounded text-[#757575] p-2 shadow hover:border-gray-400 focus:border-blue-500 focus:shadow-outline w-[150px]"
               name="isIntern"
               id="isIntern"
             >
               <option value={""}>Selecione...</option>
-              <option>Sim</option>
-              <option>Não</option>
+              <option>Ângelo Carnevale</option>
+              <option>Marcelo Evangelista</option>
             </select>
           </div>
         </div>
@@ -46,51 +62,50 @@ export default function RegisterVehicleForm() {
         <div className="flex gap-12 mt-8">
           <div className="flex-col flex">
             <LabelForm htmlFor="model">Modelo</LabelForm>
-            {/* <SelectForm
-            search_params=""
-            {...register("model", { required: true })}
-            id="model"
-            name="model"
-          /> */}
-          </div>
-
-          <div className="flex-col flex">
-            <LabelForm htmlFor="chassis">Chassi</LabelForm>
-            {/* <SelectForm
-            search_params=""
-            {...register("chassis", { required: true })}
-            id="chassis"
-            name="chassis"
-          /> */}
-          </div>
-
-          <div className="flex-col flex">
-            <LabelForm htmlFor="fleet">Frota</LabelForm>
-            {/* <SelectForm
-            search_params="automaker"
-            {...register("fleet", { required: true })}
-            id="fleet"
-            name="fleet"
-          /> */}
-          </div>
-        </div>
-        <div className="mt-8 flex flex-col gap-6">
-          <div className="flex-col flex">
-            <LabelForm htmlFor="vehicleLocation">
-              Localização do veículo
-            </LabelForm>
             <input
-              {...register("vehicleLocation", { required: true })}
-              id="vehicleLocation"
-              name="vehicleLocation"
+              {...register("model", { required: true })}
+              id="model"
+              name="model"
               type="text"
-              className="border rounded text-[#757575] p-2 w-[400px] shadow hover:border-gray-400 focus:shadow-outline"
-              placeholder="Ex: Na oficina"
+              className="border rounded text-[#757575] p-2 w-[150px] shadow hover:border-gray-400 focus:shadow-outline"
             />
           </div>
 
           <div className="flex-col flex">
-            <LabelForm htmlFor="keyLocation">Localização da chave</LabelForm>
+            <LabelForm htmlFor="color">Cor</LabelForm>
+            <input
+              {...register("color", { required: true })}
+              id="color"
+              name="color"
+              type="text"
+              className="border rounded text-[#757575] p-2 w-[150px] shadow hover:border-gray-400 focus:shadow-outline"
+            />
+          </div>
+
+          <div className="flex-col flex">
+            <LabelForm htmlFor="fleet">Chassi</LabelForm>
+            <input
+              {...register("vehicleLocation", { required: true })}
+              id="chassis"
+              name="chassis"
+              type="text"
+              className="border rounded text-[#757575] p-2 w-[150px] shadow hover:border-gray-400 focus:shadow-outline"
+            />
+          </div>
+        </div>
+        <div className="mt-8 flex flex-col gap-6">
+          <div className="flex flex-col gap-2">
+            <LabelForm htmlFor="vehicleLocation">Observações</LabelForm>
+            <textarea
+              {...register("vehicleLocation", { required: true })}
+              id="vehicleLocation"
+              name="vehicleLocation"
+              className="border rounded text-[#757575] p-2 w-[400px] shadow hover:border-gray-400 focus:shadow-outline"
+            />
+          </div>
+
+          <div className="flex items-center gap-2">
+            <LabelForm htmlFor="keyLocation">Imagem do veículo:</LabelForm>
             <input
               {...register("keyLocation", { required: true })}
               id="keyLocation"
@@ -100,17 +115,21 @@ export default function RegisterVehicleForm() {
               placeholder="Ex: No carro"
             />
           </div>
-          <textarea
-            {...register("description")}
-            id="description"
-            name="description"
-            placeholder="Informações do serviço"
-            className="mt-6 border rounded text-[#757575] w-[60%] h-[150px] p-2 shadow hover:border-gray-400 focus:shadow-outline"
-          />
-          <div className="flex items-center space-x-28">
+          <div className="flex-col flex">
+            <LabelForm>Número da NF</LabelForm>
+            <input
+              {...register("keyLocation", { required: true })}
+              id="keyLocation"
+              name="keyLocation"
+              type="text"
+              className="border rounded text-[#757575] p-2 w-[400px] shadow hover:border-gray-400 focus:shadow-outline"
+              placeholder="Ex: No carro"
+            />
+          </div>
+          <div className="flex justify-center flex-col gap-4">
             <div className="flex gap-4 items-center">
               <LabelForm htmlFor="deliveryDate">
-                Data de entrega desejada:
+                Data de emissão da NF:
               </LabelForm>
               <input
                 {...register("deliveryDate", { required: true })}
@@ -120,15 +139,37 @@ export default function RegisterVehicleForm() {
                 type="date"
               />
             </div>
-            <div>
-              <button
-                type={"submit"}
-                disabled={isSubmitting}
-                className="bg-green-400 hover:bg-green-500 rounded py-2 px-4 text-white font-semibold"
-              >
-                {isSubmitting ? "Criando ordem..." : "Criar"}
-              </button>
+            <div className="flex gap-4 items-center">
+              <LabelForm htmlFor="deliveryDate">Vencimento comodato:</LabelForm>
+              <input
+                {...register("deliveryDate", { required: true })}
+                id="deliveryDate"
+                name="deliveryDate"
+                className="border rounded text-[#757575] p-2 shadow hover:border-gray-400 focus:shadow-outline"
+                type="date"
+              />
             </div>
+          </div>
+          <div className="flex gap-4 items-center">
+            <LabelForm htmlFor="deliveryDate">
+              Arquivo da nota fiscal:
+            </LabelForm>
+            <input
+              {...register("deliveryDate", { required: true })}
+              id="deliveryDate"
+              name="deliveryDate"
+              className="border rounded text-[#757575] p-2 shadow hover:border-gray-400 focus:shadow-outline"
+              type="text"
+            />
+          </div>
+          <div>
+            <button
+              type={"submit"}
+              disabled={isSubmitting}
+              className="bg-green-400 hover:bg-green-500 rounded py-2 px-4 text-white font-semibold"
+            >
+              Cadastrar
+            </button>
           </div>
         </div>
       </form>

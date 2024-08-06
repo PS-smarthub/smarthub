@@ -5,16 +5,16 @@ import { CreateVehicleDto } from './dto/create-vehicle.dto';
 
 @Controller()
 export class VehiclesController {
-  constructor(private readonly vehiclesService: VehiclesService) {}
+  constructor(private readonly vehiclesService: VehiclesService) { }
 
   @MessagePattern({ cmd: 'createVehicle' })
   create(@Payload() createVehicleDto: CreateVehicleDto) {
     return this.vehiclesService.create(createVehicleDto);
   }
 
-  @MessagePattern('findAllVehicles')
-  findAll() {
-    return this.vehiclesService.findAll();
+  @MessagePattern({ cmd: 'getAllVehicles' })
+  findAll(query: any) {
+    return this.vehiclesService.findAll(query);
   }
 
   @MessagePattern('findOneVehicle')

@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Inject, Post } from '@nestjs/common';
+import { Body, Controller, Get, Inject, Post, Query } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { CreateProjectDto } from './dtos/create-project.dto';
 
@@ -14,7 +14,7 @@ export class ProjectsController {
   }
 
   @Get()
-  getProjects() {
-    return this.natsClient.send({ cmd: "getProjects" }, {})
+  getProjects(@Query() query: any) {
+    return this.natsClient.send({ cmd: "getProjects" }, { query })
   }
 }

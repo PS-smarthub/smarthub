@@ -2,7 +2,7 @@ import { ComponentProps } from "react";
 
 export interface IFormValues {
   automaker: string;
-  project: string;
+  projects: string;
   isIntern: boolean;
   model: string;
   chassis: string;

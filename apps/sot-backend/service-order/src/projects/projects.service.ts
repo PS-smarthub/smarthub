@@ -15,7 +15,12 @@ export class ProjectsService {
     return this.projectsService.save(createProjectDto);
   }
 
-  findAll() {
-    return this.projectsService.find();
+  async findAll({ query }: any) {
+    const queryBuilder = this.projectsService.createQueryBuilder("projects")
+    console.log("Query: ", query)
+    if (query.client) {
+      queryBuilder.andWhere("projects.client = :client", { client: query.client })
+    }
+    return await queryBuilder.getMany()
   }
 }

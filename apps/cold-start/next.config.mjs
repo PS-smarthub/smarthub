@@ -4,6 +4,7 @@ const nextConfig = {
     "@smarthub/ui",
     "@smarthub/fonts"
   ],
+  output: "standalone"
 };
 
 export default nextConfig

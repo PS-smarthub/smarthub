@@ -15,4 +15,4 @@ export const CreateWorkshopOrderSchema = z.object({
     .refine((val) => !isNaN(Date.parse(val)), { message: "Invalid date" }),
 });
 
-export type formSchema = z.infer<typeof CreateWorkshopOrderSchema>;
+export type workshopSchema = z.infer<typeof CreateWorkshopOrderSchema>;
