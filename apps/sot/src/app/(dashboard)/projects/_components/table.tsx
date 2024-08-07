@@ -15,6 +15,14 @@ export default function Table() {
     },
   });
 
+  if(projects?.length != undefined) {
+    if(projects.length < 1 ) {
+      return <div className="text-center">
+        <p>Nenhum projeto cadastrado</p>
+      </div>
+    }
+  }
+
   return (
     <div className="overflow-y-auto max-h-96">
       <table className="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
@@ -36,22 +44,6 @@ export default function Table() {
               <td className="py-2 px-4">{project.client}</td>
             </tr>
           ))}
-
-          {/* <tr className="bg-gray-100 border-b hover:bg-gray-200">
-            <td className="py-2 px-4">Row 1, Cell 1</td>
-            <td className="py-2 px-4">Row 1, Cell 2</td>
-            <td className="py-2 px-4">Row 1, Cell 3</td>
-          </tr>
-          <tr className="bg-white border-b hover:bg-gray-200">
-            <td className="py-2 px-4">Row 2, Cell 1</td>
-            <td className="py-2 px-4">Row 2, Cell 2</td>
-            <td className="py-2 px-4">Row 2, Cell 3</td>
-          </tr>
-          <tr className="bg-gray-100 border-b hover:bg-gray-200">
-            <td className="py-2 px-4">Row 3, Cell 1</td>
-            <td className="py-2 px-4">Row 3, Cell 2</td>
-            <td className="py-2 px-4">Row 3, Cell 3</td>
-          </tr> */}
         </tbody>
       </table>
     </div>
