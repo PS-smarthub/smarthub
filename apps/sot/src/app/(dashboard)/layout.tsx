@@ -10,7 +10,6 @@ export default function DashboardLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-
   return (
     <QueryProvider>
       <ToastProvider>

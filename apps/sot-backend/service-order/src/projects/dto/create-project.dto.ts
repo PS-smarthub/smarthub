@@ -4,7 +4,7 @@ export class CreateProjectDto {
   description: string;
   client: string;
   motor: string;
-  motor_family: string;
+  motorFamily: string;
   injection: string;
   aspiration: string;
   fuel: string;

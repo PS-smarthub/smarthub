@@ -22,7 +22,7 @@ export class CreateProjectDto {
 
   @IsString()
   @IsNotEmpty()
-  motor_family: string;
+  motorFamily: string;
 
   @IsString()
   @IsNotEmpty()

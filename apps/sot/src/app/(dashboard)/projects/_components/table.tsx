@@ -15,11 +15,13 @@ export default function Table() {
     },
   });
 
-  if(projects?.length != undefined) {
-    if(projects.length < 1 ) {
-      return <div className="text-center">
-        <p>Nenhum projeto cadastrado</p>
-      </div>
+  if (projects?.length != undefined) {
+    if (projects.length < 1) {
+      return (
+        <div className="text-center">
+          <p>Nenhum projeto cadastrado</p>
+        </div>
+      );
     }
   }
 

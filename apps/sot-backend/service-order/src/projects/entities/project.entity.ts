@@ -21,7 +21,7 @@ export class Project {
   motor: string;
 
   @Column({ nullable: false })
-  motor_family: string;
+  motorFamily: string;
 
   @Column({ nullable: false })
   injection: string;
