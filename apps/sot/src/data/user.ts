@@ -13,3 +13,4 @@ export const getUser = cache(async (): Promise<SimpleUserDto> => {
     roles: user.roles,
   };
 });
+

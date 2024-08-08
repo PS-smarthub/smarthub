@@ -6,7 +6,7 @@ import { CreateProjectDto } from './dtos/create-project.dto';
 export class ProjectsController {
   constructor(
     @Inject('NATS_SERVICE') private readonly natsClient: ClientProxy,
-  ) { }
+  ) {}
 
   @Post()
   createProject(@Body() createProjectDto: CreateProjectDto) {
@@ -15,6 +15,6 @@ export class ProjectsController {
 
   @Get()
   getProjects() {
-    return this.natsClient.send({ cmd: "getProjects" }, {})
+    return this.natsClient.send({ cmd: 'getProjects' }, {});
   }
 }

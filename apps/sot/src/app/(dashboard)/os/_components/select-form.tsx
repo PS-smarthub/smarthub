@@ -24,7 +24,7 @@ export const SelectForm = React.forwardRef<
     <select
       ref={ref}
       {...props}
-      className={`border rounded text-[#757575] p-2 w-[200px] shadow hover:border-gray-400 focus:border-blue-500 focus:shadow-outline ${props.className}`}
+      className={`border rounded text-[#757575] p-2 shadow hover:border-gray-400 focus:border-blue-500 focus:shadow-outline ${props.className}`}
     >
       <option value="">Selecione...</option>
       {options?.map((optionString: string, index: number) => (
